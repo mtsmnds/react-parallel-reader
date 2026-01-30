@@ -40,3 +40,15 @@ a {
     color-scheme: dark;
   }
 }
+
+
+/* Global epub.js highlight overrides - SVG overlays */
+.hl-highlight {
+    fill-opacity: 0.3;
+    mix-blend-mode: multiply;
+}
+
+.hl-underline {
+    fill: transparent;
+    /* Stroke is set dynamically via attributes */
+}

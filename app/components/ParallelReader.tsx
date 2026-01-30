@@ -69,9 +69,7 @@ export default function ParallelReader({ initialUrls, onBack }: ParallelReaderPr
 
     // Style Injection Helper
     const applyStyles = (rendition: Rendition) => {
-        // Register and select external stylesheet
-        rendition.themes.register('custom', '/styles/epub-defaults.css');
-        rendition.themes.select('custom');
+
 
         rendition.themes.default({
             'body': {
@@ -115,8 +113,20 @@ export default function ParallelReader({ initialUrls, onBack }: ParallelReaderPr
         // INITIAL RENDER
         const bookHighlights = highlights.filter(h => h.bookUrl === urls[index]);
         bookHighlights.forEach(h => {
-            // Use dynamic style class
-            rendition.annotations.add('highlight', h.cfiRange, {}, null, `hl-exist-${h.id}`);
+            // Pass styles directly as attributes for SVG overlays (fill, stroke, etc)
+            // The 5th argument 'styles' in annotations.add() maps to SVG attributes in marks-pane
+            const styles: any = { fill: h.color };
+            if (h.style === 'underline') {
+                styles.fill = 'transparent';
+                styles.stroke = h.color;
+                styles['stroke-width'] = '2';
+            }
+
+            // Use generic class (hl-highlight/hl-underline) plus generic styling
+            const type = h.style === 'underline' ? 'underline' : 'highlight';
+            const className = type === 'underline' ? 'hl-underline' : 'hl-highlight';
+
+            rendition.annotations.add(type, h.cfiRange, {}, null, className, styles);
             renderedRef.current.add(`${index}-${h.id}`);
         });
 
@@ -158,23 +168,20 @@ export default function ParallelReader({ initialUrls, onBack }: ParallelReaderPr
             const bookHighlights = highlights.filter(h => h.bookUrl === url);
 
             // Inject styles for specific highlight colors
+            // Inject styles for specific highlight colors
             bookHighlights.forEach(h => {
-                const className = `hl-exist-${h.id}`;
-                rendition.themes.default({
-                    [`.${className}`]: {
-                        'fill': h.color,
-                        'fill-opacity': '0.3',
-                        'mix-blend-mode': 'multiply',
-                        ...(h.style === 'underline' ? {
-                            'fill': 'transparent',
-                            'border-bottom': `2px solid ${h.color}`
-                        } : {})
-                    }
-                });
-
                 const key = `${index}-${h.id}`;
                 if (!renderedRef.current.has(key)) {
-                    rendition.annotations.add('highlight', h.cfiRange, {}, null, className);
+                    const styles: any = { fill: h.color };
+                    if (h.style === 'underline') {
+                        styles.fill = 'transparent';
+                        styles.stroke = h.color;
+                        styles['stroke-width'] = '2';
+                    }
+                    const type = h.style === 'underline' ? 'underline' : 'highlight';
+                    const className = type === 'underline' ? 'hl-underline' : 'hl-highlight';
+
+                    rendition.annotations.add(type, h.cfiRange, {}, null, className, styles);
                     renderedRef.current.add(key);
                 }
             });
@@ -213,19 +220,17 @@ export default function ParallelReader({ initialUrls, onBack }: ParallelReaderPr
         // Render Immediately
         const rendition = renditionRefs.current[selection.bookIndex];
         if (rendition) {
-            const className = `hl-exist-${newHighlight.id}`;
-            rendition.themes.default({
-                [`.${className}`]: {
-                    'fill': newHighlight.color,
-                    'fill-opacity': '0.3',
-                    'mix-blend-mode': 'multiply',
-                    ...(newHighlight.style === 'underline' ? {
-                        'fill': 'transparent',
-                        'border-bottom': `2px solid ${newHighlight.color}`
-                    } : {})
-                }
-            });
-            rendition.annotations.add('highlight', newHighlight.cfiRange, {}, null, className);
+            const styles: any = { fill: newHighlight.color };
+            if (newHighlight.style === 'underline') {
+                styles.fill = 'transparent';
+                styles.stroke = newHighlight.color;
+                styles['stroke-width'] = '2';
+            }
+
+            const type = newHighlight.style === 'underline' ? 'underline' : 'highlight';
+            const className = type === 'underline' ? 'hl-underline' : 'hl-highlight';
+
+            rendition.annotations.add(type, newHighlight.cfiRange, {}, null, className, styles);
             renderedRef.current.add(`${selection.bookIndex}-${newHighlight.id}`);
 
             // Clear browser selection
@@ -279,7 +284,9 @@ export default function ParallelReader({ initialUrls, onBack }: ParallelReaderPr
         setHighlights(prev => prev.filter(h => h.id !== id));
         const rendition = renditionRefs.current[bookIndex];
         if (rendition) {
+            // Try removing both types as we don't know for sure which one passed here (though we could lookup)
             rendition.annotations.remove(cfiRange, 'highlight');
+            rendition.annotations.remove(cfiRange, 'underline');
             renderedRef.current.delete(`${bookIndex}-${id}`);
         }
         await fetch('/api/highlights', {

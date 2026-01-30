@@ -31,7 +31,7 @@ export type Rendition = {
     };
     on: (event: string, callback: (...args: any[]) => void) => void;
     annotations: {
-        add: (type: string, cfiRange: string, data?: any, cb?: any, className?: string) => void;
+        add: (type: string, cfiRange: string, data?: any, cb?: any, className?: string, styles?: any) => void;
         remove: (cfiRange: string, type: string) => void;
     };
     getRange: (cfiRange: string) => Range;

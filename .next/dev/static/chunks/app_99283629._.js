@@ -502,9 +502,6 @@ function ParallelReader({ initialUrls, onBack }) {
     ]);
     // Style Injection Helper
     const applyStyles = (rendition)=>{
-        // Register and select external stylesheet
-        rendition.themes.register('custom', '/styles/epub-defaults.css');
-        rendition.themes.select('custom');
         rendition.themes.default({
             'body': {
                 'font-family': `${settings.fontFamily} !important`,
@@ -549,8 +546,20 @@ function ParallelReader({ initialUrls, onBack }) {
         // INITIAL RENDER
         const bookHighlights = highlights.filter((h)=>h.bookUrl === urls[index]);
         bookHighlights.forEach((h_0)=>{
-            // Use dynamic style class
-            rendition_1.annotations.add('highlight', h_0.cfiRange, {}, null, `hl-exist-${h_0.id}`);
+            // Pass styles directly as attributes for SVG overlays (fill, stroke, etc)
+            // The 5th argument 'styles' in annotations.add() maps to SVG attributes in marks-pane
+            const styles = {
+                fill: h_0.color
+            };
+            if (h_0.style === 'underline') {
+                styles.fill = 'transparent';
+                styles.stroke = h_0.color;
+                styles['stroke-width'] = '2';
+            }
+            // Use generic class (hl-highlight/hl-underline) plus generic styling
+            const type = h_0.style === 'underline' ? 'underline' : 'highlight';
+            const className = type === 'underline' ? 'hl-underline' : 'hl-highlight';
+            rendition_1.annotations.add(type, h_0.cfiRange, {}, null, className, styles);
             renderedRef.current.add(`${index}-${h_0.id}`);
         });
         // SELECTION HANDLER
@@ -587,23 +596,22 @@ function ParallelReader({ initialUrls, onBack }) {
                         "ParallelReader.useEffect.bookHighlights_0": (h_1)=>h_1.bookUrl === url
                     }["ParallelReader.useEffect.bookHighlights_0"]);
                     // Inject styles for specific highlight colors
+                    // Inject styles for specific highlight colors
                     bookHighlights_0.forEach({
                         "ParallelReader.useEffect": (h_2)=>{
-                            const className = `hl-exist-${h_2.id}`;
-                            rendition_2.themes.default({
-                                [`.${className}`]: {
-                                    'fill': h_2.color,
-                                    'fill-opacity': '0.3',
-                                    'mix-blend-mode': 'multiply',
-                                    ...h_2.style === 'underline' ? {
-                                        'fill': 'transparent',
-                                        'border-bottom': `2px solid ${h_2.color}`
-                                    } : {}
-                                }
-                            });
                             const key_0 = `${index_0}-${h_2.id}`;
                             if (!renderedRef.current.has(key_0)) {
-                                rendition_2.annotations.add('highlight', h_2.cfiRange, {}, null, className);
+                                const styles_0 = {
+                                    fill: h_2.color
+                                };
+                                if (h_2.style === 'underline') {
+                                    styles_0.fill = 'transparent';
+                                    styles_0.stroke = h_2.color;
+                                    styles_0['stroke-width'] = '2';
+                                }
+                                const type_0 = h_2.style === 'underline' ? 'underline' : 'highlight';
+                                const className_0 = type_0 === 'underline' ? 'hl-underline' : 'hl-highlight';
+                                rendition_2.annotations.add(type_0, h_2.cfiRange, {}, null, className_0, styles_0);
                                 renderedRef.current.add(key_0);
                             }
                         }
@@ -651,19 +659,17 @@ function ParallelReader({ initialUrls, onBack }) {
         // Render Immediately
         const rendition_3 = renditionRefs.current[selection.bookIndex];
         if (rendition_3) {
-            const className_0 = `hl-exist-${newHighlight.id}`;
-            rendition_3.themes.default({
-                [`.${className_0}`]: {
-                    'fill': newHighlight.color,
-                    'fill-opacity': '0.3',
-                    'mix-blend-mode': 'multiply',
-                    ...newHighlight.style === 'underline' ? {
-                        'fill': 'transparent',
-                        'border-bottom': `2px solid ${newHighlight.color}`
-                    } : {}
-                }
-            });
-            rendition_3.annotations.add('highlight', newHighlight.cfiRange, {}, null, className_0);
+            const styles_1 = {
+                fill: newHighlight.color
+            };
+            if (newHighlight.style === 'underline') {
+                styles_1.fill = 'transparent';
+                styles_1.stroke = newHighlight.color;
+                styles_1['stroke-width'] = '2';
+            }
+            const type_1 = newHighlight.style === 'underline' ? 'underline' : 'highlight';
+            const className_1 = type_1 === 'underline' ? 'hl-underline' : 'hl-highlight';
+            rendition_3.annotations.add(type_1, newHighlight.cfiRange, {}, null, className_1, styles_1);
             renderedRef.current.add(`${selection.bookIndex}-${newHighlight.id}`);
             // Clear browser selection
             try {
@@ -718,7 +724,9 @@ function ParallelReader({ initialUrls, onBack }) {
         setHighlights((prev_0)=>prev_0.filter((h_4)=>h_4.id !== id));
         const rendition_5 = renditionRefs.current[bookIndex];
         if (rendition_5) {
+            // Try removing both types as we don't know for sure which one passed here (though we could lookup)
             rendition_5.annotations.remove(cfiRange_0, 'highlight');
+            rendition_5.annotations.remove(cfiRange_0, 'underline');
             renderedRef.current.delete(`${bookIndex}-${id}`);
         }
         await fetch('/api/highlights', {
@@ -757,20 +765,20 @@ function ParallelReader({ initialUrls, onBack }) {
                                 children: "← Back"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/ParallelReader.tsx",
-                                lineNumber: 295,
+                                lineNumber: 304,
                                 columnNumber: 32
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
                                 children: "Parallel Reader"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/ParallelReader.tsx",
-                                lineNumber: 303,
+                                lineNumber: 312,
                                 columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/components/ParallelReader.tsx",
-                        lineNumber: 290,
+                        lineNumber: 299,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -788,7 +796,7 @@ function ParallelReader({ initialUrls, onBack }) {
                                 children: "⚙️"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/ParallelReader.tsx",
-                                lineNumber: 306,
+                                lineNumber: 315,
                                 columnNumber: 21
                             }, this),
                             showSettings && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -798,7 +806,7 @@ function ParallelReader({ initialUrls, onBack }) {
                                         children: "Display Settings"
                                     }, void 0, false, {
                                         fileName: "[project]/app/components/ParallelReader.tsx",
-                                        lineNumber: 314,
+                                        lineNumber: 323,
                                         columnNumber: 29
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -812,7 +820,7 @@ function ParallelReader({ initialUrls, onBack }) {
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/components/ParallelReader.tsx",
-                                                lineNumber: 316,
+                                                lineNumber: 325,
                                                 columnNumber: 33
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -827,13 +835,13 @@ function ParallelReader({ initialUrls, onBack }) {
                                                     })
                                             }, void 0, false, {
                                                 fileName: "[project]/app/components/ParallelReader.tsx",
-                                                lineNumber: 317,
+                                                lineNumber: 326,
                                                 columnNumber: 33
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/components/ParallelReader.tsx",
-                                        lineNumber: 315,
+                                        lineNumber: 324,
                                         columnNumber: 29
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -843,7 +851,7 @@ function ParallelReader({ initialUrls, onBack }) {
                                                 children: "Font Family"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/components/ParallelReader.tsx",
-                                                lineNumber: 323,
+                                                lineNumber: 332,
                                                 columnNumber: 33
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -858,7 +866,7 @@ function ParallelReader({ initialUrls, onBack }) {
                                                         children: "Helvetica"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/components/ParallelReader.tsx",
-                                                        lineNumber: 328,
+                                                        lineNumber: 337,
                                                         columnNumber: 37
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -866,7 +874,7 @@ function ParallelReader({ initialUrls, onBack }) {
                                                         children: "Georgia"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/components/ParallelReader.tsx",
-                                                        lineNumber: 329,
+                                                        lineNumber: 338,
                                                         columnNumber: 37
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -874,7 +882,7 @@ function ParallelReader({ initialUrls, onBack }) {
                                                         children: "Monospace"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/components/ParallelReader.tsx",
-                                                        lineNumber: 330,
+                                                        lineNumber: 339,
                                                         columnNumber: 37
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -882,19 +890,19 @@ function ParallelReader({ initialUrls, onBack }) {
                                                         children: "Original"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/components/ParallelReader.tsx",
-                                                        lineNumber: 331,
+                                                        lineNumber: 340,
                                                         columnNumber: 37
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/components/ParallelReader.tsx",
-                                                lineNumber: 324,
+                                                lineNumber: 333,
                                                 columnNumber: 33
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/components/ParallelReader.tsx",
-                                        lineNumber: 322,
+                                        lineNumber: 331,
                                         columnNumber: 29
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -904,7 +912,7 @@ function ParallelReader({ initialUrls, onBack }) {
                                                 children: "Line Height"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/components/ParallelReader.tsx",
-                                                lineNumber: 335,
+                                                lineNumber: 344,
                                                 columnNumber: 33
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -919,7 +927,7 @@ function ParallelReader({ initialUrls, onBack }) {
                                                         children: "Compact (1.2)"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/components/ParallelReader.tsx",
-                                                        lineNumber: 340,
+                                                        lineNumber: 349,
                                                         columnNumber: 37
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -927,7 +935,7 @@ function ParallelReader({ initialUrls, onBack }) {
                                                         children: "Normal (1.6)"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/components/ParallelReader.tsx",
-                                                        lineNumber: 341,
+                                                        lineNumber: 350,
                                                         columnNumber: 37
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -935,25 +943,25 @@ function ParallelReader({ initialUrls, onBack }) {
                                                         children: "Loose (2.0)"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/components/ParallelReader.tsx",
-                                                        lineNumber: 342,
+                                                        lineNumber: 351,
                                                         columnNumber: 37
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/components/ParallelReader.tsx",
-                                                lineNumber: 336,
+                                                lineNumber: 345,
                                                 columnNumber: 33
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/components/ParallelReader.tsx",
-                                        lineNumber: 334,
+                                        lineNumber: 343,
                                         columnNumber: 29
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/components/ParallelReader.tsx",
-                                lineNumber: 313,
+                                lineNumber: 322,
                                 columnNumber: 38
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -964,12 +972,12 @@ function ParallelReader({ initialUrls, onBack }) {
                                     children: showHighlights ? 'Hide Notes' : 'Show Notes'
                                 }, void 0, false, {
                                     fileName: "[project]/app/components/ParallelReader.tsx",
-                                    lineNumber: 347,
+                                    lineNumber: 356,
                                     columnNumber: 25
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/app/components/ParallelReader.tsx",
-                                lineNumber: 346,
+                                lineNumber: 355,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -988,24 +996,24 @@ function ParallelReader({ initialUrls, onBack }) {
                                         ]
                                     }, num, true, {
                                         fileName: "[project]/app/components/ParallelReader.tsx",
-                                        lineNumber: 352,
+                                        lineNumber: 361,
                                         columnNumber: 47
                                     }, this))
                             }, void 0, false, {
                                 fileName: "[project]/app/components/ParallelReader.tsx",
-                                lineNumber: 351,
+                                lineNumber: 360,
                                 columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/components/ParallelReader.tsx",
-                        lineNumber: 305,
+                        lineNumber: 314,
                         columnNumber: 17
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/components/ParallelReader.tsx",
-                lineNumber: 289,
+                lineNumber: 298,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1041,12 +1049,12 @@ function ParallelReader({ initialUrls, onBack }) {
                                             onChange: (e_4)=>updateUrl(index_3, e_4.target.value)
                                         }, void 0, false, {
                                             fileName: "[project]/app/components/ParallelReader.tsx",
-                                            lineNumber: 376,
+                                            lineNumber: 385,
                                             columnNumber: 33
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/components/ParallelReader.tsx",
-                                        lineNumber: 375,
+                                        lineNumber: 384,
                                         columnNumber: 29
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1070,23 +1078,23 @@ function ParallelReader({ initialUrls, onBack }) {
                                             }
                                         }, void 0, false, {
                                             fileName: "[project]/app/components/ParallelReader.tsx",
-                                            lineNumber: 379,
+                                            lineNumber: 388,
                                             columnNumber: 33
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/components/ParallelReader.tsx",
-                                        lineNumber: 378,
+                                        lineNumber: 387,
                                         columnNumber: 29
                                     }, this)
                                 ]
                             }, index_3, true, {
                                 fileName: "[project]/app/components/ParallelReader.tsx",
-                                lineNumber: 370,
+                                lineNumber: 379,
                                 columnNumber: 32
                             }, this))
                     }, void 0, false, {
                         fileName: "[project]/app/components/ParallelReader.tsx",
-                        lineNumber: 365,
+                        lineNumber: 374,
                         columnNumber: 17
                     }, this),
                     showHighlights && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1096,7 +1104,7 @@ function ParallelReader({ initialUrls, onBack }) {
                                 children: "Annotations"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/ParallelReader.tsx",
-                                lineNumber: 394,
+                                lineNumber: 403,
                                 columnNumber: 25
                             }, this),
                             highlights.length === 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1104,7 +1112,7 @@ function ParallelReader({ initialUrls, onBack }) {
                                 children: "Select text to highlight."
                             }, void 0, false, {
                                 fileName: "[project]/app/components/ParallelReader.tsx",
-                                lineNumber: 395,
+                                lineNumber: 404,
                                 columnNumber: 53
                             }, this),
                             highlights.map((h_5)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1121,7 +1129,7 @@ function ParallelReader({ initialUrls, onBack }) {
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/components/ParallelReader.tsx",
-                                            lineNumber: 399,
+                                            lineNumber: 408,
                                             columnNumber: 33
                                         }, this),
                                         h_5.note && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1133,7 +1141,7 @@ function ParallelReader({ initialUrls, onBack }) {
                                             children: h_5.note
                                         }, void 0, false, {
                                             fileName: "[project]/app/components/ParallelReader.tsx",
-                                            lineNumber: 400,
+                                            lineNumber: 409,
                                             columnNumber: 46
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1143,7 +1151,7 @@ function ParallelReader({ initialUrls, onBack }) {
                                                     children: urls.findIndex((u_0)=>u_0 === h_5.bookUrl) > -1 ? `Panel ${urls.findIndex((u)=>u === h_5.bookUrl) + 1}` : 'Other Book'
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/components/ParallelReader.tsx",
-                                                    lineNumber: 406,
+                                                    lineNumber: 415,
                                                     columnNumber: 37
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1160,7 +1168,7 @@ function ParallelReader({ initialUrls, onBack }) {
                                                             children: "Jump"
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/components/ParallelReader.tsx",
-                                                            lineNumber: 408,
+                                                            lineNumber: 417,
                                                             columnNumber: 41
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1169,31 +1177,31 @@ function ParallelReader({ initialUrls, onBack }) {
                                                             children: "Delete"
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/components/ParallelReader.tsx",
-                                                            lineNumber: 414,
+                                                            lineNumber: 423,
                                                             columnNumber: 41
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/app/components/ParallelReader.tsx",
-                                                    lineNumber: 407,
+                                                    lineNumber: 416,
                                                     columnNumber: 37
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/components/ParallelReader.tsx",
-                                            lineNumber: 405,
+                                            lineNumber: 414,
                                             columnNumber: 33
                                         }, this)
                                     ]
                                 }, h_5.id, true, {
                                     fileName: "[project]/app/components/ParallelReader.tsx",
-                                    lineNumber: 396,
+                                    lineNumber: 405,
                                     columnNumber: 48
                                 }, this))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/components/ParallelReader.tsx",
-                        lineNumber: 393,
+                        lineNumber: 402,
                         columnNumber: 36
                     }, this),
                     selection && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1208,7 +1216,7 @@ function ParallelReader({ initialUrls, onBack }) {
                             children: "+"
                         }, void 0, false, {
                             fileName: "[project]/app/components/ParallelReader.tsx",
-                            lineNumber: 425,
+                            lineNumber: 434,
                             columnNumber: 38
                         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$HighlightMenu$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                             isEditing: false,
@@ -1216,24 +1224,24 @@ function ParallelReader({ initialUrls, onBack }) {
                             onCancel: handleCancelSelection
                         }, void 0, false, {
                             fileName: "[project]/app/components/ParallelReader.tsx",
-                            lineNumber: 427,
+                            lineNumber: 436,
                             columnNumber: 41
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/components/ParallelReader.tsx",
-                        lineNumber: 421,
+                        lineNumber: 430,
                         columnNumber: 31
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/components/ParallelReader.tsx",
-                lineNumber: 359,
+                lineNumber: 368,
                 columnNumber: 13
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/components/ParallelReader.tsx",
-        lineNumber: 288,
+        lineNumber: 297,
         columnNumber: 10
     }, this);
 }

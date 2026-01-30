@@ -1,6 +1,86 @@
-[00:00:00.756] Server  WARN    ⚠ Turbopack's filesystem cache has been deleted because we previously detected an internal error in Turbopack. Builds or page loads may be slower as a result.
-[00:00:00.915] Server  LOG     ✓ Ready in 726ms
-[00:00:07.740] Server  LOG     ○ Compiling / ...
-[00:00:08.991] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:15:31.654] Server  LOG     ✓ Compiled in 215ms
-[00:17:18.764] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:00.577] Server  WARN    ⚠ Turbopack's filesystem cache has been deleted because we previously detected an internal error in Turbopack. Builds or page loads may be slower as a result.
+[00:00:00.697] Server  LOG     ✓ Ready in 538ms
+[00:00:07.317] Server  LOG     ○ Compiling / ...
+[00:00:07.997] Server  ERROR   ⨯ ./app/components/ParallelReader.module.scss.module.css:3:5
+Parsing CSS source code failed
+  1 | /* Global epub.js highlight overrides - must be global as they are appended to the container outside of React's scope */
+  2 | :global {
+> 3 |     .hl-highlight {
+    |     ^
+  4 |         fill-opacity: 0.3;
+  5 |         mix-blend-mode: multiply;
+  6 |         /* Note: 'fill' is set dynamically via attributes, or defaults can be set here if not overridden */
+
+Ambiguous CSS module class not supported
+
+Import trace:
+  Client Component Browser:
+    ./app/components/ParallelReader.module.scss.module.css [Client Component Browser]
+    ./app/components/ParallelReader.module.scss [Client Component Browser]
+    ./app/components/ParallelReader.tsx [Client Component Browser]
+    ./app/page.tsx [Client Component Browser]
+    ./app/page.tsx [Server Component]
+
+
+[00:00:09.303] Browser ERROR   uncaughtError: Error: ./app/components/ParallelReader.module.scss.module.css:3:5
+Parsing CSS source code failed
+  1 | /* Global epub.js highlight overrides - must be global as they are appended to the container outside of React's scope */
+  2 | :global {
+> 3 |     .hl-highlight {
+    |     ^
+  4 |         fill-opacity: 0.3;
+  5 |         mix-blend-mode: multiply;
+  6 |         /* Note: 'fill' is set dynamically via attributes, or defaults can be set here if not overridden */
+
+Ambiguous CSS module class not supported
+
+Import trace:
+  Client Component Browser:
+    ./app/components/ParallelReader.module.scss.module.css [Client Component Browser]
+    ./app/components/ParallelReader.module.scss [Client Component Browser]
+    ./app/components/ParallelReader.tsx [Client Component Browser]
+    ./app/page.tsx [Client Component Browser]
+    ./app/page.tsx [Server Component]
+
+
+[00:00:09.639] Browser ERROR   ./app/components/ParallelReader.module.scss.module.css:3:5
+Parsing CSS source code failed
+  1 | /* Global epub.js highlight overrides - must be global as they are appended to the container outside of React's scope */
+  2 | :global {
+> 3 |     .hl-highlight {
+    |     ^
+  4 |         fill-opacity: 0.3;
+  5 |         mix-blend-mode: multiply;
+  6 |         /* Note: 'fill' is set dynamically via attributes, or defaults can be set here if not overridden */
+
+Ambiguous CSS module class not supported
+
+Import trace:
+  Client Component Browser:
+    ./app/components/ParallelReader.module.scss.module.css [Client Component Browser]
+    ./app/components/ParallelReader.module.scss [Client Component Browser]
+    ./app/components/ParallelReader.tsx [Client Component Browser]
+    ./app/page.tsx [Client Component Browser]
+    ./app/page.tsx [Server Component]
+[00:00:09.902] Browser ERROR   ./app/components/ParallelReader.module.scss.module.css:3:5
+Parsing CSS source code failed
+  1 | /* Global epub.js highlight overrides - must be global as they are appended to the container outside of React's scope */
+  2 | :global {
+> 3 |     .hl-highlight {
+    |     ^
+  4 |         fill-opacity: 0.3;
+  5 |         mix-blend-mode: multiply;
+  6 |         /* Note: 'fill' is set dynamically via attributes, or defaults can be set here if not overridden */
+
+Ambiguous CSS module class not supported
+
+Import trace:
+  Client Component Browser:
+    ./app/components/ParallelReader.module.scss.module.css [Client Component Browser]
+    ./app/components/ParallelReader.module.scss [Client Component Browser]
+    ./app/components/ParallelReader.tsx [Client Component Browser]
+    ./app/page.tsx [Client Component Browser]
+    ./app/page.tsx [Server Component]
+[00:01:22.419] Server  LOG     ✓ Compiled in 373ms
+[00:01:23.856] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:01:37.515] Server  LOG     ✓ Compiled in 44ms

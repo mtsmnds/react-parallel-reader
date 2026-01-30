@@ -135,4 +135,13 @@ a {
   }
 }
 
+.hl-highlight {
+  fill-opacity: .3;
+  mix-blend-mode: multiply;
+}
+
+.hl-underline {
+  fill: #0000;
+}
+
 /*# sourceMappingURL=%5Broot-of-the-server%5D__28bc9c2a._.css.map*/

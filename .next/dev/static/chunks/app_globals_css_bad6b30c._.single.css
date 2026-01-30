@@ -43,4 +43,13 @@ a {
   }
 }
 
+.hl-highlight {
+  fill-opacity: .3;
+  mix-blend-mode: multiply;
+}
+
+.hl-underline {
+  fill: #0000;
+}
+
 /*# sourceMappingURL=app_globals_css_bad6b30c._.single.css.map*/
