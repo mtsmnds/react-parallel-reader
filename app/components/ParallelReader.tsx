@@ -119,9 +119,7 @@ export default function ParallelReader({ initialUrls, onBack }: ParallelReaderPr
                 'line-height': `${settings.lineHeight} !important`
             },
             'div': { 'padding-bottom': '20px' },
-            '::selection': {
-                'background': 'rgba(255, 255, 0, 0.3)'
-            },
+
             // Custom highlight classes
             '.hl-highlight': { 'fill': 'yellow', 'fill-opacity': '0.3', 'mix-blend-mode': 'multiply' },
             '.hl-underline': { 'border-bottom': '2px solid red', 'fill': 'transparent' } // Simplified underline

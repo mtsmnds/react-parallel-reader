@@ -3,7 +3,7 @@
 **Priority:** High
 **Context:** Preparing the codebase for Alpha release and strict type compliance.
 
-## Action Item 1: Strict Typing Implementation
+## ✅ DONE Action Item 1: Strict Typing Implementation
 **Status:** ✅ Complete
 **Objective:** Eliminate `any` usage in `ParallelReader.tsx` to ensure stability during `epub.js` interaction.
 
@@ -45,7 +45,7 @@ export type Rendition = {
 };
 ```
 
-## Action Item 2: Route Implementation
+## ✅ DONE Action Item 2: Route Implementation
 **Status:** ✅ Complete
 Objective: Mount the component in the Next.js App Router.
 
@@ -69,7 +69,7 @@ export default function Home() {
 
 ```
 
-## Action Item 3: Asset Structure
+## ✅ DONE Action Item 3: Asset Structure
 **Status:** ✅ Complete
 Objective: Verify the environment for local testing before the File Upload feature is built.
 
@@ -101,7 +101,7 @@ const [urls, setUrls] = useState<string[]>([
 
 ```
 
-## Action Item 4: Remove Legacy Sync Engine
+## ✅ DONE Action Item 4: Remove Legacy Sync Engine
 **Status:** ✅ Complete
 **Objective:** Decommission the current percentage-based sync logic ("Scrap it").
 **Reasoning:** The current `percentage` based sync is inaccurate and buggy. It provides a poor user experience.
@@ -111,7 +111,7 @@ const [urls, setUrls] = useState<string[]>([
 3. Clean up unused styling related to the sync button.
 4. **Research:** Investigate `epubjs` CFI comparison or Chapter-based index matching for future sync implementation.
 
-## Action Item 5: Consistent Styling
+## ✅ DONE Action Item 5: Consistent Styling
 **Status:** ✅ Complete
 **Objective:** Enforce consistent visual rhythm (font, size, spacing) across all open books, overriding their internal styles.
 **Implementation Plan:**
@@ -120,7 +120,7 @@ const [urls, setUrls] = useState<string[]>([
    - *Note:* We may need to use `!important` or specific selectors (`p`, `h1`, `div`) to override book defaults.
 3. **UI Controls:** Add a settings toolbar (separate from the book inputs) to adjust these values globally.
 
-## Action Item 6: Annotations & Highlights
+## ✅ DONE Action Item 6: Annotations & Highlights
 **Status:** ✅ Complete
 **Objective:** Allow users to highlight text and persist these highlights locally.
 **Implementation Plan:**
@@ -135,7 +135,7 @@ const [urls, setUrls] = useState<string[]>([
    - Clicking a highlight uses `rendition.display(cfiRange)` to jump to location.
    - Add delete functionality.
 
-## Action Item 7: Dynamic Book Discovery (Bookshelf)
+## ✅ DONE Action Item 7: Dynamic Book Discovery (Bookshelf)
 **Status:** ✅ Complete
 **Objective:** Replace hardcoded files with a dynamic folder scanning system.
 **User Story:** "As a user, I want to create arbitrary folders in `books/` (e.g., `books/comparison-a/`) and drop EPUBs there. The app should list these folders as collections."
@@ -152,6 +152,13 @@ const [urls, setUrls] = useState<string[]>([
    - Clicking a collection loads those specific URLs into the `ParallelReader`.
 3. **Update `ParallelReader`**:
    - Accept `initialUrls` as a prop (optional) to override defaults.
+
+
+## ✅ DONE - Action Item 14: Restore Default Selection Highlight
+**Status:** ✅ Complete
+**Objective:** Restore the default browser text selection style by removing the custom `::selection` CSS override.
+**Context:** The application was forcing a yellow background on selected text, which interfered with the native browser selection experience. This change reverts that behavior to the system default.
+
 
 ## Action Item 8: Persistent Reading Progress
 **Status:** ✅ Complete
@@ -182,22 +189,12 @@ We have two main options for triggering the save:
 **Objective:** Expand the basic highlighting system into a robust note-taking and cross-referencing tool.
 **Tasks:**
 
-### 9.1 Storage Refactor (Priority 1)
+### ✅ DONE 9.1 Storage Refactor (Priority 1)
 **Status:** ✅ Complete
 **Reasoning:** Move from global `public/highlights.json` to collection-specific storage to support multiple libraries/folders separately.
 - [x] **API Update**: Modify `app/api/highlights/route.ts` to determine storage path dynamically based on `bookUrl`.
 - [x] **Frontend Update**: Update `ParallelReader.tsx` to fetch highlights for specific open books only (pass `urls` query param).
 - [x] **Data Migration**: (Optional for MVP) Ensure new system gracefully handles empty states for new collections.
-
-### 9.2 Rich Metadata highlights
-- [ ] **Data Model**: Update `Highlight` interface to include:
-    - `color`: string (hex code)
-    - `style`: 'highlight' | 'underline'
-    - `note`: string (user commentary)
-- [ ] **UI/UX**:
-    - Add color picker to the highlight popover (if possible) or sidebar.
-    - Add text area for notes in the sidebar card.
-
 ### 9.3 Organization & Display
 - [ ] **Sorting**: Ensure highlights are displayed in reading order (compare CFIs).
 - [ ] **Grouping**: Display headers in the sidebar (e.g., "Chapter 1") and group highlights under them.
@@ -233,6 +230,11 @@ We have two main options for triggering the save:
 1. Investigate `applyStyles` targeting (is it hitting all renditions?).
 2. Add "Original" option to font family dropdown.
 
+
+
+
+
+
 ## Action Item 13: Refactor Text Selection & Highlights
 **Priority:** High
 **Objective:** Refactor the text selection behavior to prevent accidental highlighting ("trigger happy" behavior) and implement rich metadata.
@@ -252,3 +254,16 @@ We have two main options for triggering the save:
 **Data Model Updates:**
 - Update `Highlight` interface to include `color`, `style`, `note`.
 - Migrate/Update API to handle these fields.
+
+
+
+
+### 9.2 Rich Metadata highlights
+- [ ] **Data Model**: Update `Highlight` interface to include:
+    - `color`: string (hex code)
+    - `style`: 'highlight' | 'underline'
+    - `note`: string (user commentary)
+- [ ] **UI/UX**:
+    - Add color picker to the highlight popover (if possible) or sidebar.
+    - Add text area for notes in the sidebar card.
+

@@ -535,3 +535,9 @@ Import traces:
 [00:34:27.276] Browser LOG     Selection set at 402.71875 455.40625
 [00:34:28.955] Browser LOG     Selection set at 585.375 452.3515625
 [00:34:36.434] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:45:39.894] Server  LOG     ✓ Compiled in 311ms
+[00:45:43.293] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:46:11.718] Browser LOG     Selection set at 503.8828125 1025.421875
+[00:46:12.249] Browser LOG     Selection set at 503.8828125 1025.421875
+[00:46:15.751] Browser LOG     Selection set at 555.0703125 1025.421875
+[00:46:17.448] Browser LOG     Selection set at 555.0703125 1025.421875
