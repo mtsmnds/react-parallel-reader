@@ -202,3 +202,10 @@ We have two main options for triggering the save:
 2.  **Pre-rendering:** `epub.js` lazily renders. Jumping to a simplified CFI (like a chapter start) works, but a specific sentence CFI might fail if the chapter isn't fully rendered.
     -   *Solution:* Pre-load surrounding chapters? Use `display().then(() => render)`.
 3.  **Debounce Tuning:** Ensure our `debouncedSave` isn't causing re-renders that reset scroll position.
+
+## Action Item 11: Consistent Styling Fix & Original Font Option
+**Objective:** Fix "left book not updating" bug and add "Original Font" option.
+**Context:** In current testing, the left book retains original font while the right one updates.
+**Plan:**
+1. Investigate `applyStyles` targeting (is it hitting all renditions?).
+2. Add "Original" option to font family dropdown.
