@@ -127,7 +127,9 @@ export default function ParallelReader({ initialUrls, onBack }: ParallelReaderPr
             const text = range.toString();
 
             // Calculate absolute position
-            const iframe = rendition.manager.container.querySelector('iframe');
+            // Use frameElement from the specific contents where selection happened
+            const iframe = contents.window.frameElement as HTMLElement;
+
             if (iframe) {
                 const iframeRect = iframe.getBoundingClientRect();
                 setSelection({
@@ -140,14 +142,10 @@ export default function ParallelReader({ initialUrls, onBack }: ParallelReaderPr
                     }
                 });
                 setMenuOpen(false); // Start with just the button
-                console.log("Selection set at", iframeRect.top + rect.top, iframeRect.left + rect.right);
             }
         });
 
-        // Click handler removed to prevent conflict with selection logic
-        rendition.on('click', () => {
-            // specific logic can be added here if needed to clear selection
-        });
+
 
     };
 
@@ -267,7 +265,7 @@ export default function ParallelReader({ initialUrls, onBack }: ParallelReaderPr
         newLocations[index] = newLocation;
         setLocations(newLocations);
         if (urls[index]) {
-            // debouncedSave removed
+            // Location update logic could go here
         }
     };
 

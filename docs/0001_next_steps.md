@@ -196,29 +196,7 @@ We have two main options for triggering the save:
 - [ ] **Grouping**: Display headers in the sidebar (e.g., "Chapter 1") and group highlights under them.
     - *Depedency*: Requires mapping CFIs to TOC items.
 
-
-
-# next
-
-
-## Action Item 9: Advanced Annotation Features
-**Objective:** Expand the basic highlighting system into a robust note-taking and cross-referencing tool.
-**Tasks:**
-
-
-### 9.4 Cross-Linking (Deferred)
-- [ ] Allow users to "connect" a highlight in Book A to a highlight in Book B.
-- [ ] Visualize these connections (e.g., drawing lines or showing a "Related" badge).
-## Action Item 10: Smooth Scrolling & Navigation Logic
-**Objective:** Fix "finicky" scrolling behavior and improve jump-to-location accuracy.
-**Context:** Users report scrolling fights back (stickiness) and jumps land inexactly.
-**Investigation Strategy:**
-1.  **`epub.js` Manager:** Experiment with `flow: "paginated"` vs `scrolled-continuous`. The current `manager: "continuous"` might be aggressively snapping.
-2.  **Pre-rendering:** `epub.js` lazily renders. Jumping to a simplified CFI (like a chapter start) works, but a specific sentence CFI might fail if the chapter isn't fully rendered.
-    -   *Solution:* Pre-load surrounding chapters? Use `display().then(() => render)`.
-3.  **Debounce Tuning:** Ensure our `debouncedSave` isn't causing re-renders that reset scroll position.
-
-## Action Item 12: Fix Duplicate Highlights Bug
+## ✅ DONE - Action Item 12: Fix Duplicate Highlights Bug
 **Status:** ✅ Complete
 **Objective:** Prevent highlights from stacking visually, which prevents proper deletion.
 
@@ -228,20 +206,11 @@ We have two main options for triggering the save:
 2. Only add highlights that haven't been rendered yet.
 3. Ensure deleted highlights are removed visually.
 
-## Action Item 11: Consistent Styling Fix & Original Font Option
-
-**Objective:** Fix "left book not updating" bug and add "Original Font" option.
-**Context:** In current testing, the left book retains original font while the right one updates.
-**Plan:**
-1. Investigate `applyStyles` targeting (is it hitting all renditions?).
-2. Add "Original" option to font family dropdown.
 
 
+## ✅ DONE - Action Item 13: Refactor Text Selection & Highlights
+**Status:** ✅ Completed with issues
 
-
-
-
-## Action Item 13: Refactor Text Selection & Highlights
 **Priority:** High
 **Objective:** Refactor the text selection behavior to prevent accidental highlighting ("trigger happy" behavior) and implement rich metadata.
 **Context:** The current "Selection = Immediate Save" flow is poor UX. We need a deliberate "Add Highlight" flow.
@@ -261,6 +230,53 @@ We have two main options for triggering the save:
 - Update `Highlight` interface to include `color`, `style`, `note`.
 - Migrate/Update API to handle these fields.
 
+### ✅ DONE Action Item 13.1: Fix Popover Inconsistency
+**Status:** ✅ Complete
+**Objective:** Fix the inconsistent appearance and positioning of the annotation popover button.
+**Solution:**
+- Updated `ParallelReader.tsx` to calculcate popover position using `contents.window.frameElement` instead of a generic `querySelector('iframe')`.
+- This ensures the correct iframe offset is used even when multiple readers (iframes) are present.
+- Cleaned up unused `debouncedSave` code and empty click handlers.
+
+
+
+# next
+
+
+## Action Item 9: Advanced Annotation Features
+**Objective:** Expand the basic highlighting system into a robust note-taking and cross-referencing tool.
+**Tasks:**
+
+
+### 9.4 Cross-Linking (Deferred)
+- [ ] Allow users to "connect" a highlight in Book A to a highlight in Book B.
+- [ ] Visualize these connections (e.g., drawing lines or showing a "Related" badge).
+
+## Action Item 10: Smooth Scrolling & Navigation Logic
+**Objective:** Fix "finicky" scrolling behavior and improve jump-to-location accuracy.
+**Context:** Users report scrolling fights back (stickiness) and jumps land inexactly.
+**Investigation Strategy:**
+1.  **`epub.js` Manager:** Experiment with `flow: "paginated"` vs `scrolled-continuous`. The current `manager: "continuous"` might be aggressively snapping.
+2.  **Pre-rendering:** `epub.js` lazily renders. Jumping to a simplified CFI (like a chapter start) works, but a specific sentence CFI might fail if the chapter isn't fully rendered.
+    -   *Solution:* Pre-load surrounding chapters? Use `display().then(() => render)`.
+3.  **Debounce Tuning:** Ensure our `debouncedSave` isn't causing re-renders that reset scroll position.
+
+
+## Action Item 11: Consistent Styling Fix & Original Font Option
+
+**Objective:** Fix "left book not updating" bug and add "Original Font" option.
+**Context:** In current testing, the left book retains original font while the right one updates.
+**Plan:**
+1. Investigate `applyStyles` targeting (is it hitting all renditions?).
+2. Add "Original" option to font family dropdown.
+
+
+
+
+
+
+
+
 
 
 
@@ -273,3 +289,19 @@ We have two main options for triggering the save:
     - Add color picker to the highlight popover (if possible) or sidebar.
     - Add text area for notes in the sidebar card.
 
+
+
+failed attempt:
+
+read and comply with  
+
+context:  and  
+
+i want to work on optimizing the code and cleaning up. 
+
+
+when scrolling up sometimes the scrolling snags back and flickers, like forcing to stay bellow and the user has to try and scroll fast to win against this behavior. i believe this could be related to how react reader / epubjs loads only the html/chapter being displayed. 
+
+I want to try to solve this by making sure the previous chapter is loaded along with the current chapter.
+
+write this as action item 15 in  . remember to follow task completion protocol from  

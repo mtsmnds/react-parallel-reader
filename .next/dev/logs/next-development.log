@@ -721,3 +721,18 @@ It can also happen if the client has a browser extension installed which messes 
                         >
                   ...
 
+[00:09:08.737] Browser LOG     Selection set at -325.5859375 1025.421875
+[00:09:09.512] Browser LOG     Selection set at -325.5859375 1025.421875
+[00:12:36.454] Browser LOG     Selection set at -431.9921875 1025.421875
+[00:12:40.948] Browser LOG     Selection set at -386.2890625 462.5234375
+[00:12:42.598] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:12:58.849] Browser LOG     Selection set at -203.375 468
+[00:13:00.949] Browser LOG     Selection set at 410.59375 467.875
+[00:13:03.949] Browser LOG     Selection set at 305 452.3515625
+[00:13:07.115] Browser LOG     Selection set at -393.4375 468
+[00:13:10.121] Browser LOG     Selection set at 288.46875 468
+[00:13:14.416] Browser LOG     Selection set at -438.8125 455.015625
+[00:13:16.298] Browser LOG     Selection set at -438.8125 455.015625
+[00:16:55.905] Server  LOG     ✓ Compiled in 368ms
+[00:17:08.825] Server  LOG     ✓ Compiled in 164ms
+[00:17:28.046] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
