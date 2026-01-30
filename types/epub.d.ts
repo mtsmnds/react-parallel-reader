@@ -28,3 +28,8 @@ export type Rendition = {
         };
     };
 };
+
+export type BookCollection = {
+    name: string;
+    files: string[];
+};

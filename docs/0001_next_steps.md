@@ -12,7 +12,6 @@ Create a definitions file at `types/epub.d.ts` (or within the component folder) 
 ```typescript
 // types/epub.d.ts
 
-
 export type LocationChanged = {
   start: {
     index: number;
@@ -132,3 +131,21 @@ const [urls, setUrls] = useState<string[]>([
    - Display a list of highlights in a sidebar or drawer.
    - Clicking a highlight uses `rendition.display(cfiRange)` to jump to location.
    - Add delete functionality.
+
+## Action Item 7: Dynamic Book Discovery (Bookshelf)
+**Status:** ✅ Complete
+**Objective:** Replace hardcoded files with a dynamic folder scanning system.
+**User Story:** "As a user, I want to create arbitrary folders in `books/` (e.g., `books/comparison-a/`) and drop EPUBs there. The app should list these folders as collections."
+
+**Implementation Plan:**
+1. **API Route (`app/api/books/route.ts`)**:
+   - Use `fs.readdir` to scan `public/books/`.
+   - Return a JSON tree structure.
+   - Ignore `.DS_Store` and non-epub files.
+2. **Frontend ("Bookshelf" View)**:
+   - Create a new component `Bookshelf.tsx` or update `page.tsx` conditional rendering.
+   - On load, fetch `/api/books`.
+   - Display a grid of "Collections" (folders).
+   - Clicking a collection loads those specific URLs into the `ParallelReader`.
+3. **Update `ParallelReader`**:
+   - Accept `initialUrls` as a prop (optional) to override defaults.

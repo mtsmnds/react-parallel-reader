@@ -13,3 +13,12 @@
 [01:19:13.210] Server  LOG     ✓ Compiled in 137ms
 [01:19:26.529] Server  LOG     ✓ Compiled in 122ms
 [01:23:17.990] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:38:32.529] Server  LOG     ✓ Compiled in 193ms
+[01:38:33.187] Browser ERROR   uncaughtError: TypeError: Cannot read properties of undefined (reading 'length')
+[01:38:33.781] Server  LOG     ✓ Compiled in 171ms
+[01:38:33.784] Server  WARN    ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[01:38:34.174] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:42:28.770] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:44:27.755] Server  LOG     ✓ Compiled in 157ms
+[01:44:29.890] Server  LOG     ✓ Compiled in 226ms
+[01:44:42.093] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold

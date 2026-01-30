@@ -1,4 +1,5 @@
 node_modules
 
 # Books (Copyrighted material)
-public/books/
+public/books/*
+!public/books/.gitkeep

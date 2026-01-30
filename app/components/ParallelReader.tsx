@@ -8,12 +8,17 @@ import type { Rendition } from '../../types/epub';
 // Define a type for the location (can be a string CFI or integer 0)
 type LocationType = string | number;
 
-export default function ParallelReader() {
+interface ParallelReaderProps {
+    initialUrls: string[];
+    onBack?: () => void;
+}
+
+export default function ParallelReader({ initialUrls, onBack }: ParallelReaderProps) {
     // --- State ---
-    const [urls, setUrls] = useState<string[]>(['/books/alice.epub', '/books/moby-dick.epub']);
-    const [count, setCount] = useState(2);
+    const [urls, setUrls] = useState<string[]>(initialUrls);
+    const [count, setCount] = useState(initialUrls.length || 2);
     // NEW: We must track the location of each book individually
-    const [locations, setLocations] = useState<LocationType[]>([0, 0, 0]);
+    const [locations, setLocations] = useState<LocationType[]>(initialUrls.map(() => 0));
 
     const renditionRefs = useRef<(Rendition | null)[]>([]);
 
@@ -49,7 +54,20 @@ export default function ParallelReader() {
     return (
         <div className={styles.container}>
             <div className={styles.header}>
-                <h1>Parallel Reader</h1>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                    {onBack && (
+                        <button
+                            onClick={onBack}
+                            className={styles.backButton}
+                            style={{
+                                background: 'none', border: 'none', cursor: 'pointer', fontSize: '1.2rem'
+                            }}
+                        >
+                            ← Back
+                        </button>
+                    )}
+                    <h1>Parallel Reader</h1>
+                </div>
                 <div className={styles.controls}>
                     <div className={styles.buttonGroup}>
                         {[1, 2, 3].map(num => (
@@ -86,7 +104,7 @@ export default function ParallelReader() {
                                 url={urls[index]}
 
                                 // REQUIRED PROP: Controls where the book is
-                                location={locations[index]}
+                                location={locations[index] || 0}
 
                                 // REQUIRED PROP: Updates the state when user scrolls
                                 locationChanged={(loc) => handleLocationChange(index, loc)}
