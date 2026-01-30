@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { ReactReader } from 'react-reader';
+import { ReactReader, ReactReaderStyle } from 'react-reader';
 import { useDebounce } from '../hooks/useDebounce';
 import styles from './ParallelReader.module.scss';
 import type { Rendition, Highlight } from '../../types/epub';
@@ -337,6 +337,14 @@ export default function ParallelReader({ initialUrls, onBack }: ParallelReaderPr
                                     epubOptions={{
                                         flow: "scrolled",
                                         manager: "continuous",
+                                    }}
+                                    swipeable={false}
+                                    readerStyles={{
+                                        ...ReactReaderStyle,
+                                        arrow: {
+                                            ...ReactReaderStyle.arrow,
+                                            display: 'none',
+                                        }
                                     }}
                                 />
                             </div>
