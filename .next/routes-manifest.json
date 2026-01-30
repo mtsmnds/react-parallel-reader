@@ -41,6 +41,18 @@
       "namedRegex": "^/_not\\-found(?:/)?$"
     },
     {
+      "page": "/api/books",
+      "regex": "^/api/books(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/books(?:/)?$"
+    },
+    {
+      "page": "/api/highlights",
+      "regex": "^/api/highlights(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/highlights(?:/)?$"
+    },
+    {
       "page": "/favicon.ico",
       "regex": "^/favicon\\.ico(?:/)?$",
       "routeKeys": {},

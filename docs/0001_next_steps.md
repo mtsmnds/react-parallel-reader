@@ -12,6 +12,7 @@ Create a definitions file at `types/epub.d.ts` (or within the component folder) 
 ```typescript
 // types/epub.d.ts
 
+
 export type LocationChanged = {
   start: {
     index: number;
@@ -110,7 +111,7 @@ const [urls, setUrls] = useState<string[]>([
 3. Clean up unused styling related to the sync button.
 4. **Research:** Investigate `epubjs` CFI comparison or Chapter-based index matching for future sync implementation.
 
-## Action Item 5: Unified Styling System
+## Action Item 5: Consistent Styling
 **Objective:** Enforce consistent visual rhythm (font, size, spacing) across all open books, overriding their internal styles.
 **Implementation Plan:**
 1. **Global Style Config:** Create a state object for reader preferences (e.g., `{ fontSize: '100%', fontFamily: 'Helvetica', lineHeight: '1.6' }`).
@@ -119,6 +120,7 @@ const [urls, setUrls] = useState<string[]>([
 3. **UI Controls:** Add a settings toolbar (separate from the book inputs) to adjust these values globally.
 
 ## Action Item 6: Annotations & Highlights
+**Status:** ✅ Complete
 **Objective:** Allow users to highlight text and persist these highlights locally.
 **Implementation Plan:**
 1. **Interaction:** Enable selection in `react-reader` (ensure `epubjs` default selection behavior is active).
@@ -149,3 +151,28 @@ const [urls, setUrls] = useState<string[]>([
    - Clicking a collection loads those specific URLs into the `ParallelReader`.
 3. **Update `ParallelReader`**:
    - Accept `initialUrls` as a prop (optional) to override defaults.
+
+## Action Item 8: Persistent Reading Progress
+**Status:** ✅ Complete
+**Objective:** Automatically save and restore the user's reading position for each book.
+**User Story:** "When I close the app and reopen a collection, my books should open exactly where I left off."
+
+**Strategy & Trade-offs:**
+We have two main options for triggering the save:
+1.  **Manual Save** (Button): User clicks "Save Progress".
+    *   *Pro:* Predictable, no performance overhead.
+    *   *Con:* High risk of data loss (user forgets). Disrupted flow.
+2.  **Auto-Save** (On Scroll): Updates as user reads.
+    *   *Pro:* Seamless, "magical" experience. Native app feel.
+    *   *Con:* High write frequency if not handled correctly.
+    *   *Decision:* **Auto-Save with Debouncing**. We will save the position automatically but debounce the writes (e.g., wait for 1000ms of inactivity) to prevent performance degradation or filesystem/storage thrashing.
+
+**Implementation Plan:**
+1.  **Storage Mechanism**: `localStorage` (Browser).
+    *   Key: `parallel-reader-progress`
+    *   Value: `Record<string, string>` where key is the **Book URL** and value is the **CFI** (Canonical Fragment Identifier).
+    *   *Rationale*: Fast, synchronous, device-specific. Matches the "single user developer tool" architecture.
+2.  **`ParallelReader` Updates**:
+    *   **Hydration**: On component mount (or when `initialUrls` change), check `localStorage` for each URL. If a saved CFI exists, set the initial `location` state for that panel.
+    *   **Saving**: Modify `handleLocationChange`. Create a `debouncedSave` function that updates `localStorage` only after the user stops scrolling for 1000ms.
+    *   *Note*: The state `locations` will still update instantly to ensure the UI is responsive; only the persistence is debounced.

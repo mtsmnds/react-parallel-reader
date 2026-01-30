@@ -22,3 +22,27 @@
 [01:44:27.755] Server  LOG     ✓ Compiled in 157ms
 [01:44:29.890] Server  LOG     ✓ Compiled in 226ms
 [01:44:42.093] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:47:53.785] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:01:44.772] Server  LOG     ✓ Compiled in 210ms
+[02:01:44.913] Browser ERROR   uncaughtError: ReferenceError: useEffect is not defined
+[02:01:46.015] Server  LOG     ✓ Compiled in 129ms
+[02:01:46.024] Server  WARN    ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[02:01:46.487] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:04:06.520] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:04:25.671] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:08:01.057] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:13:32.678] Server  LOG     ✓ Compiled in 231ms
+[02:14:55.650] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:16:22.063] Server  LOG     ✓ Compiled in 385ms
+[02:16:29.559] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:21:47.504] Server  LOG     ✓ Compiled in 313ms
+[02:23:01.844] Server  LOG     ✓ Compiled in 289ms
+[02:23:16.360] Server  LOG     ✓ Compiled in 237ms
+[02:23:55.735] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:24:37.454] Server  LOG     ✓ Compiled in 177ms
+[02:25:13.524] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:28:51.387] Server  LOG     ✓ Compiled in 330ms
+[02:29:33.583] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:30:23.637] Server  LOG     ✓ Compiled in 337ms
+[02:32:09.487] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:33:37.178] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold

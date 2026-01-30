@@ -98,6 +98,99 @@
   position: relative;
 }
 
+.ParallelReader-module-scss-module__rbxfja__sidebar {
+  background-color: #fff;
+  border-left: 1px solid #e5e7eb;
+  flex-direction: column;
+  flex: 0 0 25%;
+  gap: 1rem;
+  height: 100%;
+  padding: 1rem;
+  display: flex;
+  overflow-y: auto;
+}
+
+.ParallelReader-module-scss-module__rbxfja__sidebar h2 {
+  color: #1f2937;
+  margin-bottom: .5rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.ParallelReader-module-scss-module__rbxfja__sidebar .ParallelReader-module-scss-module__rbxfja__emptyState {
+  color: #9ca3af;
+  font-size: .875rem;
+  font-style: italic;
+}
+
+.ParallelReader-module-scss-module__rbxfja__annotationCard {
+  background-color: #fefce8;
+  border: 1px solid #fef08a;
+  border-radius: .5rem;
+  padding: .75rem;
+  transition: all .2s;
+}
+
+.ParallelReader-module-scss-module__rbxfja__annotationCard:hover {
+  border-color: #fde047;
+  box-shadow: 0 1px 2px #0000000d;
+}
+
+.ParallelReader-module-scss-module__rbxfja__annotationCard p {
+  color: #1f2937;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  margin-bottom: .5rem;
+  font-size: .9rem;
+  line-height: 1.4;
+  display: -webkit-box;
+  overflow: hidden;
+}
+
+.ParallelReader-module-scss-module__rbxfja__annotationCard .ParallelReader-module-scss-module__rbxfja__footer {
+  justify-content: space-between;
+  align-items: center;
+  margin-top: .5rem;
+  display: flex;
+}
+
+.ParallelReader-module-scss-module__rbxfja__annotationCard .ParallelReader-module-scss-module__rbxfja__footer span {
+  color: #6b7280;
+  font-size: .75rem;
+  font-weight: 500;
+}
+
+.ParallelReader-module-scss-module__rbxfja__annotationCard .ParallelReader-module-scss-module__rbxfja__footer .ParallelReader-module-scss-module__rbxfja__actions {
+  gap: .5rem;
+  display: flex;
+}
+
+.ParallelReader-module-scss-module__rbxfja__annotationCard .ParallelReader-module-scss-module__rbxfja__footer .ParallelReader-module-scss-module__rbxfja__actions button {
+  cursor: pointer;
+  background: none;
+  border: none;
+  border-radius: .25rem;
+  padding: .2rem .4rem;
+  font-size: .75rem;
+  transition: background-color .2s;
+}
+
+.ParallelReader-module-scss-module__rbxfja__annotationCard .ParallelReader-module-scss-module__rbxfja__footer .ParallelReader-module-scss-module__rbxfja__actions button.ParallelReader-module-scss-module__rbxfja__jump {
+  color: #2563eb;
+}
+
+.ParallelReader-module-scss-module__rbxfja__annotationCard .ParallelReader-module-scss-module__rbxfja__footer .ParallelReader-module-scss-module__rbxfja__actions button.ParallelReader-module-scss-module__rbxfja__jump:hover {
+  background-color: #eff6ff;
+}
+
+.ParallelReader-module-scss-module__rbxfja__annotationCard .ParallelReader-module-scss-module__rbxfja__footer .ParallelReader-module-scss-module__rbxfja__actions button.ParallelReader-module-scss-module__rbxfja__delete {
+  color: #ef4444;
+}
+
+.ParallelReader-module-scss-module__rbxfja__annotationCard .ParallelReader-module-scss-module__rbxfja__footer .ParallelReader-module-scss-module__rbxfja__actions button.ParallelReader-module-scss-module__rbxfja__delete:hover {
+  background-color: #fef2f2;
+}
+
 /* [project]/app/components/Bookshelf.module.scss.module.css [app-client] (css) */
 .Bookshelf-module-scss-module__3Di2QW__container {
   max-width: 56rem;
