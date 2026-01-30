@@ -69,6 +69,10 @@ export default function ParallelReader({ initialUrls, onBack }: ParallelReaderPr
 
     // Style Injection Helper
     const applyStyles = (rendition: Rendition) => {
+        // Register and select external stylesheet
+        rendition.themes.register('custom', '/styles/epub-defaults.css');
+        rendition.themes.select('custom');
+
         rendition.themes.default({
             'body': {
                 'font-family': `${settings.fontFamily} !important`,
@@ -80,11 +84,7 @@ export default function ParallelReader({ initialUrls, onBack }: ParallelReaderPr
                 'font-size': `${settings.fontSize}% !important`,
                 'line-height': `${settings.lineHeight} !important`
             },
-            'div': { 'padding-bottom': '20px' },
-
-            // Custom highlight classes
-            '.hl-highlight': { 'fill': 'yellow', 'fill-opacity': '0.3', 'mix-blend-mode': 'multiply' },
-            '.hl-underline': { 'border-bottom': '2px solid red', 'fill': 'transparent' } // Simplified underline
+            'div': { 'padding-bottom': '20px' }
         });
     };
 

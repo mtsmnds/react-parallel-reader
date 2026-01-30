@@ -16,6 +16,8 @@ export type LocationChanged = {
 export type Rendition = {
     themes: {
         default: (styles: Record<string, any>) => void;
+        register: (name: string, url: string | object) => void;
+        select: (name: string) => void;
     };
     display: {
         (target?: string): Promise<void>;

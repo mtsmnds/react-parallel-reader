@@ -325,6 +325,9 @@ function ParallelReader({ initialUrls, onBack }) {
     ]);
     // Style Injection Helper
     const applyStyles = (rendition)=>{
+        // Register and select external stylesheet
+        rendition.themes.register('custom', '/styles/epub-defaults.css');
+        rendition.themes.select('custom');
         rendition.themes.default({
             'body': {
                 'font-family': `${settings.fontFamily} !important`,
@@ -338,17 +341,7 @@ function ParallelReader({ initialUrls, onBack }) {
             },
             'div': {
                 'padding-bottom': '20px'
-            },
-            // Custom highlight classes
-            '.hl-highlight': {
-                'fill': 'yellow',
-                'fill-opacity': '0.3',
-                'mix-blend-mode': 'multiply'
-            },
-            '.hl-underline': {
-                'border-bottom': '2px solid red',
-                'fill': 'transparent'
-            } // Simplified underline
+            }
         });
     };
     // Update active renditions when settings change

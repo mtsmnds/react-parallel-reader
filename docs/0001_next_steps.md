@@ -246,6 +246,14 @@ We have two main options for triggering the save:
 - Created `HighlightMenu.module.scss` matching `ParallelReader` design system.
 - Removed legacy styles from `ParallelReader.module.scss`.
 
+### ✅ DONE Action Item 13.3: Externalize Highlight CSS
+**Status:** ✅ Complete
+**Objective:** Move static highlight styles out of JavaScript and into a dedicated CSS file to improve maintainability and ensure proper `epub.js` iframe injection.
+**Changes:**
+- Created `public/styles/epub-defaults.css` for `.hl-highlight` and `.hl-underline` classes.
+- Updated `ParallelReader.tsx` to use `rendition.themes.register` to load the external stylesheet.
+- Updated `types/epub.d.ts` to include missing `register` and `select` methods in the `Rendition` type definition.
+
 
 
 
@@ -261,14 +269,6 @@ We have two main options for triggering the save:
 - [ ] Allow users to "connect" a highlight in Book A to a highlight in Book B.
 - [ ] Visualize these connections (e.g., drawing lines or showing a "Related" badge).
 
-## Action Item 10: Smooth Scrolling & Navigation Logic
-**Objective:** Fix "finicky" scrolling behavior and improve jump-to-location accuracy.
-**Context:** Users report scrolling fights back (stickiness) and jumps land inexactly.
-**Investigation Strategy:**
-1.  **`epub.js` Manager:** Experiment with `flow: "paginated"` vs `scrolled-continuous`. The current `manager: "continuous"` might be aggressively snapping.
-2.  **Pre-rendering:** `epub.js` lazily renders. Jumping to a simplified CFI (like a chapter start) works, but a specific sentence CFI might fail if the chapter isn't fully rendered.
-    -   *Solution:* Pre-load surrounding chapters? Use `display().then(() => render)`.
-3.  **Debounce Tuning:** Ensure our `debouncedSave` isn't causing re-renders that reset scroll position.
 
 
 ## Action Item 11: Consistent Styling Fix & Original Font Option
@@ -300,3 +300,17 @@ We have two main options for triggering the save:
 
 
 
+
+
+# known issues - unknown solutions
+
+## 
+
+## Action Item 10: Smooth Scrolling & Navigation Logic
+**Objective:** Fix "finicky" scrolling behavior and improve jump-to-location accuracy.
+**Context:** Users report scrolling fights back (stickiness) and jumps land inexactly.
+**Investigation Strategy:**
+1.  **`epub.js` Manager:** Experiment with `flow: "paginated"` vs `scrolled-continuous`. The current `manager: "continuous"` might be aggressively snapping.
+2.  **Pre-rendering:** `epub.js` lazily renders. Jumping to a simplified CFI (like a chapter start) works, but a specific sentence CFI might fail if the chapter isn't fully rendered.
+    -   *Solution:* Pre-load surrounding chapters? Use `display().then(() => render)`.
+3.  **Debounce Tuning:** Ensure our `debouncedSave` isn't causing re-renders that reset scroll position.
