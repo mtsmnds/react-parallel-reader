@@ -21,3 +21,8 @@ These instructions are for the AI agent (Antigravity/Gemini) to follow when work
 - Keep it brief but technical.
 - Target audience: Senior Product Managers and Engineers.
 - Focus on *what* and *why*, not just *how*.
+
+## 5. Task Completion Protocol
+- **Update Status**: Upon successful completion of a task, **IMMEDIATELY** mark the corresponding item as complete in `docs/0001_next_steps.md` by adding a line `**Status:** ✅ Complete`. under the item heading.
+- **Sync Details**: If you generate a detailed implementation plan or walkthrough, ensure the key architectural details and decisions are reflected back into the Action Item details in `docs/0001_next_steps.md`. The docs should be the source of truth, not just transient artifacts.
+- **Commit Message**: After completing a task, provide a suggested one-liner commit message in the chat.

@@ -183,10 +183,11 @@ We have two main options for triggering the save:
 **Tasks:**
 
 ### 9.1 Storage Refactor (Priority 1)
+**Status:** ✅ Complete
 **Reasoning:** Move from global `public/highlights.json` to collection-specific storage to support multiple libraries/folders separately.
-- [ ] **API Update**: Modify `app/api/highlights/route.ts` to determine storage path dynamically based on `bookUrl`.
-- [ ] **Frontend Update**: Update `ParallelReader.tsx` to fetch highlights for specific open books only (pass `urls` query param).
-- [ ] **Data Migration**: (Optional for MVP) Ensure new system gracefully handles empty states for new collections.
+- [x] **API Update**: Modify `app/api/highlights/route.ts` to determine storage path dynamically based on `bookUrl`.
+- [x] **Frontend Update**: Update `ParallelReader.tsx` to fetch highlights for specific open books only (pass `urls` query param).
+- [x] **Data Migration**: (Optional for MVP) Ensure new system gracefully handles empty states for new collections.
 
 ### 9.2 Rich Metadata
 - [ ] **Data Model**: Update `Highlight` interface to include:
