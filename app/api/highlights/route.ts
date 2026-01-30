@@ -4,8 +4,6 @@ import path from 'path';
 
 export const dynamic = 'force-dynamic';
 
-const highlightPath = path.join(process.cwd(), 'public/highlights.json');
-
 // Interface matching the front-end structure we will use
 interface Highlight {
     id: string;
@@ -16,15 +14,61 @@ interface Highlight {
     created: number;
 }
 
-// GET: Retrieve all highlights
-export async function GET() {
+// Helper to get highlight path from a book URL
+// bookUrl example: "/books/alice.epub" or "/books/collection-a/book.epub"
+function getHighlightPath(bookUrl: string): string | null {
+    if (!bookUrl) return null;
+
+    // Remove leading slash if present for path joining
+    const safeUrl = bookUrl.startsWith('/') ? bookUrl.slice(1) : bookUrl;
+
+    // Get the directory of the book
+    // public/books/alice.epub -> public/books
+    // public/books/collection/alice.epub -> public/books/collection
+    const bookDir = path.dirname(safeUrl);
+
+    return path.join(process.cwd(), 'public', bookDir, 'highlights.json');
+}
+
+// GET: Retrieve all highlights for the requested books
+export async function GET(req: Request) {
     try {
-        if (!fs.existsSync(highlightPath)) {
+        const { searchParams } = new URL(req.url);
+        const urlsParam = searchParams.get('urls');
+
+        if (!urlsParam) {
+            // Fallback to global if no urls provided, or return empty?
+            // For backward compatibility during migration, we could check global, 
+            // but let's stick to the plan of collection-based.
+            // If no URLs, we can't know where to look, so return empty.
             return NextResponse.json([]);
         }
-        const fileContent = fs.readFileSync(highlightPath, 'utf-8');
-        const highlights = JSON.parse(fileContent);
-        return NextResponse.json(highlights);
+
+        const urls = urlsParam.split(',').filter(Boolean);
+        let allHighlights: Highlight[] = [];
+
+        // We need to deduplicate paths to avoid reading same file twice
+        // (though unlikely if urls are distinct books in same dir)
+        const pathsToCheck = new Set<string>();
+
+        urls.forEach(url => {
+            const p = getHighlightPath(url);
+            if (p) pathsToCheck.add(p);
+        });
+
+        for (const highlightPath of pathsToCheck) {
+            if (fs.existsSync(highlightPath)) {
+                try {
+                    const fileContent = fs.readFileSync(highlightPath, 'utf-8');
+                    const fileHighlights: Highlight[] = JSON.parse(fileContent);
+                    allHighlights = allHighlights.concat(fileHighlights);
+                } catch (e) {
+                    console.error(`Error reading highlights from ${highlightPath}:`, e);
+                }
+            }
+        }
+
+        return NextResponse.json(allHighlights);
     } catch (error) {
         console.error('Error reading highlights:', error);
         return NextResponse.json([]);
@@ -36,10 +80,29 @@ export async function POST(req: Request) {
     try {
         const newHighlight: Highlight = await req.json();
 
+        if (!newHighlight.bookUrl) {
+            return NextResponse.json({ error: 'bookUrl is required' }, { status: 400 });
+        }
+
+        const highlightPath = getHighlightPath(newHighlight.bookUrl);
+
+        if (!highlightPath) {
+            return NextResponse.json({ error: 'Invalid bookUrl' }, { status: 400 });
+        }
+
         let highlights: Highlight[] = [];
+
+        // Ensure directory exists (it should, since the book exists there, but good practice)
+        // actually we assume the book folders exist. 
+
         if (fs.existsSync(highlightPath)) {
             const fileContent = fs.readFileSync(highlightPath, 'utf-8');
-            highlights = JSON.parse(fileContent);
+            try {
+                highlights = JSON.parse(fileContent);
+            } catch (e) {
+                // if corrupt, start fresh
+                highlights = [];
+            }
         }
 
         highlights.push(newHighlight);
@@ -55,16 +118,27 @@ export async function POST(req: Request) {
 // DELETE: Remove a highlight
 export async function DELETE(req: Request) {
     try {
-        const { id } = await req.json();
+        // We need bookUrl to know which file to modify
+        const { id, bookUrl } = await req.json();
 
-        if (!fs.existsSync(highlightPath)) {
-            return NextResponse.json({ success: false, message: "No file" });
+        if (!bookUrl) {
+            return NextResponse.json({ error: 'bookUrl is required for deletion' }, { status: 400 });
+        }
+
+        const highlightPath = getHighlightPath(bookUrl);
+        if (!highlightPath || !fs.existsSync(highlightPath)) {
+            return NextResponse.json({ success: false, message: "No highlight file found" });
         }
 
         const fileContent = fs.readFileSync(highlightPath, 'utf-8');
         let highlights: Highlight[] = JSON.parse(fileContent);
 
+        const initialLength = highlights.length;
         highlights = highlights.filter(h => h.id !== id);
+
+        if (highlights.length === initialLength) {
+            return NextResponse.json({ success: false, message: "Highlight not found" });
+        }
 
         fs.writeFileSync(highlightPath, JSON.stringify(highlights, null, 2));
         return NextResponse.json({ success: true, highlights });

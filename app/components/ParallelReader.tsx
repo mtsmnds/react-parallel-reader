@@ -75,13 +75,18 @@ export default function ParallelReader({ initialUrls, onBack }: ParallelReaderPr
 
     const debouncedSave = useDebounce(saveProgress, 1000);
 
-    // Load highlights on mount
+    // Load highlights on mount or when URLs change
     useEffect(() => {
-        fetch('/api/highlights')
-            .then(res => res.json())
-            .then(data => setHighlights(data))
-            .catch(err => console.error("Error loading highlights:", err));
-    }, []);
+        if (urls.length > 0) {
+            const searchParams = new URLSearchParams();
+            searchParams.set('urls', urls.join(','));
+
+            fetch(`/api/highlights?${searchParams.toString()}`)
+                .then(res => res.json())
+                .then(data => setHighlights(data))
+                .catch(err => console.error("Error loading highlights:", err));
+        }
+    }, [urls]);
 
     // Style Injection Helper
     const applyStyles = (rendition: Rendition) => {
@@ -208,7 +213,7 @@ export default function ParallelReader({ initialUrls, onBack }: ParallelReaderPr
         await fetch('/api/highlights', {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ id })
+            body: JSON.stringify({ id, bookUrl: urls[bookIndex] })
         });
     };
 

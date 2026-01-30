@@ -181,19 +181,30 @@ We have two main options for triggering the save:
 ## Action Item 9: Advanced Annotation Features
 **Objective:** Expand the basic highlighting system into a robust note-taking and cross-referencing tool.
 **Tasks:**
-1.  **Rich Metadata:**
-    -   Add `color` (hex) and `style` (highlight/underline) properties to `Highlight` type.
-    -   Add `note` (string) for user commentary attached to a highlight.
-2.  **Organization:**
-    -   **Sorting:** Ensure highlights are displayed in reading order (by CFI comparison).
-    -   **Grouping:** Group highlights by Chapter/Section headers in the sidebar.
-3.  **Storage Refactor:**
-    -   Move from global `public/highlights.json` to collection-specific `public/books/[collection]/highlights.json`.
-    -   *Migration:* Copy existing data if needed.
-4.  **Cross-Linking:**
-    -   Allow users to "connect" a highlight in Book A to a highlight in Book B.
-    -   Visualize these connections (e.g., drawing lines or showing a "Related" badge).
 
+### 9.1 Storage Refactor (Priority 1)
+**Reasoning:** Move from global `public/highlights.json` to collection-specific storage to support multiple libraries/folders separately.
+- [ ] **API Update**: Modify `app/api/highlights/route.ts` to determine storage path dynamically based on `bookUrl`.
+- [ ] **Frontend Update**: Update `ParallelReader.tsx` to fetch highlights for specific open books only (pass `urls` query param).
+- [ ] **Data Migration**: (Optional for MVP) Ensure new system gracefully handles empty states for new collections.
+
+### 9.2 Rich Metadata
+- [ ] **Data Model**: Update `Highlight` interface to include:
+    - `color`: string (hex code)
+    - `style`: 'highlight' | 'underline'
+    - `note`: string (user commentary)
+- [ ] **UI/UX**:
+    - Add color picker to the highlight popover (if possible) or sidebar.
+    - Add text area for notes in the sidebar card.
+
+### 9.3 Organization & Display
+- [ ] **Sorting**: Ensure highlights are displayed in reading order (compare CFIs).
+- [ ] **Grouping**: Display headers in the sidebar (e.g., "Chapter 1") and group highlights under them.
+    - *Depedency*: Requires mapping CFIs to TOC items.
+
+### 9.4 Cross-Linking (Deferred)
+- [ ] Allow users to "connect" a highlight in Book A to a highlight in Book B.
+- [ ] Visualize these connections (e.g., drawing lines or showing a "Related" badge).
 ## Action Item 10: Smooth Scrolling & Navigation Logic
 **Objective:** Fix "finicky" scrolling behavior and improve jump-to-location accuracy.
 **Context:** Users report scrolling fights back (stickiness) and jumps land inexactly.
