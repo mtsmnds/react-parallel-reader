@@ -160,8 +160,8 @@ const [urls, setUrls] = useState<string[]>([
 **Context:** The application was forcing a yellow background on selected text, which interfered with the native browser selection experience. This change reverts that behavior to the system default.
 
 
-## Action Item 8: Persistent Reading Progress
-**Status:** ✅ Complete
+## ❌ Removed - Action Item 8: Persistent Reading Progress (REMOVED)
+**Status:** ❌ Removed / Reverted
 **Objective:** Automatically save and restore the user's reading position for each book.
 **User Story:** "When I close the app and reopen a collection, my books should open exactly where I left off."
 
@@ -185,11 +185,7 @@ We have two main options for triggering the save:
     *   **Saving**: Modify `handleLocationChange`. Create a `debouncedSave` function that updates `localStorage` only after the user stops scrolling for 1000ms.
     *   *Note*: The state `locations` will still update instantly to ensure the UI is responsive; only the persistence is debounced.
 
-## Action Item 9: Advanced Annotation Features
-**Objective:** Expand the basic highlighting system into a robust note-taking and cross-referencing tool.
-**Tasks:**
-
-### ✅ DONE 9.1 Storage Refactor (Priority 1)
+## ✅ DONE - Action Item 9.1: Highlight Storage Refactor
 **Status:** ✅ Complete
 **Reasoning:** Move from global `public/highlights.json` to collection-specific storage to support multiple libraries/folders separately.
 - [x] **API Update**: Modify `app/api/highlights/route.ts` to determine storage path dynamically based on `bookUrl`.
@@ -199,6 +195,16 @@ We have two main options for triggering the save:
 - [ ] **Sorting**: Ensure highlights are displayed in reading order (compare CFIs).
 - [ ] **Grouping**: Display headers in the sidebar (e.g., "Chapter 1") and group highlights under them.
     - *Depedency*: Requires mapping CFIs to TOC items.
+
+
+
+# next
+
+
+## Action Item 9: Advanced Annotation Features
+**Objective:** Expand the basic highlighting system into a robust note-taking and cross-referencing tool.
+**Tasks:**
+
 
 ### 9.4 Cross-Linking (Deferred)
 - [ ] Allow users to "connect" a highlight in Book A to a highlight in Book B.

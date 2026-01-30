@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { ReactReader, ReactReaderStyle } from 'react-reader';
-import { useDebounce } from '../hooks/useDebounce';
+
 import styles from './ParallelReader.module.scss';
 import type { Rendition, Highlight } from '../../types/epub';
 import SelectionMenu from './SelectionMenu';
@@ -52,45 +52,7 @@ export default function ParallelReader({ initialUrls, onBack }: ParallelReaderPr
     // Panel refs to calculate offsets for popovers
     const panelRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-    // Persistence: Hydrate locations from localStorage on mount
-    useEffect(() => {
-        try {
-            const saved = localStorage.getItem('parallel-reader-progress');
-            if (saved) {
-                const progress = JSON.parse(saved);
 
-                // Update locations based on URLs
-                // We map over current *urls* state to ensure we align with what's visible
-                const restoredLocations = urls.map((url, i) => {
-                    // if we have a saved location for this URL, use it
-                    if (progress[url]) return progress[url];
-                    // otherwise keep existing (which might be 0 or already set)
-                    return locations[i];
-                });
-
-                // Only update if different to avoid unnecessary re-renders?
-                // Initial locations are 0.
-                setLocations(restoredLocations);
-            }
-        } catch (e) {
-            console.error("Failed to load progress", e);
-        }
-    }, []); // Run once on mount (window object available)
-
-    // Persistence: Save Logic
-    const saveProgress = (bookUrl: string, loc: LocationType) => {
-        try {
-            const saved = localStorage.getItem('parallel-reader-progress');
-            const progress = saved ? JSON.parse(saved) : {};
-
-            progress[bookUrl] = loc;
-            localStorage.setItem('parallel-reader-progress', JSON.stringify(progress));
-        } catch (e) {
-            console.error("Failed to save progress", e);
-        }
-    };
-
-    const debouncedSave = useDebounce(saveProgress, 1000);
 
     // Load highlights on mount or when URLs change
     useEffect(() => {
@@ -304,7 +266,9 @@ export default function ParallelReader({ initialUrls, onBack }: ParallelReaderPr
         const newLocations = [...locations];
         newLocations[index] = newLocation;
         setLocations(newLocations);
-        if (urls[index]) debouncedSave(urls[index], newLocation);
+        if (urls[index]) {
+            // debouncedSave removed
+        }
     };
 
     const updateUrl = (index: number, newUrl: string) => {
