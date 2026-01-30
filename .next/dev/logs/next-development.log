@@ -46,3 +46,170 @@
 [02:30:23.637] Server  LOG     ✓ Compiled in 337ms
 [02:32:09.487] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
 [02:33:37.178] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:37:47.811] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:38:06.690] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:38:18.346] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:57:27.079] Server  LOG     ✓ Compiled in 394ms
+[02:58:30.775] Server  LOG     ✓ Compiled in 255ms
+[02:58:31.188] Browser ERROR   ./app/components/ParallelReader.tsx
+Error evaluating Node.js code
+SyntaxError: /Users/mats/Code/react-parallel-reader/app/components/ParallelReader.tsx: Identifier 'showSettings' has already been declared. (35:11)
+
+  33 |
+  34 |     // Styling State
+> 35 |     const [showSettings, setShowSettings] = useState(false);
+     |            ^
+  36 |     const [settings, setSettings] = useState({
+  37 |         fontSize: 100, // percentage
+  38 |         fontFamily: 'Helvetica, sans-serif',
+    [at constructor (/Users/mats/Code/react-parallel-reader/node_modules/next/dist/compiled/babel/bundle.js:191:137105)]
+    [at TypeScriptParserMixin.raise (/Users/mats/Code/react-parallel-reader/node_modules/next/dist/compiled/babel/bundle.js:191:194164)]
+    [at TypeScriptScopeHandler.checkRedeclarationInScope (/Users/mats/Code/react-parallel-reader/node_modules/next/dist/compiled/babel/bundle.js:191:163166)]
+    [at TypeScriptScopeHandler.declareName (/Users/mats/Code/react-parallel-reader/node_modules/next/dist/compiled/babel/bundle.js:191:162529)]
+    [at TypeScriptScopeHandler.declareName (/Users/mats/Code/react-parallel-reader/node_modules/next/dist/compiled/babel/bundle.js:191:271160)]
+    [at TypeScriptParserMixin.declareNameFromIdentifier (/Users/mats/Code/react-parallel-reader/node_modules/next/dist/compiled/babel/bundle.js:191:279226)]
+    [at TypeScriptParserMixin.checkIdentifier (/Users/mats/Code/react-parallel-reader/node_modules/next/dist/compiled/babel/bundle.js:191:279152)]
+    [at TypeScriptParserMixin.checkLVal (/Users/mats/Code/react-parallel-reader/node_modules/next/dist/compiled/babel/bundle.js:191:278197)]
+    [at TypeScriptParserMixin.checkLVal (/Users/mats/Code/react-parallel-reader/node_modules/next/dist/compiled/babel/bundle.js:191:278727)]
+    [at TypeScriptParserMixin.parseVarId (/Users/mats/Code/react-parallel-reader/node_modules/next/dist/compiled/babel/bundle.js:191:403644)]
+    [at TypeScriptParserMixin.parseVarId (/Users/mats/Code/react-parallel-reader/node_modules/next/dist/compiled/babel/bundle.js:191:329902)]
+    [at TypeScriptParserMixin.parseVar (/Users/mats/Code/react-parallel-reader/node_modules/next/dist/compiled/babel/bundle.js:191:402884)]
+    [at TypeScriptParserMixin.parseVarStatement (/Users/mats/Code/react-parallel-reader/node_modules/next/dist/compiled/babel/bundle.js:191:399366)]
+    [at TypeScriptParserMixin.parseVarStatement (/Users/mats/Code/react-parallel-reader/node_modules/next/dist/compiled/babel/bundle.js:191:323322)]
+    [at TypeScriptParserMixin.parseStatementContent (/Users/mats/Code/react-parallel-reader/node_modules/next/dist/compiled/babel/bundle.js:191:391398)]
+    [at TypeScriptParserMixin.parseStatementContent (/Users/mats/Code/react-parallel-reader/node_modules/next/dist/compiled/babel/bundle.js:191:324042)]
+    [at TypeScriptParserMixin.parseStatementLike (/Users/mats/Code/react-parallel-reader/node_modules/next/dist/compiled/babel/bundle.js:191:389494)]
+    [at TypeScriptParserMixin.parseStatementListItem (/Users/mats/Code/react-parallel-reader/node_modules/next/dist/compiled/babel/bundle.js:191:389120)]
+    [at TypeScriptParserMixin.parseBlockOrModuleBlockBody (/Users/mats/Code/react-parallel-reader/node_modules/next/dist/compiled/babel/bundle.js:191:401423)]
+    [at TypeScriptParserMixin.parseBlockBody (/Users/mats/Code/react-parallel-reader/node_modules/next/dist/compiled/babel/bundle.js:191:401223)]
+    [at TypeScriptParserMixin.parseBlock (/Users/mats/Code/react-parallel-reader/node_modules/next/dist/compiled/babel/bundle.js:191:400923)]
+    [at TypeScriptParserMixin.parseFunctionBody (/Users/mats/Code/react-parallel-reader/node_modules/next/dist/compiled/babel/bundle.js:191:378053)]
+    [at TypeScriptParserMixin.parseFunctionBodyAndFinish (/Users/mats/Code/react-parallel-reader/node_modules/next/dist/compiled/babel/bundle.js:191:377675)]
+    [at TypeScriptParserMixin.parseFunctionBodyAndFinish (/Users/mats/Code/react-parallel-reader/node_modules/next/dist/compiled/babel/bundle.js:191:318173)]
+    [at /Users/mats/Code/react-parallel-reader/node_modules/next/dist/compiled/babel/bundle.js:191:404308]
+    [at TypeScriptParserMixin.withSmartMixTopicForbiddingContext (/Users/mats/Code/react-parallel-reader/node_modules/next/dist/compiled/babel/bundle.js:191:383677)]
+    [at TypeScriptParserMixin.parseFunction (/Users/mats/Code/react-parallel-reader/node_modules/next/dist/compiled/babel/bundle.js:191:404262)]
+    [at TypeScriptParserMixin.parseExportDefaultExpression (/Users/mats/Code/react-parallel-reader/node_modules/next/dist/compiled/babel/bundle.js:191:414860)]
+    [at TypeScriptParserMixin.parseExportDefaultExpression (/Users/mats/Code/react-parallel-reader/node_modules/next/dist/compiled/babel/bundle.js:191:323209)]
+    [at TypeScriptParserMixin.parseExport (/Users/mats/Code/react-parallel-reader/node_modules/next/dist/compiled/babel/bundle.js:191:413097)]
+    [at TypeScriptParserMixin.parseExport (/Users/mats/Code/react-parallel-reader/node_modules/next/dist/compiled/babel/bundle.js:191:322862)]
+    [at TypeScriptParserMixin.parseStatementContent (/Users/mats/Code/react-parallel-reader/node_modules/next/dist/compiled/babel/bundle.js:191:391808)]
+    [at TypeScriptParserMixin.parseStatementContent (/Users/mats/Code/react-parallel-reader/node_modules/next/dist/compiled/babel/bundle.js:191:324042)]
+    [at TypeScriptParserMixin.parseStatementLike (/Users/mats/Code/react-parallel-reader/node_modules/next/dist/compiled/babel/bundle.js:191:389494)]
+    [at TypeScriptParserMixin.parseModuleItem (/Users/mats/Code/react-parallel-reader/node_modules/next/dist/compiled/babel/bundle.js:191:389055)]
+    [at TypeScriptParserMixin.parseBlockOrModuleBlockBody (/Users/mats/Code/react-parallel-reader/node_modules/next/dist/compiled/babel/bundle.js:191:401400)]
+    [at TypeScriptParserMixin.parseBlockBody (/Users/mats/Code/react-parallel-reader/node_modules/next/dist/compiled/babel/bundle.js:191:401223)]
+    [at TypeScriptParserMixin.parseProgram (/Users/mats/Code/react-parallel-reader/node_modules/next/dist/compiled/babel/bundle.js:191:386857)]
+    [at TypeScriptParserMixin.parseTopLevel (/Users/mats/Code/react-parallel-reader/node_modules/next/dist/compiled/babel/bundle.js:191:386575)]
+    [at TypeScriptParserMixin.parse (/Users/mats/Code/react-parallel-reader/node_modules/next/dist/compiled/babel/bundle.js:191:426834)]
+    [at TypeScriptParserMixin.parse (/Users/mats/Code/react-parallel-reader/node_modules/next/dist/compiled/babel/bundle.js:191:337631)]
+    [at parse (/Users/mats/Code/react-parallel-reader/node_modules/next/dist/compiled/babel/bundle.js:191:427092)]
+    [at parser (/Users/mats/Code/react-parallel-reader/node_modules/next/dist/compiled/babel/bundle.js:1:142018)]
+    [at <anonymous>]
+    [at normalizeFile (/Users/mats/Code/react-parallel-reader/node_modules/next/dist/compiled/babel/bundle.js:13:13275)]
+    [at <anonymous>]
+    [at consumeIterator (/Users/mats/Code/react-parallel-reader/node_modules/next/dist/build/babel/loader/util.js:13:38)]
+    [at transform (/Users/mats/Code/react-parallel-reader/node_modules/next/dist/build/babel/loader/transform.js:89:44)]
+    [at async (/Users/mats/Code/react-parallel-reader/node_modules/next/dist/build/babel/loader/index.js:36:108)]
+    at async DummySpan.traceAsyncFn (turbopack:///[turbopack-node]/transforms/webpack-loaders.ts:115:12) [/Users/mats/Code/react-parallel-reader/.next/dev/build/chunks/[root-of-the-server]__6e020478._.js:126:16]
+
+Import traces:
+  Client Component Browser:
+    ./app/components/ParallelReader.tsx [Client Component Browser]
+    ./app/page.tsx [Client Component Browser]
+    ./app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/ParallelReader.tsx [Client Component SSR]
+    ./app/page.tsx [Client Component SSR]
+    ./app/page.tsx [Server Component]
+[02:58:31.189] Browser ERROR   ./app/components/ParallelReader.tsx:36:22
+Ecmascript file had an error
+  34 |     // Styling State
+  35 |     const [showSettings, setShowSettings] = useState(false);
+> 36 |     const [settings, setSettings] = useState({
+     |                      ^^^^^^^^^^^
+  37 |         fontSize: 100, // percentage
+  38 |         fontFamily: 'Helvetica, sans-serif',
+  39 |         lineHeight: 1.6
+
+the name `setSettings` is defined multiple times
+
+Import traces:
+  Client Component Browser:
+    ./app/components/ParallelReader.tsx [Client Component Browser]
+    ./app/page.tsx [Client Component Browser]
+    ./app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/ParallelReader.tsx [Client Component SSR]
+    ./app/page.tsx [Client Component SSR]
+    ./app/page.tsx [Server Component]
+[02:58:31.189] Browser ERROR   ./app/components/ParallelReader.tsx:35:26
+Ecmascript file had an error
+  33 |
+  34 |     // Styling State
+> 35 |     const [showSettings, setShowSettings] = useState(false);
+     |                          ^^^^^^^^^^^^^^^
+  36 |     const [settings, setSettings] = useState({
+  37 |         fontSize: 100, // percentage
+  38 |         fontFamily: 'Helvetica, sans-serif',
+
+the name `setShowSettings` is defined multiple times
+
+Import traces:
+  Client Component Browser:
+    ./app/components/ParallelReader.tsx [Client Component Browser]
+    ./app/page.tsx [Client Component Browser]
+    ./app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/ParallelReader.tsx [Client Component SSR]
+    ./app/page.tsx [Client Component SSR]
+    ./app/page.tsx [Server Component]
+[02:58:31.189] Browser ERROR   ./app/components/ParallelReader.tsx:36:12
+Ecmascript file had an error
+  34 |     // Styling State
+  35 |     const [showSettings, setShowSettings] = useState(false);
+> 36 |     const [settings, setSettings] = useState({
+     |            ^^^^^^^^
+  37 |         fontSize: 100, // percentage
+  38 |         fontFamily: 'Helvetica, sans-serif',
+  39 |         lineHeight: 1.6
+
+the name `settings` is defined multiple times
+
+Import traces:
+  Client Component Browser:
+    ./app/components/ParallelReader.tsx [Client Component Browser]
+    ./app/page.tsx [Client Component Browser]
+    ./app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/ParallelReader.tsx [Client Component SSR]
+    ./app/page.tsx [Client Component SSR]
+    ./app/page.tsx [Server Component]
+[02:58:31.189] Browser ERROR   ./app/components/ParallelReader.tsx:35:12
+Ecmascript file had an error
+  33 |
+  34 |     // Styling State
+> 35 |     const [showSettings, setShowSettings] = useState(false);
+     |            ^^^^^^^^^^^^
+  36 |     const [settings, setSettings] = useState({
+  37 |         fontSize: 100, // percentage
+  38 |         fontFamily: 'Helvetica, sans-serif',
+
+the name `showSettings` is defined multiple times
+
+Import traces:
+  Client Component Browser:
+    ./app/components/ParallelReader.tsx [Client Component Browser]
+    ./app/page.tsx [Client Component Browser]
+    ./app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/ParallelReader.tsx [Client Component SSR]
+    ./app/page.tsx [Client Component SSR]
+    ./app/page.tsx [Server Component]
+[02:58:50.595] Server  LOG     ✓ Compiled in 1621ms
+[02:59:09.553] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold

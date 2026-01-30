@@ -112,6 +112,7 @@ const [urls, setUrls] = useState<string[]>([
 4. **Research:** Investigate `epubjs` CFI comparison or Chapter-based index matching for future sync implementation.
 
 ## Action Item 5: Consistent Styling
+**Status:** ✅ Complete
 **Objective:** Enforce consistent visual rhythm (font, size, spacing) across all open books, overriding their internal styles.
 **Implementation Plan:**
 1. **Global Style Config:** Create a state object for reader preferences (e.g., `{ fontSize: '100%', fontFamily: 'Helvetica', lineHeight: '1.6' }`).
@@ -176,3 +177,28 @@ We have two main options for triggering the save:
     *   **Hydration**: On component mount (or when `initialUrls` change), check `localStorage` for each URL. If a saved CFI exists, set the initial `location` state for that panel.
     *   **Saving**: Modify `handleLocationChange`. Create a `debouncedSave` function that updates `localStorage` only after the user stops scrolling for 1000ms.
     *   *Note*: The state `locations` will still update instantly to ensure the UI is responsive; only the persistence is debounced.
+
+## Action Item 9: Advanced Annotation Features
+**Objective:** Expand the basic highlighting system into a robust note-taking and cross-referencing tool.
+**Tasks:**
+1.  **Rich Metadata:**
+    -   Add `color` (hex) and `style` (highlight/underline) properties to `Highlight` type.
+    -   Add `note` (string) for user commentary attached to a highlight.
+2.  **Organization:**
+    -   **Sorting:** Ensure highlights are displayed in reading order (by CFI comparison).
+    -   **Grouping:** Group highlights by Chapter/Section headers in the sidebar.
+3.  **Storage Refactor:**
+    -   Move from global `public/highlights.json` to collection-specific `public/books/[collection]/highlights.json`.
+    -   *Migration:* Copy existing data if needed.
+4.  **Cross-Linking:**
+    -   Allow users to "connect" a highlight in Book A to a highlight in Book B.
+    -   Visualize these connections (e.g., drawing lines or showing a "Related" badge).
+
+## Action Item 10: Smooth Scrolling & Navigation Logic
+**Objective:** Fix "finicky" scrolling behavior and improve jump-to-location accuracy.
+**Context:** Users report scrolling fights back (stickiness) and jumps land inexactly.
+**Investigation Strategy:**
+1.  **`epub.js` Manager:** Experiment with `flow: "paginated"` vs `scrolled-continuous`. The current `manager: "continuous"` might be aggressively snapping.
+2.  **Pre-rendering:** `epub.js` lazily renders. Jumping to a simplified CFI (like a chapter start) works, but a specific sentence CFI might fail if the chapter isn't fully rendered.
+    -   *Solution:* Pre-load surrounding chapters? Use `display().then(() => render)`.
+3.  **Debounce Tuning:** Ensure our `debouncedSave` isn't causing re-renders that reset scroll position.

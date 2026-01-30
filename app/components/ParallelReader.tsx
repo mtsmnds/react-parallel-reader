@@ -23,6 +23,16 @@ export default function ParallelReader({ initialUrls, onBack }: ParallelReaderPr
     const [highlights, setHighlights] = useState<Highlight[]>([]);
     const [showHighlights, setShowHighlights] = useState(true);
 
+    // Styling State
+    const [showSettings, setShowSettings] = useState(false);
+    const [settings, setSettings] = useState({
+        fontSize: 100, // percentage
+        fontFamily: 'Helvetica, sans-serif',
+        lineHeight: 1.6
+    });
+
+
+
     const renditionRefs = useRef<(Rendition | null)[]>([]);
 
     // Persistence: Hydrate locations from localStorage on mount
@@ -73,17 +83,18 @@ export default function ParallelReader({ initialUrls, onBack }: ParallelReaderPr
             .catch(err => console.error("Error loading highlights:", err));
     }, []);
 
-    // --- Handlers ---
-
-    const getRendition = (index: number, rendition: Rendition) => {
-        renditionRefs.current[index] = rendition;
-
-        // Inject styles INSIDE the iframe (SASS cannot reach here)
+    // Style Injection Helper
+    const applyStyles = (rendition: Rendition) => {
         rendition.themes.default({
+            'body': {
+                'font-family': `${settings.fontFamily} !important`,
+                'font-size': `${settings.fontSize}% !important`,
+                'line-height': `${settings.lineHeight} !important`
+            },
             'p': {
-                'font-family': 'Helvetica, sans-serif',
-                'font-size': '1.1rem',
-                'line-height': '1.6'
+                'font-family': `${settings.fontFamily} !important`,
+                'font-size': `${settings.fontSize}% !important`,
+                'line-height': `${settings.lineHeight} !important`
             },
             'div': { 'padding-bottom': '20px' },
             '::selection': {
@@ -95,6 +106,24 @@ export default function ParallelReader({ initialUrls, onBack }: ParallelReaderPr
                 'mix-blend-mode': 'multiply'
             }
         });
+    };
+
+    // Update active renditions when settings change
+    useEffect(() => {
+        renditionRefs.current.forEach(rendition => {
+            if (rendition) {
+                applyStyles(rendition);
+            }
+        });
+    }, [settings]);
+
+    // --- Handlers ---
+
+    const getRendition = (index: number, rendition: Rendition) => {
+        renditionRefs.current[index] = rendition;
+
+        // Apply initial styles
+        applyStyles(rendition);
 
         // Apply existing highlights for this book
         const bookHighlights = highlights.filter(h => h.bookUrl === urls[index]);
@@ -139,7 +168,7 @@ export default function ParallelReader({ initialUrls, onBack }: ParallelReaderPr
             if (rendition) {
                 const bookHighlights = highlights.filter(h => h.bookUrl === urls[index]);
                 bookHighlights.forEach(h => {
-                    // Adding same annotation twice is usually safe or ignored by epubjs, 
+                    // Adding same annotation twice is usually safe or ignored by epubjs,
                     // but ideally we check. For MVP, simply adding is okay.
                     rendition.annotations.add('highlight', h.cfiRange, {}, null, 'hl-class');
                 });
@@ -201,6 +230,58 @@ export default function ParallelReader({ initialUrls, onBack }: ParallelReaderPr
                     <h1>Parallel Reader</h1>
                 </div>
                 <div className={styles.controls}>
+                    {/* Settings Toggle */}
+                    <button
+                        onClick={() => setShowSettings(!showSettings)}
+                        style={{ border: 'none', background: 'none', cursor: 'pointer', fontSize: '1.2rem', marginRight: '0.5rem' }}
+                        title="Display Settings"
+                    >
+                        ⚙️
+                    </button>
+
+                    {/* Settings Panel */}
+                    {showSettings && (
+                        <div className={styles.settingsPanel}>
+                            <h3>Display Settings</h3>
+                            <div className={styles.settingGroup}>
+                                <div className={styles.rangeValue}>
+                                    <label>Font Size</label>
+                                    <span>{settings.fontSize}%</span>
+                                </div>
+                                <input
+                                    type="range"
+                                    min="80"
+                                    max="200"
+                                    step="10"
+                                    value={settings.fontSize}
+                                    onChange={(e) => setSettings({ ...settings, fontSize: Number(e.target.value) })}
+                                />
+                            </div>
+                            <div className={styles.settingGroup}>
+                                <label>Font Family</label>
+                                <select
+                                    value={settings.fontFamily}
+                                    onChange={(e) => setSettings({ ...settings, fontFamily: e.target.value })}
+                                >
+                                    <option value="Helvetica, sans-serif">Helvetica</option>
+                                    <option value="Georgia, serif">Georgia</option>
+                                    <option value="Courier New, monospace">Monospace</option>
+                                </select>
+                            </div>
+                            <div className={styles.settingGroup}>
+                                <label>Line Height</label>
+                                <select
+                                    value={settings.lineHeight}
+                                    onChange={(e) => setSettings({ ...settings, lineHeight: Number(e.target.value) })}
+                                >
+                                    <option value={1.2}>Compact (1.2)</option>
+                                    <option value={1.6}>Normal (1.6)</option>
+                                    <option value={2.0}>Loose (2.0)</option>
+                                </select>
+                            </div>
+                        </div>
+                    )}
+
                     <div className={styles.buttonGroup}>
                         <button
                             onClick={() => setShowHighlights(!showHighlights)}
