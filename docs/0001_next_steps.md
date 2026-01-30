@@ -189,14 +189,18 @@ We have two main options for triggering the save:
 - [x] **Frontend Update**: Update `ParallelReader.tsx` to fetch highlights for specific open books only (pass `urls` query param).
 - [x] **Data Migration**: (Optional for MVP) Ensure new system gracefully handles empty states for new collections.
 
-### 9.2 Rich Metadata
+### 9.2 Rich Metadata & Improved Creation Flow
 - [ ] **Data Model**: Update `Highlight` interface to include:
     - `color`: string (hex code)
     - `style`: 'highlight' | 'underline'
     - `note`: string (user commentary)
-- [ ] **UI/UX**:
-    - Add color picker to the highlight popover (if possible) or sidebar.
-    - Add text area for notes in the sidebar card.
+- [ ] **UX Improvements**:
+    - **Stop Auto-Save**: Selecting text should triggers a "draft" state, not an immediate save.
+    - **Creation UI**: Display a floating popover or sidebar form to configure (color, style, note) before saving.
+    - **Consistent UI**: Ensure the creation form and the "edit mode" of existing highlights share the same component/design.
+- [ ] **UI Implementation**:
+    - Add color picker and style selector.
+    - Add text area for notes.
 
 ### 9.3 Organization & Display
 - [ ] **Sorting**: Ensure highlights are displayed in reading order (compare CFIs).
@@ -215,7 +219,18 @@ We have two main options for triggering the save:
     -   *Solution:* Pre-load surrounding chapters? Use `display().then(() => render)`.
 3.  **Debounce Tuning:** Ensure our `debouncedSave` isn't causing re-renders that reset scroll position.
 
+## Action Item 12: Fix Duplicate Highlights Bug
+**Status:** ✅ Complete
+**Objective:** Prevent highlights from stacking visually, which prevents proper deletion.
+
+**Issue:** Current `useEffect` re-adds existing highlights every time the state changes, causing duplicates in the `epub.js` rendition. Deleting allows one layer to remain.
+**Plan:**
+1. Refactor `ParallelReader.tsx` to track rendered highlight IDs.
+2. Only add highlights that haven't been rendered yet.
+3. Ensure deleted highlights are removed visually.
+
 ## Action Item 11: Consistent Styling Fix & Original Font Option
+
 **Objective:** Fix "left book not updating" bug and add "Original Font" option.
 **Context:** In current testing, the left book retains original font while the right one updates.
 **Plan:**

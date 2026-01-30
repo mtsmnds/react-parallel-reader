@@ -74,3 +74,7 @@ Incoming: %s useEffect [] [/books/amor incomodo/alice.epub,/books/amor incomodo/
 [00:05:41.411] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
 [00:09:01.563] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
 [00:13:52.513] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:20:22.195] Server  LOG     ✓ Compiled in 617ms
+[00:21:46.379] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:23:37.059] Server  LOG     ✓ Compiled in 377ms
+[00:24:31.703] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold

@@ -34,6 +34,9 @@ export default function ParallelReader({ initialUrls, onBack }: ParallelReaderPr
 
 
     const renditionRefs = useRef<(Rendition | null)[]>([]);
+    // Track rendered highlights per panel to prevent duplicates
+    // Key: `${panelIndex}-${highlightId}`
+    const renderedRef = useRef<Set<string>>(new Set());
 
     // Persistence: Hydrate locations from localStorage on mount
     useEffect(() => {
@@ -127,13 +130,22 @@ export default function ParallelReader({ initialUrls, onBack }: ParallelReaderPr
     const getRendition = (index: number, rendition: Rendition) => {
         renditionRefs.current[index] = rendition;
 
-        // Apply initial styles
+        // Initial styles
         applyStyles(rendition);
 
-        // Apply existing highlights for this book
+        // CLEANUP: Since a new rendition is created, our `renderedRef` for this panel is stale.
+        // We must clear it so we can re-add the highlights.
+        const keysToRemove: string[] = [];
+        renderedRef.current.forEach(key => {
+            if (key.startsWith(`${index}-`)) keysToRemove.push(key);
+        });
+        keysToRemove.forEach(k => renderedRef.current.delete(k));
+
+        // INITIAL RENDER: Apply existing highlights for this book
         const bookHighlights = highlights.filter(h => h.bookUrl === urls[index]);
         bookHighlights.forEach(h => {
             rendition.annotations.add('highlight', h.cfiRange, {}, null, 'hl-class');
+            renderedRef.current.add(`${index}-${h.id}`);
         });
 
 
@@ -159,7 +171,13 @@ export default function ParallelReader({ initialUrls, onBack }: ParallelReaderPr
             }).then(res => res.json())
                 .then(() => {
                     setHighlights(prev => [...prev, newHighlight]);
+                    // We rely on the useEffect to render this, OR we render it here and add to ref?
+                    // Ideally, let the effect handle it to keep logic central. 
+                    // But for responsiveness, we often want instant feedback. 
+                    // If we render here, we MUST add to renderedRef.
                     rendition.annotations.add('highlight', cfiRange, {}, null, 'hl-class');
+                    renderedRef.current.add(`${index}-${newHighlight.id}`);
+
                     // Clear selection to avoid visual clutter
                     const selection = contents.window.getSelection();
                     selection?.removeAllRanges();
@@ -167,17 +185,52 @@ export default function ParallelReader({ initialUrls, onBack }: ParallelReaderPr
         });
     };
 
-    // Re-apply highlights if they change (e.g. added from another panel or loaded)
+    // Re-apply highlights if they change (Diffing approach)
     useEffect(() => {
         renditionRefs.current.forEach((rendition, index) => {
-            if (rendition) {
-                const bookHighlights = highlights.filter(h => h.bookUrl === urls[index]);
-                bookHighlights.forEach(h => {
-                    // Adding same annotation twice is usually safe or ignored by epubjs,
-                    // but ideally we check. For MVP, simply adding is okay.
+            if (!rendition) return;
+
+            const url = urls[index];
+            const bookHighlights = highlights.filter(h => h.bookUrl === url);
+            const bookHighlightIds = new Set(bookHighlights.map(h => h.id));
+
+            // 1. Add new highlights
+            bookHighlights.forEach(h => {
+                const key = `${index}-${h.id}`;
+                if (!renderedRef.current.has(key)) {
                     rendition.annotations.add('highlight', h.cfiRange, {}, null, 'hl-class');
-                });
-            }
+                    renderedRef.current.add(key);
+                }
+            });
+
+            // 2. Remove deleted highlights
+            // We iterate effectively over all potentially rendered keys for this panel?
+            // Or simpler: iterate over the renderedRef and if it belongs to this panel AND is not in bookHighlightIds, remove it.
+            // This is slightly inefficient if we have thousands, but fine for now.
+            const keysToRemove: string[] = [];
+            renderedRef.current.forEach(key => {
+                const [pIdx, hId] = key.split('-');
+                if (parseInt(pIdx) === index) {
+                    if (!bookHighlightIds.has(hId)) {
+                        // Find the highlights to get the CFI?
+                        // Wait, we need the CFI to remove it! 
+                        // epubjs rendition.annotations.remove(cfiRange, type)
+                        // If we don't have the feature in 'highlights', we might not know the CFI.
+                        // BUT: We usually deleted it via 'deleteHighlight' function which has access to it.
+
+                        // However, if we simply re-loaded or if updates came from elsewhere, we might have an issue.
+                        // For 'deleteHighlight' specifically, we handle removal there. 
+                        // But to be purely reactive:
+                        // If we don't have the cfi, we can't remove via epubjs easily unless we stored it in the ref map (map<key, cfi>).
+
+                        keysToRemove.push(key);
+                    }
+                }
+            });
+
+            // Clean up the ref set for items we know are gone (e.g. removed via deleteHighlight)
+            keysToRemove.forEach(k => renderedRef.current.delete(k));
+
         });
     }, [highlights, urls]);
 
@@ -208,6 +261,8 @@ export default function ParallelReader({ initialUrls, onBack }: ParallelReaderPr
         const rendition = renditionRefs.current[bookIndex];
         if (rendition) {
             rendition.annotations.remove(cfiRange, 'highlight');
+            // Update ref
+            renderedRef.current.delete(`${bookIndex}-${id}`);
         }
 
         await fetch('/api/highlights', {
