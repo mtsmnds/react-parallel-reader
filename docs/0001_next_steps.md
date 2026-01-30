@@ -99,3 +99,34 @@ const [urls, setUrls] = useState<string[]>([
 ]);
 
 ```
+
+## Action Item 4: Remove Legacy Sync Engine
+**Objective:** Decommission the current percentage-based sync logic ("Scrap it").
+**Reasoning:** The current `percentage` based sync is inaccurate and buggy. It provides a poor user experience.
+**Tasks:**
+1. Remove `isLocked` state and UI toggle from `ParallelReader.tsx`.
+2. Remove `handleLocationChange` sync logic (keep local state updates).
+3. Clean up unused styling related to the sync button.
+4. **Research:** Investigate `epubjs` CFI comparison or Chapter-based index matching for future sync implementation.
+
+## Action Item 5: Unified Styling System
+**Objective:** Enforce consistent visual rhythm (font, size, spacing) across all open books, overriding their internal styles.
+**Implementation Plan:**
+1. **Global Style Config:** Create a state object for reader preferences (e.g., `{ fontSize: '100%', fontFamily: 'Helvetica', lineHeight: '1.6' }`).
+2. **Injection:** Use the `rendition.themes.default` or `rendition.themes.register` method to inject these styles into the iframe.
+   - *Note:* We may need to use `!important` or specific selectors (`p`, `h1`, `div`) to override book defaults.
+3. **UI Controls:** Add a settings toolbar (separate from the book inputs) to adjust these values globally.
+
+## Action Item 6: Annotations & Highlights
+**Objective:** Allow users to highlight text and persist these highlights locally.
+**Implementation Plan:**
+1. **Interaction:** Enable selection in `react-reader` (ensure `epubjs` default selection behavior is active).
+2. **Event Handling:** Listen for the `selected` event on the rendition object.
+   - Extract the `CFI Range` and the selected text.
+3. **Persistence (MVP - Local File):**
+   - Create a Next.js API Route (`app/api/highlights/route.ts`) to read/write to `public/highlights.json`.
+   - *Warning:* Writing to `public` in production is ephemeral/read-only in Vercel. This is strictly for local dev/MVP.
+4. **UI:**
+   - Display a list of highlights in a sidebar or drawer.
+   - Clicking a highlight uses `rendition.display(cfiRange)` to jump to location.
+   - Add delete functionality.
