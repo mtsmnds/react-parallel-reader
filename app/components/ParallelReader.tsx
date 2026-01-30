@@ -2,13 +2,19 @@
 
 import React, { useState, useRef } from 'react';
 import { ReactReader } from 'react-reader';
-import styles from './ParallelReader.module.scss'; // Import the SASS module
+import styles from './ParallelReader.module.scss';
+
+// Define a type for the location (can be a string CFI or integer 0)
+type LocationType = string | number;
 
 export default function ParallelReader() {
     // --- State ---
-    const [urls, setUrls] = useState<string[]>(['/alice.epub', '/moby-dick.epub']);
+    const [urls, setUrls] = useState<string[]>(['/books/alice.epub', '/books/moby-dick.epub']);
     const [count, setCount] = useState(2);
     const [isLocked, setIsLocked] = useState(false);
+
+    // NEW: We must track the location of each book individually
+    const [locations, setLocations] = useState<LocationType[]>([0, 0, 0]);
 
     const renditionRefs = useRef<(any | null)[]>([]);
 
@@ -28,17 +34,35 @@ export default function ParallelReader() {
         });
     };
 
-    const handleLocationChange = (index: number, location: any) => {
-        if (!isLocked) return;
+    const handleLocationChange = (index: number, newLocation: LocationType) => {
+        // 1. Update the state for THIS book so it doesn't get "stuck"
+        const newLocations = [...locations];
+        newLocations[index] = newLocation;
+        setLocations(newLocations);
 
-        const currentPercentage = location?.start?.percentage;
+        // 2. The Sync Logic (If locked)
+        if (isLocked) {
+            // We need to access the "internal" epub location object to get percentage
+            // The 'newLocation' argument is just a CFI string, which isn't enough for math.
+            // So we ask the current rendition instance for its current percentage.
+            const currentRendition = renditionRefs.current[index];
+            const currentLocationObj = currentRendition?.location?.start;
 
-        if (currentPercentage >= 0) {
-            renditionRefs.current.forEach((ref, refIndex) => {
-                if (refIndex !== index && ref) {
-                    ref.display(currentPercentage);
-                }
-            });
+            const percentage = currentLocationObj?.percentage;
+
+            if (percentage >= 0) {
+                renditionRefs.current.forEach((ref, refIndex) => {
+                    // Sync everyone ELSE
+                    if (refIndex !== index && ref) {
+                        // We use .display(percentage) to jump them
+                        ref.display(percentage);
+
+                        // Note: We generally do NOT update the 'locations' state for the 
+                        // passive books here to avoid race conditions. 
+                        // We let the engine move them.
+                    }
+                });
+            }
         }
     };
 
@@ -50,12 +74,9 @@ export default function ParallelReader() {
 
     return (
         <div className={styles.container}>
-            {/* Header */}
             <div className={styles.header}>
                 <h1>Parallel Reader</h1>
-
                 <div className={styles.controls}>
-                    {/* Panel Count */}
                     <div className={styles.buttonGroup}>
                         {[1, 2, 3].map(num => (
                             <button
@@ -67,8 +88,6 @@ export default function ParallelReader() {
                             </button>
                         ))}
                     </div>
-
-                    {/* Sync Toggle */}
                     <button
                         onClick={() => setIsLocked(!isLocked)}
                         className={`${styles.syncButton} ${isLocked ? styles.locked : styles.unlocked}`}
@@ -78,7 +97,6 @@ export default function ParallelReader() {
                 </div>
             </div>
 
-            {/* Grid */}
             <div className={styles.grid}>
                 {Array.from({ length: count }).map((_, index) => (
                     <div
@@ -95,11 +113,16 @@ export default function ParallelReader() {
                             />
                         </div>
 
-                        {/* Reader Container */}
                         <div className={styles.readerWrapper}>
                             <ReactReader
                                 url={urls[index]}
+
+                                // REQUIRED PROP: Controls where the book is
+                                location={locations[index]}
+
+                                // REQUIRED PROP: Updates the state when user scrolls
                                 locationChanged={(loc) => handleLocationChange(index, loc)}
+
                                 getRendition={(rendition) => getRendition(index, rendition)}
                                 epubOptions={{
                                     flow: "scrolled",
