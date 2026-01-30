@@ -230,13 +230,22 @@ We have two main options for triggering the save:
 - Update `Highlight` interface to include `color`, `style`, `note`.
 - Migrate/Update API to handle these fields.
 
-### ✅ DONE Action Item 13.1: Fix Popover Inconsistency
+## ✅ DONE Action Item 13.1: Fix Popover Inconsistency
 **Status:** ✅ Complete
 **Objective:** Fix the inconsistent appearance and positioning of the annotation popover button.
 **Solution:**
 - Updated `ParallelReader.tsx` to calculcate popover position using `contents.window.frameElement` instead of a generic `querySelector('iframe')`.
 - This ensures the correct iframe offset is used even when multiple readers (iframes) are present.
 - Cleaned up unused `debouncedSave` code and empty click handlers.
+
+### ✅ DONE Action Item 13.2: Refactor Highlight Menu & Styling
+**Status:** ✅ Complete
+**Objective:** Stylize the selection menu using SCSS modules and rename it to `HighlightMenu` for clarity.
+**Changes:**
+- Renamed `SelectionMenu.tsx` -> `HighlightMenu.tsx`.
+- Created `HighlightMenu.module.scss` matching `ParallelReader` design system.
+- Removed legacy styles from `ParallelReader.module.scss`.
+
 
 
 
@@ -291,17 +300,3 @@ We have two main options for triggering the save:
 
 
 
-failed attempt:
-
-read and comply with  
-
-context:  and  
-
-i want to work on optimizing the code and cleaning up. 
-
-
-when scrolling up sometimes the scrolling snags back and flickers, like forcing to stay bellow and the user has to try and scroll fast to win against this behavior. i believe this could be related to how react reader / epubjs loads only the html/chapter being displayed. 
-
-I want to try to solve this by making sure the previous chapter is loaded along with the current chapter.
-
-write this as action item 15 in  . remember to follow task completion protocol from  

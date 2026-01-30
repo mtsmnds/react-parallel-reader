@@ -3,7 +3,7 @@ import { ReactReader, ReactReaderStyle } from 'react-reader';
 
 import styles from './ParallelReader.module.scss';
 import type { Rendition, Highlight } from '../../types/epub';
-import SelectionMenu from './SelectionMenu';
+import HighlightMenu from './HighlightMenu';
 
 // Define a type for the location (can be a string CFI or integer 0)
 type LocationType = string | number;
@@ -398,7 +398,7 @@ export default function ParallelReader({ initialUrls, onBack }: ParallelReaderPr
                                 +
                             </button>
                         ) : (
-                            <SelectionMenu
+                            <HighlightMenu
                                 isEditing={false} // Creating new
                                 onSave={handleSaveHighlight}
                                 onCancel={handleCancelSelection}
