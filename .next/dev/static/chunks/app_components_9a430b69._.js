@@ -10,11 +10,8 @@ __turbopack_context__.v({
   "header": "ParallelReader-module-scss-module__rbxfja__header",
   "inactive": "ParallelReader-module-scss-module__rbxfja__inactive",
   "inputWrapper": "ParallelReader-module-scss-module__rbxfja__inputWrapper",
-  "locked": "ParallelReader-module-scss-module__rbxfja__locked",
   "panel": "ParallelReader-module-scss-module__rbxfja__panel",
   "readerWrapper": "ParallelReader-module-scss-module__rbxfja__readerWrapper",
-  "syncButton": "ParallelReader-module-scss-module__rbxfja__syncButton",
-  "unlocked": "ParallelReader-module-scss-module__rbxfja__unlocked",
 });
 }),
 "[project]/app/components/ParallelReader.tsx [app-client] (ecmascript)", ((__turbopack_context__) => {
@@ -38,12 +35,12 @@ var _s = __turbopack_context__.k.signature();
 ;
 function ParallelReader() {
     _s();
-    const $ = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$compiler$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["c"])(35);
-    if ($[0] !== "867413517b11631e04f541fbf7b885e38c142db7746610aa4116908046353d53") {
-        for(let $i = 0; $i < 35; $i += 1){
+    const $ = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$compiler$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["c"])(25);
+    if ($[0] !== "780d16cabf44861fb0836101b976855bb74bcd7f37c79665845026983a0620cb") {
+        for(let $i = 0; $i < 25; $i += 1){
             $[$i] = Symbol.for("react.memo_cache_sentinel");
         }
-        $[0] = "867413517b11631e04f541fbf7b885e38c142db7746610aa4116908046353d53";
+        $[0] = "780d16cabf44861fb0836101b976855bb74bcd7f37c79665845026983a0620cb";
     }
     let t0;
     if ($[1] === Symbol.for("react.memo_cache_sentinel")) {
@@ -57,7 +54,6 @@ function ParallelReader() {
     }
     const [urls, setUrls] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(t0);
     const [count, setCount] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(2);
-    const [isLocked, setIsLocked] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     let t1;
     if ($[2] === Symbol.for("react.memo_cache_sentinel")) {
         t1 = [
@@ -101,7 +97,7 @@ function ParallelReader() {
     }
     const getRendition = t3;
     let t4;
-    if ($[5] !== isLocked || $[6] !== locations) {
+    if ($[5] !== locations) {
         t4 = ({
             "ParallelReader[handleLocationChange]": (index_0, newLocation)=>{
                 const newLocations = [
@@ -109,31 +105,16 @@ function ParallelReader() {
                 ];
                 newLocations[index_0] = newLocation;
                 setLocations(newLocations);
-                if (isLocked) {
-                    const currentRendition = renditionRefs.current[index_0];
-                    const currentLocationObj = currentRendition?.location?.start;
-                    const percentage = currentLocationObj?.percentage;
-                    if (percentage >= 0) {
-                        renditionRefs.current.forEach({
-                            "ParallelReader[handleLocationChange > renditionRefs.current.forEach()]": (ref, refIndex)=>{
-                                if (refIndex !== index_0 && ref) {
-                                    ref.display(percentage);
-                                }
-                            }
-                        }["ParallelReader[handleLocationChange > renditionRefs.current.forEach()]"]);
-                    }
-                }
             }
         })["ParallelReader[handleLocationChange]"];
-        $[5] = isLocked;
-        $[6] = locations;
-        $[7] = t4;
+        $[5] = locations;
+        $[6] = t4;
     } else {
-        t4 = $[7];
+        t4 = $[6];
     }
     const handleLocationChange = t4;
     let t5;
-    if ($[8] !== urls) {
+    if ($[7] !== urls) {
         t5 = ({
             "ParallelReader[updateUrl]": (index_1, newUrl)=>{
                 const newUrls = [
@@ -143,141 +124,99 @@ function ParallelReader() {
                 setUrls(newUrls);
             }
         })["ParallelReader[updateUrl]"];
-        $[8] = urls;
-        $[9] = t5;
+        $[7] = urls;
+        $[8] = t5;
     } else {
-        t5 = $[9];
+        t5 = $[8];
     }
     const updateUrl = t5;
     let t6;
-    if ($[10] === Symbol.for("react.memo_cache_sentinel")) {
+    if ($[9] === Symbol.for("react.memo_cache_sentinel")) {
         t6 = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
             children: "Parallel Reader"
         }, void 0, false, {
             fileName: "[project]/app/components/ParallelReader.tsx",
-            lineNumber: 113,
+            lineNumber: 98,
             columnNumber: 10
         }, this);
-        $[10] = t6;
+        $[9] = t6;
     } else {
-        t6 = $[10];
+        t6 = $[9];
     }
     let t7;
-    if ($[11] === Symbol.for("react.memo_cache_sentinel")) {
+    if ($[10] === Symbol.for("react.memo_cache_sentinel")) {
         t7 = [
             1,
             2,
             3
         ];
-        $[11] = t7;
+        $[10] = t7;
     } else {
-        t7 = $[11];
+        t7 = $[10];
     }
     let t8;
-    if ($[12] !== count) {
+    if ($[11] !== count) {
         t8 = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-            className: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$ParallelReader$2e$module$2e$scss__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].buttonGroup,
-            children: t7.map({
-                "ParallelReader[(anonymous)()]": (num)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                        onClick: {
-                            "ParallelReader[(anonymous)() > <button>.onClick]": ()=>setCount(num)
-                        }["ParallelReader[(anonymous)() > <button>.onClick]"],
-                        className: count === num ? __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$ParallelReader$2e$module$2e$scss__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].active : __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$ParallelReader$2e$module$2e$scss__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].inactive,
-                        children: [
-                            num,
-                            " Panel",
-                            num > 1 && "s"
-                        ]
-                    }, num, true, {
-                        fileName: "[project]/app/components/ParallelReader.tsx",
-                        lineNumber: 128,
-                        columnNumber: 49
-                    }, this)
-            }["ParallelReader[(anonymous)()]"])
-        }, void 0, false, {
-            fileName: "[project]/app/components/ParallelReader.tsx",
-            lineNumber: 127,
-            columnNumber: 10
-        }, this);
-        $[12] = count;
-        $[13] = t8;
-    } else {
-        t8 = $[13];
-    }
-    let t9;
-    if ($[14] !== isLocked) {
-        t9 = ({
-            "ParallelReader[<button>.onClick]": ()=>setIsLocked(!isLocked)
-        })["ParallelReader[<button>.onClick]"];
-        $[14] = isLocked;
-        $[15] = t9;
-    } else {
-        t9 = $[15];
-    }
-    const t10 = `${__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$ParallelReader$2e$module$2e$scss__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].syncButton} ${isLocked ? __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$ParallelReader$2e$module$2e$scss__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].locked : __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$ParallelReader$2e$module$2e$scss__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].unlocked}`;
-    const t11 = isLocked ? "\uD83D\uDD13 Sync Locked" : "\uD83D\uDD12 Sync Unlocked";
-    let t12;
-    if ($[16] !== t10 || $[17] !== t11 || $[18] !== t9) {
-        t12 = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-            onClick: t9,
-            className: t10,
-            children: t11
-        }, void 0, false, {
-            fileName: "[project]/app/components/ParallelReader.tsx",
-            lineNumber: 151,
-            columnNumber: 11
-        }, this);
-        $[16] = t10;
-        $[17] = t11;
-        $[18] = t9;
-        $[19] = t12;
-    } else {
-        t12 = $[19];
-    }
-    let t13;
-    if ($[20] !== t12 || $[21] !== t8) {
-        t13 = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
             className: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$ParallelReader$2e$module$2e$scss__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].header,
             children: [
                 t6,
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$ParallelReader$2e$module$2e$scss__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].controls,
-                    children: [
-                        t8,
-                        t12
-                    ]
-                }, void 0, true, {
+                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$ParallelReader$2e$module$2e$scss__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].buttonGroup,
+                        children: t7.map({
+                            "ParallelReader[(anonymous)()]": (num)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                    onClick: {
+                                        "ParallelReader[(anonymous)() > <button>.onClick]": ()=>setCount(num)
+                                    }["ParallelReader[(anonymous)() > <button>.onClick]"],
+                                    className: count === num ? __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$ParallelReader$2e$module$2e$scss__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].active : __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$ParallelReader$2e$module$2e$scss__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].inactive,
+                                    children: [
+                                        num,
+                                        " Panel",
+                                        num > 1 && "s"
+                                    ]
+                                }, num, true, {
+                                    fileName: "[project]/app/components/ParallelReader.tsx",
+                                    lineNumber: 113,
+                                    columnNumber: 53
+                                }, this)
+                        }["ParallelReader[(anonymous)()]"])
+                    }, void 0, false, {
+                        fileName: "[project]/app/components/ParallelReader.tsx",
+                        lineNumber: 112,
+                        columnNumber: 78
+                    }, this)
+                }, void 0, false, {
                     fileName: "[project]/app/components/ParallelReader.tsx",
-                    lineNumber: 161,
-                    columnNumber: 46
+                    lineNumber: 112,
+                    columnNumber: 45
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/app/components/ParallelReader.tsx",
-            lineNumber: 161,
-            columnNumber: 11
+            lineNumber: 112,
+            columnNumber: 10
         }, this);
-        $[20] = t12;
-        $[21] = t8;
-        $[22] = t13;
+        $[11] = count;
+        $[12] = t8;
     } else {
-        t13 = $[22];
+        t8 = $[12];
     }
-    let t14;
-    if ($[23] !== count) {
-        t14 = Array.from({
+    let t9;
+    if ($[13] !== count) {
+        t9 = Array.from({
             length: count
         });
-        $[23] = count;
-        $[24] = t14;
+        $[13] = count;
+        $[14] = t9;
     } else {
-        t14 = $[24];
+        t9 = $[14];
     }
-    let t15;
-    if ($[25] !== count || $[26] !== handleLocationChange || $[27] !== locations || $[28] !== t14 || $[29] !== updateUrl || $[30] !== urls) {
-        t15 = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+    let t10;
+    if ($[15] !== count || $[16] !== handleLocationChange || $[17] !== locations || $[18] !== t9 || $[19] !== updateUrl || $[20] !== urls) {
+        t10 = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
             className: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$ParallelReader$2e$module$2e$scss__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].grid,
-            children: t14.map({
+            children: t9.map({
                 "ParallelReader[(anonymous)()]": (_, index_2)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$ParallelReader$2e$module$2e$scss__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].panel,
                         style: {
@@ -295,12 +234,12 @@ function ParallelReader() {
                                     }["ParallelReader[(anonymous)() > <input>.onChange]"]
                                 }, void 0, false, {
                                     fileName: "[project]/app/components/ParallelReader.tsx",
-                                    lineNumber: 183,
+                                    lineNumber: 137,
                                     columnNumber: 49
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/app/components/ParallelReader.tsx",
-                                lineNumber: 183,
+                                lineNumber: 137,
                                 columnNumber: 12
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -320,58 +259,58 @@ function ParallelReader() {
                                     }
                                 }, void 0, false, {
                                     fileName: "[project]/app/components/ParallelReader.tsx",
-                                    lineNumber: 185,
+                                    lineNumber: 139,
                                     columnNumber: 114
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/app/components/ParallelReader.tsx",
-                                lineNumber: 185,
+                                lineNumber: 139,
                                 columnNumber: 76
                             }, this)
                         ]
                     }, index_2, true, {
                         fileName: "[project]/app/components/ParallelReader.tsx",
-                        lineNumber: 181,
+                        lineNumber: 135,
                         columnNumber: 58
                     }, this)
             }["ParallelReader[(anonymous)()]"])
         }, void 0, false, {
             fileName: "[project]/app/components/ParallelReader.tsx",
-            lineNumber: 180,
+            lineNumber: 134,
             columnNumber: 11
         }, this);
-        $[25] = count;
-        $[26] = handleLocationChange;
-        $[27] = locations;
-        $[28] = t14;
-        $[29] = updateUrl;
-        $[30] = urls;
-        $[31] = t15;
+        $[15] = count;
+        $[16] = handleLocationChange;
+        $[17] = locations;
+        $[18] = t9;
+        $[19] = updateUrl;
+        $[20] = urls;
+        $[21] = t10;
     } else {
-        t15 = $[31];
+        t10 = $[21];
     }
-    let t16;
-    if ($[32] !== t13 || $[33] !== t15) {
-        t16 = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+    let t11;
+    if ($[22] !== t10 || $[23] !== t8) {
+        t11 = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
             className: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$ParallelReader$2e$module$2e$scss__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].container,
             children: [
-                t13,
-                t15
+                t8,
+                t10
             ]
         }, void 0, true, {
             fileName: "[project]/app/components/ParallelReader.tsx",
-            lineNumber: 206,
+            lineNumber: 160,
             columnNumber: 11
         }, this);
-        $[32] = t13;
-        $[33] = t15;
-        $[34] = t16;
+        $[22] = t10;
+        $[23] = t8;
+        $[24] = t11;
     } else {
-        t16 = $[34];
+        t11 = $[24];
     }
-    return t16;
+    return t11;
 }
-_s(ParallelReader, "C4YS8WV7CX2XK4PTzbKge7dnkCM=");
+_s(ParallelReader, "QcsyH4YMNvJTOijrq4bggnXjy+8=");
 _c = ParallelReader;
 var _c;
 __turbopack_context__.k.register(_c, "ParallelReader");

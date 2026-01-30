@@ -3,6 +3,7 @@
 import React, { useState, useRef } from 'react';
 import { ReactReader } from 'react-reader';
 import styles from './ParallelReader.module.scss';
+import type { Rendition } from '../../types/epub';
 
 // Define a type for the location (can be a string CFI or integer 0)
 type LocationType = string | number;
@@ -11,16 +12,14 @@ export default function ParallelReader() {
     // --- State ---
     const [urls, setUrls] = useState<string[]>(['/books/alice.epub', '/books/moby-dick.epub']);
     const [count, setCount] = useState(2);
-    const [isLocked, setIsLocked] = useState(false);
-
     // NEW: We must track the location of each book individually
     const [locations, setLocations] = useState<LocationType[]>([0, 0, 0]);
 
-    const renditionRefs = useRef<(any | null)[]>([]);
+    const renditionRefs = useRef<(Rendition | null)[]>([]);
 
     // --- Handlers ---
 
-    const getRendition = (index: number, rendition: any) => {
+    const getRendition = (index: number, rendition: Rendition) => {
         renditionRefs.current[index] = rendition;
 
         // Inject styles INSIDE the iframe (SASS cannot reach here)
@@ -39,31 +38,6 @@ export default function ParallelReader() {
         const newLocations = [...locations];
         newLocations[index] = newLocation;
         setLocations(newLocations);
-
-        // 2. The Sync Logic (If locked)
-        if (isLocked) {
-            // We need to access the "internal" epub location object to get percentage
-            // The 'newLocation' argument is just a CFI string, which isn't enough for math.
-            // So we ask the current rendition instance for its current percentage.
-            const currentRendition = renditionRefs.current[index];
-            const currentLocationObj = currentRendition?.location?.start;
-
-            const percentage = currentLocationObj?.percentage;
-
-            if (percentage >= 0) {
-                renditionRefs.current.forEach((ref, refIndex) => {
-                    // Sync everyone ELSE
-                    if (refIndex !== index && ref) {
-                        // We use .display(percentage) to jump them
-                        ref.display(percentage);
-
-                        // Note: We generally do NOT update the 'locations' state for the 
-                        // passive books here to avoid race conditions. 
-                        // We let the engine move them.
-                    }
-                });
-            }
-        }
     };
 
     const updateUrl = (index: number, newUrl: string) => {
@@ -88,12 +62,6 @@ export default function ParallelReader() {
                             </button>
                         ))}
                     </div>
-                    <button
-                        onClick={() => setIsLocked(!isLocked)}
-                        className={`${styles.syncButton} ${isLocked ? styles.locked : styles.unlocked}`}
-                    >
-                        {isLocked ? '🔓 Sync Locked' : '🔒 Sync Unlocked'}
-                    </button>
                 </div>
             </div>
 

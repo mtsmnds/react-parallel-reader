@@ -1,4 +1,3 @@
-
 # Project Status: React Parallel Reader
 
 **Date:** 2026-01-30
@@ -18,19 +17,18 @@
 * **Rendering Engine:** `react-reader` (wrapper for `epub.js` v0.3).
 
 ### Key Components
-* **`ParallelReader.tsx`**: The orchestrator. It manages the state for $N$ reader instances, handles the synchronization logic, and controls the DOM layout.
-* **Sync Engine**: A custom logic layer that intercepts `locationChanged` events from the active "driver" panel and programmatically forces "passenger" panels to a matching percentage (`rendition.display(percentage)`). (will be scraped/changed)
+* **`ParallelReader.tsx`**: The orchestrator. It manages the state for $N$ reader instances and controls the DOM layout.
 
 ## 3. Current Feature Set
 | Feature | Status | Notes |
 | :--- | :--- | :--- |
 | **Multi-Panel Layout** | ✅ Production | Supports 1, 2, or 3 dynamic panels. |
 | **Continuous Scroll** | ✅ Production | Overrides default pagination for "web-like" scrolling. |
-| **Sync Locking** | ⚠️ Beta | Percentage-based sync. Functional but approximate (drift occurs in chapters with high variance in length). |
+| **Sync Locking** | ❌ Removed | Removed in v0.1.0 due to inaccuracy. Pending research for new engine. |
 | **Styling** | ✅ Production | Custom SASS injection into shadow DOM/Iframes. |
-| **Local Loading** | ❌ Pending | Currently relies on `public/` URL paths. Drag-and-drop needed. |
+| **Local Loading** | ⚠️ MVP | Relies on `public/books/` URL paths. |
 
 ## 4. Known Issues / Debt
 1.  **Type Safety**: The `rendition` object is currently typed as `any`.
-2.  **Performance**: Syncing 3 panels simultaneously can cause minor frame drops on lower-end devices due to multiple DOM reflows inside the iframes.
-3.  **Security**: Current implementation requires files to be hosted in `public/`. Local file streaming is the next priority.
+2.  **Performance**: Syncing 3 panels simultaneously can cause minor frame drops.
+3.  **Security**: Current implementation requires files to be hosted in `public/`.

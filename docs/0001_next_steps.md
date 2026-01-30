@@ -4,19 +4,21 @@
 **Context:** Preparing the codebase for Alpha release and strict type compliance.
 
 ## Action Item 1: Strict Typing Implementation
+**Status:** ✅ Complete
 **Objective:** Eliminate `any` usage in `ParallelReader.tsx` to ensure stability during `epub.js` interaction.
 
 Create a definitions file at `types/epub.d.ts` (or within the component folder) to handle the `epub.js` specific structures that `react-reader` exposes.
 
 ```typescript
-// types/index.ts
+// types/epub.d.ts
+
 
 export type LocationChanged = {
   start: {
     index: number;
     href: string;
     cfi: string;
-    percentage: number; // Critical for our Sync Logic
+    percentage: number;
   };
   end: {
     index: number;
@@ -30,7 +32,10 @@ export type Rendition = {
   themes: {
     default: (styles: Record<string, any>) => void;
   };
-  display: (target?: string | number) => Promise<void>;
+  display: {
+    (target?: string): Promise<void>;
+    (target?: number): Promise<void>;
+  };
   location: {
     start: {
       percentage: number;
@@ -38,10 +43,6 @@ export type Rendition = {
     };
   };
 };
-
-// Update ParallelReader.tsx refs with:
-// const renditionRefs = useRef<(Rendition | null)[]>([]);
-
 ```
 
 ## Action Item 2: Route Implementation
@@ -101,6 +102,7 @@ const [urls, setUrls] = useState<string[]>([
 ```
 
 ## Action Item 4: Remove Legacy Sync Engine
+**Status:** ✅ Complete
 **Objective:** Decommission the current percentage-based sync logic ("Scrap it").
 **Reasoning:** The current `percentage` based sync is inaccurate and buggy. It provides a poor user experience.
 **Tasks:**

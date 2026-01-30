@@ -4,3 +4,12 @@
 [00:39:36.766] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
 [00:48:30.871] Server  LOG     ✓ Compiled in 339ms
 [00:58:37.077] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:18:40.915] Server  LOG     ✓ Compiled in 260ms
+[01:18:42.200] Browser ERROR   uncaughtError: ReferenceError: isLocked is not defined
+[01:18:42.942] Server  LOG     ✓ Compiled in 130ms
+[01:18:42.997] Server  WARN    ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[01:18:43.522] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:18:46.206] Server  LOG     ✓ Compiled in 91ms
+[01:19:13.210] Server  LOG     ✓ Compiled in 137ms
+[01:19:26.529] Server  LOG     ✓ Compiled in 122ms
+[01:23:17.990] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
