@@ -33,6 +33,8 @@ export type Rendition = {
         remove: (cfiRange: string, type: string) => void;
     };
     getRange: (cfiRange: string) => Range;
+    manager: any;
+    getContents: () => any[];
 };
 
 export type Highlight = {
@@ -40,8 +42,10 @@ export type Highlight = {
     cfiRange: string;
     text: string;
     bookUrl: string;
-    color?: string;
     created: number;
+    color: string;
+    style: 'highlight' | 'underline';
+    note?: string;
 };
 
 export type BookCollection = {

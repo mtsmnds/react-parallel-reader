@@ -1,39 +1,79 @@
 /* [project]/app/components/ParallelReader.module.scss.module.css [app-client] (css) */
 .ParallelReader-module-scss-module__rbxfja__container {
-  background-color: #f3f4f6;
+  background-color: #f9fafb;
   flex-direction: column;
   height: 100vh;
-  font-family: sans-serif;
   display: flex;
 }
 
 .ParallelReader-module-scss-module__rbxfja__header {
-  z-index: 10;
   background-color: #fff;
   border-bottom: 1px solid #e5e7eb;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
+  padding: .75rem 1.5rem;
   display: flex;
   box-shadow: 0 1px 2px #0000000d;
-}
-
-.ParallelReader-module-scss-module__rbxfja__header h1 {
-  margin: 0;
-  font-size: 1.25rem;
-  font-weight: 700;
 }
 
 .ParallelReader-module-scss-module__rbxfja__controls {
   align-items: center;
   gap: 1rem;
   display: flex;
+  position: relative;
+}
+
+.ParallelReader-module-scss-module__rbxfja__settingsPanel {
+  z-index: 50;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: .5rem;
+  width: 250px;
+  margin-top: .5rem;
+  padding: 1rem;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  box-shadow: 0 4px 6px -1px #0000001a;
+}
+
+.ParallelReader-module-scss-module__rbxfja__settingsPanel h3 {
+  color: #374151;
+  margin: 0 0 1rem;
+  font-size: .875rem;
+  font-weight: 600;
+}
+
+.ParallelReader-module-scss-module__rbxfja__settingsPanel .ParallelReader-module-scss-module__rbxfja__settingGroup {
+  margin-bottom: 1rem;
+}
+
+.ParallelReader-module-scss-module__rbxfja__settingsPanel .ParallelReader-module-scss-module__rbxfja__settingGroup:last-child {
+  margin-bottom: 0;
+}
+
+.ParallelReader-module-scss-module__rbxfja__settingsPanel .ParallelReader-module-scss-module__rbxfja__settingGroup label {
+  color: #6b7280;
+  margin-bottom: .5rem;
+  font-size: .775rem;
+  display: block;
+}
+
+.ParallelReader-module-scss-module__rbxfja__settingsPanel .ParallelReader-module-scss-module__rbxfja__settingGroup input[type="range"] {
+  width: 100%;
+}
+
+.ParallelReader-module-scss-module__rbxfja__settingsPanel .ParallelReader-module-scss-module__rbxfja__settingGroup select {
+  border: 1px solid #d1d5db;
+  border-radius: .25rem;
+  width: 100%;
+  padding: .25rem;
+  font-size: .875rem;
 }
 
 .ParallelReader-module-scss-module__rbxfja__buttonGroup {
-  background-color: #e5e7eb;
-  border-radius: .375rem;
-  gap: .25rem;
+  background-color: #f3f4f6;
+  border-radius: .5rem;
   padding: .25rem;
   display: flex;
 }
@@ -41,16 +81,17 @@
 .ParallelReader-module-scss-module__rbxfja__buttonGroup button {
   cursor: pointer;
   border: none;
-  border-radius: .25rem;
+  border-radius: .375rem;
   padding: .25rem .75rem;
   font-size: .875rem;
-  transition: background-color .2s;
+  font-weight: 500;
+  transition: all .2s;
 }
 
 .ParallelReader-module-scss-module__rbxfja__buttonGroup button.ParallelReader-module-scss-module__rbxfja__active {
-  color: #000;
+  color: #111827;
   background-color: #fff;
-  box-shadow: 0 1px 2px #0000001a;
+  box-shadow: 0 1px 2px #0000000d;
 }
 
 .ParallelReader-module-scss-module__rbxfja__buttonGroup button.ParallelReader-module-scss-module__rbxfja__inactive {
@@ -59,18 +100,16 @@
 }
 
 .ParallelReader-module-scss-module__rbxfja__grid {
-  flex: 1;
+  height: 100%;
   display: flex;
-  overflow: hidden;
 }
 
 .ParallelReader-module-scss-module__rbxfja__panel {
-  border-right: 1px solid #d1d5db;
+  border-right: 1px solid #e5e7eb;
   flex-direction: column;
   flex: 1;
-  height: 100%;
+  min-width: 0;
   display: flex;
-  position: relative;
 }
 
 .ParallelReader-module-scss-module__rbxfja__panel:last-child {
@@ -80,115 +119,259 @@
 .ParallelReader-module-scss-module__rbxfja__inputWrapper {
   background-color: #f9fafb;
   border-bottom: 1px solid #e5e7eb;
-  padding: .5rem;
+  padding: .75rem;
 }
 
 .ParallelReader-module-scss-module__rbxfja__inputWrapper input {
   border: 1px solid #d1d5db;
-  border-radius: .25rem;
+  border-radius: .375rem;
   width: 100%;
-  padding: .25rem .5rem;
+  padding: .5rem .75rem;
   font-size: .875rem;
+  transition: border-color .2s;
+}
+
+.ParallelReader-module-scss-module__rbxfja__inputWrapper input:focus {
+  border-color: #3b82f6;
+  outline: none;
+  box-shadow: 0 0 0 2px #3b82f633;
 }
 
 .ParallelReader-module-scss-module__rbxfja__readerWrapper {
+  background-color: #fff;
   flex: 1;
-  width: 100%;
-  height: 100%;
   position: relative;
 }
 
 .ParallelReader-module-scss-module__rbxfja__sidebar {
-  background-color: #fff;
+  background: #f9fafb;
   border-left: 1px solid #e5e7eb;
-  flex-direction: column;
-  flex: 0 0 25%;
-  gap: 1rem;
-  height: 100%;
+  flex-shrink: 0;
+  width: 300px;
   padding: 1rem;
-  display: flex;
   overflow-y: auto;
 }
 
 .ParallelReader-module-scss-module__rbxfja__sidebar h2 {
-  color: #1f2937;
-  margin-bottom: .5rem;
-  font-size: 1.25rem;
-  font-weight: 700;
+  color: #111827;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
 }
 
 .ParallelReader-module-scss-module__rbxfja__sidebar .ParallelReader-module-scss-module__rbxfja__emptyState {
-  color: #9ca3af;
+  color: #6b7280;
+  text-align: center;
+  margin-top: 2rem;
   font-size: .875rem;
   font-style: italic;
 }
 
 .ParallelReader-module-scss-module__rbxfja__annotationCard {
-  background-color: #fefce8;
-  border: 1px solid #fef08a;
+  background: #fff;
+  border: 1px solid #e5e7eb;
   border-radius: .5rem;
+  margin-bottom: .75rem;
   padding: .75rem;
-  transition: all .2s;
-}
-
-.ParallelReader-module-scss-module__rbxfja__annotationCard:hover {
-  border-color: #fde047;
   box-shadow: 0 1px 2px #0000000d;
 }
 
 .ParallelReader-module-scss-module__rbxfja__annotationCard p {
-  color: #1f2937;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  margin-bottom: .5rem;
-  font-size: .9rem;
+  color: #374151;
+  margin: 0 0 .5rem;
+  font-size: .875rem;
   line-height: 1.4;
-  display: -webkit-box;
-  overflow: hidden;
 }
 
 .ParallelReader-module-scss-module__rbxfja__annotationCard .ParallelReader-module-scss-module__rbxfja__footer {
+  border-top: 1px solid #f3f4f6;
   justify-content: space-between;
   align-items: center;
   margin-top: .5rem;
+  padding-top: .5rem;
   display: flex;
 }
 
 .ParallelReader-module-scss-module__rbxfja__annotationCard .ParallelReader-module-scss-module__rbxfja__footer span {
-  color: #6b7280;
+  color: #9ca3af;
   font-size: .75rem;
-  font-weight: 500;
 }
 
-.ParallelReader-module-scss-module__rbxfja__annotationCard .ParallelReader-module-scss-module__rbxfja__footer .ParallelReader-module-scss-module__rbxfja__actions {
+.ParallelReader-module-scss-module__rbxfja__annotationCard .ParallelReader-module-scss-module__rbxfja__actions {
   gap: .5rem;
   display: flex;
 }
 
-.ParallelReader-module-scss-module__rbxfja__annotationCard .ParallelReader-module-scss-module__rbxfja__footer .ParallelReader-module-scss-module__rbxfja__actions button {
+.ParallelReader-module-scss-module__rbxfja__annotationCard .ParallelReader-module-scss-module__rbxfja__actions button {
   cursor: pointer;
   background: none;
   border: none;
-  border-radius: .25rem;
-  padding: .2rem .4rem;
+  padding: 0;
   font-size: .75rem;
-  transition: background-color .2s;
 }
 
-.ParallelReader-module-scss-module__rbxfja__annotationCard .ParallelReader-module-scss-module__rbxfja__footer .ParallelReader-module-scss-module__rbxfja__actions button.ParallelReader-module-scss-module__rbxfja__jump {
-  color: #2563eb;
+.ParallelReader-module-scss-module__rbxfja__annotationCard .ParallelReader-module-scss-module__rbxfja__actions button.ParallelReader-module-scss-module__rbxfja__jump {
+  color: #3b82f6;
 }
 
-.ParallelReader-module-scss-module__rbxfja__annotationCard .ParallelReader-module-scss-module__rbxfja__footer .ParallelReader-module-scss-module__rbxfja__actions button.ParallelReader-module-scss-module__rbxfja__jump:hover {
-  background-color: #eff6ff;
+.ParallelReader-module-scss-module__rbxfja__annotationCard .ParallelReader-module-scss-module__rbxfja__actions button.ParallelReader-module-scss-module__rbxfja__jump:hover {
+  text-decoration: underline;
 }
 
-.ParallelReader-module-scss-module__rbxfja__annotationCard .ParallelReader-module-scss-module__rbxfja__footer .ParallelReader-module-scss-module__rbxfja__actions button.ParallelReader-module-scss-module__rbxfja__delete {
+.ParallelReader-module-scss-module__rbxfja__annotationCard .ParallelReader-module-scss-module__rbxfja__actions button.ParallelReader-module-scss-module__rbxfja__delete {
   color: #ef4444;
 }
 
-.ParallelReader-module-scss-module__rbxfja__annotationCard .ParallelReader-module-scss-module__rbxfja__footer .ParallelReader-module-scss-module__rbxfja__actions button.ParallelReader-module-scss-module__rbxfja__delete:hover {
-  background-color: #fef2f2;
+.ParallelReader-module-scss-module__rbxfja__annotationCard .ParallelReader-module-scss-module__rbxfja__actions button.ParallelReader-module-scss-module__rbxfja__delete:hover {
+  text-decoration: underline;
+}
+
+.ParallelReader-module-scss-module__rbxfja__popoverContainer {
+  z-index: 1000;
+  position: fixed;
+}
+
+.ParallelReader-module-scss-module__rbxfja__popoverButton {
+  color: #fff;
+  cursor: pointer;
+  background-color: #111827;
+  border: none;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  font-size: 1.25rem;
+  transition: transform .1s;
+  display: flex;
+  box-shadow: 0 2px 5px #0003;
+}
+
+.ParallelReader-module-scss-module__rbxfja__popoverButton:hover {
+  background-color: #000;
+  transform: scale(1.1);
+}
+
+.ParallelReader-module-scss-module__rbxfja__selectionMenu {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: .5rem;
+  width: 280px;
+  padding: 1rem;
+  box-shadow: 0 10px 15px -3px #0000001a;
+}
+
+.ParallelReader-module-scss-module__rbxfja__selectionMenu h3 {
+  color: #111827;
+  margin: 0 0 1rem;
+  font-size: 1rem;
+}
+
+.ParallelReader-module-scss-module__rbxfja__selectionMenu .ParallelReader-module-scss-module__rbxfja__formGroup {
+  margin-bottom: 1rem;
+}
+
+.ParallelReader-module-scss-module__rbxfja__selectionMenu .ParallelReader-module-scss-module__rbxfja__formGroup label {
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  margin-bottom: .25rem;
+  font-size: .75rem;
+  display: block;
+}
+
+.ParallelReader-module-scss-module__rbxfja__selectionMenu .ParallelReader-module-scss-module__rbxfja__styleOptions {
+  gap: .5rem;
+  display: flex;
+}
+
+.ParallelReader-module-scss-module__rbxfja__selectionMenu .ParallelReader-module-scss-module__rbxfja__styleOptions button {
+  cursor: pointer;
+  background: #fff;
+  border: 1px solid #d1d5db;
+  border-radius: .375rem;
+  flex: 1;
+  padding: .5rem;
+  font-size: .875rem;
+}
+
+.ParallelReader-module-scss-module__rbxfja__selectionMenu .ParallelReader-module-scss-module__rbxfja__styleOptions button.ParallelReader-module-scss-module__rbxfja__active {
+  color: #2563eb;
+  background-color: #eff6ff;
+  border-color: #3b82f6;
+}
+
+.ParallelReader-module-scss-module__rbxfja__selectionMenu .ParallelReader-module-scss-module__rbxfja__colorOptions {
+  gap: .75rem;
+  display: flex;
+}
+
+.ParallelReader-module-scss-module__rbxfja__selectionMenu .ParallelReader-module-scss-module__rbxfja__colorOptions button {
+  cursor: pointer;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  position: relative;
+}
+
+.ParallelReader-module-scss-module__rbxfja__selectionMenu .ParallelReader-module-scss-module__rbxfja__colorOptions button.ParallelReader-module-scss-module__rbxfja__selected:after {
+  content: "";
+  border: 2px solid #3b82f6;
+  border-radius: 50%;
+  position: absolute;
+  inset: -3px;
+}
+
+.ParallelReader-module-scss-module__rbxfja__selectionMenu textarea {
+  resize: vertical;
+  border: 1px solid #d1d5db;
+  border-radius: .375rem;
+  width: 100%;
+  min-height: 60px;
+  padding: .5rem;
+  font-family: inherit;
+  font-size: .875rem;
+}
+
+.ParallelReader-module-scss-module__rbxfja__selectionMenu textarea:focus {
+  border-color: #3b82f6;
+  outline: none;
+  box-shadow: 0 0 0 2px #3b82f633;
+}
+
+.ParallelReader-module-scss-module__rbxfja__selectionMenu .ParallelReader-module-scss-module__rbxfja__actions {
+  gap: .5rem;
+  margin-top: 1rem;
+  display: flex;
+}
+
+.ParallelReader-module-scss-module__rbxfja__selectionMenu .ParallelReader-module-scss-module__rbxfja__saveBtn, .ParallelReader-module-scss-module__rbxfja__selectionMenu .ParallelReader-module-scss-module__rbxfja__cancelBtn {
+  cursor: pointer;
+  border: none;
+  border-radius: .375rem;
+  flex: 1;
+  padding: .5rem;
+  font-size: .875rem;
+  font-weight: 500;
+}
+
+.ParallelReader-module-scss-module__rbxfja__selectionMenu .ParallelReader-module-scss-module__rbxfja__saveBtn {
+  color: #fff;
+  background-color: #2563eb;
+}
+
+.ParallelReader-module-scss-module__rbxfja__selectionMenu .ParallelReader-module-scss-module__rbxfja__saveBtn:hover {
+  background-color: #1d4ed8;
+}
+
+.ParallelReader-module-scss-module__rbxfja__selectionMenu .ParallelReader-module-scss-module__rbxfja__cancelBtn {
+  color: #374151;
+  background-color: #f3f4f6;
+}
+
+.ParallelReader-module-scss-module__rbxfja__selectionMenu .ParallelReader-module-scss-module__rbxfja__cancelBtn:hover {
+  background-color: #e5e7eb;
 }
 
 /* [project]/app/components/Bookshelf.module.scss.module.css [app-client] (css) */

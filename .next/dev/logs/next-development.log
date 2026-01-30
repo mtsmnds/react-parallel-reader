@@ -1,80 +1,537 @@
-[00:00:00.950] Server  LOG     ✓ Ready in 730ms
-[00:00:46.556] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:02:50.734] Server  LOG     ✓ Compiled in 518ms
-[00:02:51.430] Browser ERROR   The final argument passed to %s changed size between renders. The order and size of this array must remain constant.
+[00:00:00.851] Server  LOG     ✓ Ready in 651ms
+[00:00:04.152] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:01:42.708] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:01:49.274] Server  LOG     ✓ Compiled in 516ms
+[00:02:09.821] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:05:24.557] Server  LOG     ✓ Compiled in 628ms
+[00:05:43.325] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:06:44.929] Server  LOG     ✓ Compiled in 2.1s
+[00:23:48.328] Server  LOG     ✓ Compiled in 138ms
+[00:23:48.945] Browser ERROR   ./app/components/ParallelReader.module.scss
+Error evaluating Node.js code
+Error: expected "}".
+    ╷
+371 │     }
+    │      ^
+    ╵
+  app/components/ParallelReader.module.scss 371:6  root stylesheet
+Caused by: Error: expected "}".
+    ╷
+371 │     }
+    │      ^
+    ╵
+  app/components/ParallelReader.module.scss 371:6  root stylesheet
+    [at Object.wrapException (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:2337:47)]
+    [at SpanScanner.error$3$length$position (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:87080:15)]
+    [at SpanScanner.error$1 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:87083:19)]
+    [at ScssParser0._stylesheet0$_styleRule$2 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123943:25)]
+    [at ScssParser0._stylesheet0$_declarationOrStyleRule$0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123782:88)]
+    [at ScssParser0._stylesheet0$_statement$1$root (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123697:162)]
+    [at ScssParser0._stylesheet0$_statement$0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123700:19)]
+    [at tear_off.call$0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:2690:45)]
+    [at ScssParser0.children$1 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:119173:33)]
+    [at ScssParser0._stylesheet0$_withChildren$1$3 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:127554:39)]
+    [at ScssParser0._stylesheet0$_withChildren$3 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:127559:19)]
+    [at ScssParser0._stylesheet0$_withStyleRuleChildren$1$3 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123954:20)]
+    [at ScssParser0._stylesheet0$_styleRule$2 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123944:22)]
+    [at ScssParser0._stylesheet0$_styleRule$0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123948:19)]
+    [at ScssParser0._stylesheet0$_variableDeclarationOrStyleRule$0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123761:22)]
+    [at ScssParser0._stylesheet0$_statement$1$root (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123697:211)]
+    [at StylesheetParser_parse__closure0.call$0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:127624:17)]
+    [at ScssParser0.statements$1 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:119206:30)]
+    [at StylesheetParser_parse_closure0.call$0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:127610:23)]
+    [at ScssParser0.wrapSpanFormatException$1$1 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:117781:25)]
+    [at ScssParser0.wrapSpanFormatException$1 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:117838:19)]
+    [at ScssParser0.parse$0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123661:19)]
+    [at Object.Stylesheet_Stylesheet$parse0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:31961:64)]
+    [at /Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:20890:30]
+    [at _wrapJsFunctionForAsync_closure.$protected (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:5005:15)]
+    [at _wrapJsFunctionForAsync_closure.call$2 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:38601:12)]
+    [at Object._asyncStartSync (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:4969:20)]
+    [at Object.compileStringAsync0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:20914:16)]
+    [at /Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:101789:38]
+    [at _wrapJsFunctionForAsync_closure.$protected (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:5005:15)]
+    [at _wrapJsFunctionForAsync_closure.call$2 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:38601:12)]
+    [at Object._asyncStartSync (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:4969:20)]
+    [at compileStringAsync_closure.call$0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:101803:16)]
+    [at StaticClosure.compileStringAsync1 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:25179:176)]
+    [at Object.Primitives_applyFunction (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:2216:30)]
+    [at Object.Function_apply (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:6448:16)]
+    [at _callDartFunctionFast (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:8247:16)]
+    [at sass.compileStringAsync (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:8225:18)]
+    [at n (/Users/mats/Code/react-parallel-reader/node_modules/next/dist/compiled/sass-loader/cjs.js:1:10729)]
+    [at Object.loader (/Users/mats/Code/react-parallel-reader/node_modules/next/dist/compiled/sass-loader/cjs.js:1:1121)]
+    [at process.processTicksAndRejections (node:internal/process/task_queues:103:5)]
 
-Previous: %s
-Incoming: %s useEffect [] [/books/amor incomodo/alice.epub,/books/amor incomodo/moby-dick.epub]
-[00:04:26.818] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:04:28.477] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 1769779667205
-[00:04:28.478] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 1769779667205
-[00:04:28.478] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 1769779677423
-[00:04:28.478] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 1769779667205
-[00:04:28.478] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 1769779667205
-[00:04:28.478] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 1769779677423
-[00:04:28.634] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 1769779667205
-[00:04:28.634] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 1769779667205
-[00:04:28.634] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 1769779677423
-[00:04:28.634] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 1769779667205
-[00:04:28.634] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 1769779667205
-[00:04:28.634] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 1769779677423
-[00:04:30.345] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 1769779667205
-[00:04:30.345] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 1769779667205
-[00:04:30.345] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 1769779677423
-[00:04:31.088] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 1769779667205
-[00:04:31.088] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 1769779667205
-[00:04:31.088] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 1769779677423
-[00:04:31.728] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 1769779667205
-[00:04:31.728] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 1769779667205
-[00:04:31.728] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 1769779677423
-[00:04:32.428] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 1769779667205
-[00:04:32.429] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 1769779667205
-[00:04:32.429] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 1769779677423
-[00:04:32.874] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 1769779667205
-[00:04:32.874] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 1769779667205
-[00:04:32.874] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 1769779677423
-[00:04:33.688] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 1769779667205
-[00:04:33.688] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 1769779667205
-[00:04:33.688] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 1769779677423
-[00:04:34.022] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 1769779667205
-[00:04:34.022] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 1769779667205
-[00:04:34.022] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 1769779677423
-[00:04:34.705] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 1769779667205
-[00:04:34.705] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 1769779667205
-[00:04:34.705] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 1769779677423
-[00:04:35.053] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 1769779667205
-[00:04:35.054] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 1769779667205
-[00:04:35.054] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 1769779677423
-[00:04:35.757] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 1769779667205
-[00:04:35.757] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 1769779667205
-[00:04:35.757] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 1769779677423
-[00:04:36.070] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 1769779667205
-[00:04:36.070] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 1769779667205
-[00:04:36.070] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 1769779677423
-[00:04:36.391] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 1769779667205
-[00:04:36.391] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 1769779667205
-[00:04:36.391] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 1769779677423
-[00:04:36.822] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 1769779667205
-[00:04:36.822] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 1769779667205
-[00:04:36.822] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 1769779677423
-[00:04:37.144] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 1769779667205
-[00:04:37.144] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 1769779667205
-[00:04:37.144] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 1769779677423
-[00:04:37.808] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 1769779667205
-[00:04:37.808] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 1769779667205
-[00:04:37.808] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 1769779677423
-[00:05:31.577] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 1769779677423
-[00:05:32.142] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 1769779677423
-[00:05:32.658] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 1769779677423
-[00:05:33.156] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 1769779677423
-[00:05:33.567] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 1769779677423
-[00:05:33.939] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 1769779677423
-[00:05:34.157] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 1769779677423
-[00:05:34.330] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 1769779677423
-[00:05:41.411] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:09:01.563] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:13:52.513] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:20:22.195] Server  LOG     ✓ Compiled in 617ms
-[00:21:46.379] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:23:37.059] Server  LOG     ✓ Compiled in 377ms
-[00:24:31.703] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+Import traces:
+  Client Component Browser:
+    ./app/components/ParallelReader.module.scss [Client Component Browser]
+    ./app/components/ParallelReader.tsx [Client Component Browser]
+    ./app/page.tsx [Client Component Browser]
+    ./app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/ParallelReader.module.scss [Client Component SSR]
+    ./app/components/ParallelReader.tsx [Client Component SSR]
+    ./app/page.tsx [Client Component SSR]
+    ./app/page.tsx [Server Component]
+[00:23:58.944] Browser ERROR   ./app/components/ParallelReader.module.scss
+Error evaluating Node.js code
+Error: expected "}".
+    ╷
+370 │         }
+    │          ^
+    ╵
+  app/components/ParallelReader.module.scss 370:10  root stylesheet
+Caused by: Error: expected "}".
+    ╷
+370 │         }
+    │          ^
+    ╵
+  app/components/ParallelReader.module.scss 370:10  root stylesheet
+    [at Object.wrapException (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:2337:47)]
+    [at SpanScanner.error$3$length$position (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:87080:15)]
+    [at SpanScanner.error$1 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:87083:19)]
+    [at ScssParser0._stylesheet0$_styleRule$2 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123943:25)]
+    [at ScssParser0._stylesheet0$_declarationOrStyleRule$0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123782:88)]
+    [at ScssParser0._stylesheet0$_statement$1$root (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123697:162)]
+    [at ScssParser0._stylesheet0$_statement$0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123700:19)]
+    [at tear_off.call$0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:2690:45)]
+    [at ScssParser0.children$1 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:119173:33)]
+    [at ScssParser0._stylesheet0$_withChildren$1$3 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:127554:39)]
+    [at ScssParser0._stylesheet0$_withChildren$3 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:127559:19)]
+    [at ScssParser0._stylesheet0$_withStyleRuleChildren$1$3 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123954:20)]
+    [at ScssParser0._stylesheet0$_styleRule$2 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123944:22)]
+    [at ScssParser0._stylesheet0$_declarationOrStyleRule$0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123782:88)]
+    [at ScssParser0._stylesheet0$_statement$1$root (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123697:162)]
+    [at ScssParser0._stylesheet0$_statement$0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123700:19)]
+    [at tear_off.call$0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:2690:45)]
+    [at ScssParser0.children$1 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:119173:33)]
+    [at ScssParser0._stylesheet0$_withChildren$1$3 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:127554:39)]
+    [at ScssParser0._stylesheet0$_withChildren$3 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:127559:19)]
+    [at ScssParser0._stylesheet0$_withStyleRuleChildren$1$3 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123954:20)]
+    [at ScssParser0._stylesheet0$_styleRule$2 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123944:22)]
+    [at ScssParser0._stylesheet0$_styleRule$0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123948:19)]
+    [at ScssParser0._stylesheet0$_variableDeclarationOrStyleRule$0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123761:22)]
+    [at ScssParser0._stylesheet0$_statement$1$root (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123697:211)]
+    [at StylesheetParser_parse__closure0.call$0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:127624:17)]
+    [at ScssParser0.statements$1 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:119206:30)]
+    [at StylesheetParser_parse_closure0.call$0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:127610:23)]
+    [at ScssParser0.wrapSpanFormatException$1$1 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:117781:25)]
+    [at ScssParser0.wrapSpanFormatException$1 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:117838:19)]
+    [at ScssParser0.parse$0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123661:19)]
+    [at Object.Stylesheet_Stylesheet$parse0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:31961:64)]
+    [at /Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:20890:30]
+    [at _wrapJsFunctionForAsync_closure.$protected (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:5005:15)]
+    [at _wrapJsFunctionForAsync_closure.call$2 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:38601:12)]
+    [at Object._asyncStartSync (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:4969:20)]
+    [at Object.compileStringAsync0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:20914:16)]
+    [at /Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:101789:38]
+    [at _wrapJsFunctionForAsync_closure.$protected (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:5005:15)]
+    [at _wrapJsFunctionForAsync_closure.call$2 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:38601:12)]
+    [at Object._asyncStartSync (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:4969:20)]
+    [at compileStringAsync_closure.call$0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:101803:16)]
+    [at StaticClosure.compileStringAsync1 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:25179:176)]
+    [at Object.Primitives_applyFunction (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:2216:30)]
+    [at Object.Function_apply (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:6448:16)]
+    [at _callDartFunctionFast (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:8247:16)]
+    [at sass.compileStringAsync (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:8225:18)]
+    [at n (/Users/mats/Code/react-parallel-reader/node_modules/next/dist/compiled/sass-loader/cjs.js:1:10729)]
+    [at Object.loader (/Users/mats/Code/react-parallel-reader/node_modules/next/dist/compiled/sass-loader/cjs.js:1:1121)]
+    [at process.processTicksAndRejections (node:internal/process/task_queues:103:5)]
+
+Import traces:
+  Client Component Browser:
+    ./app/components/ParallelReader.module.scss [Client Component Browser]
+    ./app/components/ParallelReader.tsx [Client Component Browser]
+    ./app/page.tsx [Client Component Browser]
+    ./app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/ParallelReader.module.scss [Client Component SSR]
+    ./app/components/ParallelReader.tsx [Client Component SSR]
+    ./app/page.tsx [Client Component SSR]
+    ./app/page.tsx [Server Component]
+[00:25:09.677] Browser ERROR   ./app/components/ParallelReader.module.scss
+Error evaluating Node.js code
+Error: expected "}".
+    ╷
+371 │     }
+    │      ^
+    ╵
+  app/components/ParallelReader.module.scss 371:6  root stylesheet
+Caused by: Error: expected "}".
+    ╷
+371 │     }
+    │      ^
+    ╵
+  app/components/ParallelReader.module.scss 371:6  root stylesheet
+    [at Object.wrapException (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:2337:47)]
+    [at SpanScanner.error$3$length$position (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:87080:15)]
+    [at SpanScanner.error$1 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:87083:19)]
+    [at ScssParser0._stylesheet0$_styleRule$2 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123943:25)]
+    [at ScssParser0._stylesheet0$_declarationOrStyleRule$0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123782:88)]
+    [at ScssParser0._stylesheet0$_statement$1$root (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123697:162)]
+    [at ScssParser0._stylesheet0$_statement$0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123700:19)]
+    [at tear_off.call$0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:2690:45)]
+    [at ScssParser0.children$1 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:119173:33)]
+    [at ScssParser0._stylesheet0$_withChildren$1$3 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:127554:39)]
+    [at ScssParser0._stylesheet0$_withChildren$3 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:127559:19)]
+    [at ScssParser0._stylesheet0$_withStyleRuleChildren$1$3 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123954:20)]
+    [at ScssParser0._stylesheet0$_styleRule$2 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123944:22)]
+    [at ScssParser0._stylesheet0$_styleRule$0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123948:19)]
+    [at ScssParser0._stylesheet0$_variableDeclarationOrStyleRule$0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123761:22)]
+    [at ScssParser0._stylesheet0$_statement$1$root (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123697:211)]
+    [at StylesheetParser_parse__closure0.call$0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:127624:17)]
+    [at ScssParser0.statements$1 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:119206:30)]
+    [at StylesheetParser_parse_closure0.call$0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:127610:23)]
+    [at ScssParser0.wrapSpanFormatException$1$1 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:117781:25)]
+    [at ScssParser0.wrapSpanFormatException$1 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:117838:19)]
+    [at ScssParser0.parse$0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123661:19)]
+    [at Object.Stylesheet_Stylesheet$parse0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:31961:64)]
+    [at /Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:20890:30]
+    [at _wrapJsFunctionForAsync_closure.$protected (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:5005:15)]
+    [at _wrapJsFunctionForAsync_closure.call$2 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:38601:12)]
+    [at Object._asyncStartSync (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:4969:20)]
+    [at Object.compileStringAsync0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:20914:16)]
+    [at /Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:101789:38]
+    [at _wrapJsFunctionForAsync_closure.$protected (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:5005:15)]
+    [at _wrapJsFunctionForAsync_closure.call$2 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:38601:12)]
+    [at Object._asyncStartSync (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:4969:20)]
+    [at compileStringAsync_closure.call$0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:101803:16)]
+    [at StaticClosure.compileStringAsync1 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:25179:176)]
+    [at Object.Primitives_applyFunction (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:2216:30)]
+    [at Object.Function_apply (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:6448:16)]
+    [at _callDartFunctionFast (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:8247:16)]
+    [at sass.compileStringAsync (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:8225:18)]
+    [at n (/Users/mats/Code/react-parallel-reader/node_modules/next/dist/compiled/sass-loader/cjs.js:1:10729)]
+    [at Object.loader (/Users/mats/Code/react-parallel-reader/node_modules/next/dist/compiled/sass-loader/cjs.js:1:1121)]
+    [at process.processTicksAndRejections (node:internal/process/task_queues:103:5)]
+
+Import traces:
+  Client Component Browser:
+    ./app/components/ParallelReader.module.scss [Client Component Browser]
+    ./app/components/ParallelReader.tsx [Client Component Browser]
+    ./app/page.tsx [Client Component Browser]
+    ./app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/ParallelReader.module.scss [Client Component SSR]
+    ./app/components/ParallelReader.tsx [Client Component SSR]
+    ./app/page.tsx [Client Component SSR]
+    ./app/page.tsx [Server Component]
+[00:27:05.334] Server  LOG     ✓ Compiled in 811ms
+[00:27:05.443] Browser ERROR   ./app/components/ParallelReader.module.scss
+Error evaluating Node.js code
+Error: expected "}".
+    ╷
+371 │     }
+    │      ^
+    ╵
+  app/components/ParallelReader.module.scss 371:6  root stylesheet
+Caused by: Error: expected "}".
+    ╷
+371 │     }
+    │      ^
+    ╵
+  app/components/ParallelReader.module.scss 371:6  root stylesheet
+    [at Object.wrapException (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:2337:47)]
+    [at SpanScanner.error$3$length$position (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:87080:15)]
+    [at SpanScanner.error$1 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:87083:19)]
+    [at ScssParser0._stylesheet0$_styleRule$2 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123943:25)]
+    [at ScssParser0._stylesheet0$_declarationOrStyleRule$0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123782:88)]
+    [at ScssParser0._stylesheet0$_statement$1$root (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123697:162)]
+    [at ScssParser0._stylesheet0$_statement$0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123700:19)]
+    [at tear_off.call$0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:2690:45)]
+    [at ScssParser0.children$1 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:119173:33)]
+    [at ScssParser0._stylesheet0$_withChildren$1$3 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:127554:39)]
+    [at ScssParser0._stylesheet0$_withChildren$3 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:127559:19)]
+    [at ScssParser0._stylesheet0$_withStyleRuleChildren$1$3 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123954:20)]
+    [at ScssParser0._stylesheet0$_styleRule$2 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123944:22)]
+    [at ScssParser0._stylesheet0$_styleRule$0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123948:19)]
+    [at ScssParser0._stylesheet0$_variableDeclarationOrStyleRule$0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123761:22)]
+    [at ScssParser0._stylesheet0$_statement$1$root (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123697:211)]
+    [at StylesheetParser_parse__closure0.call$0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:127624:17)]
+    [at ScssParser0.statements$1 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:119206:30)]
+    [at StylesheetParser_parse_closure0.call$0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:127610:23)]
+    [at ScssParser0.wrapSpanFormatException$1$1 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:117781:25)]
+    [at ScssParser0.wrapSpanFormatException$1 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:117838:19)]
+    [at ScssParser0.parse$0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123661:19)]
+    [at Object.Stylesheet_Stylesheet$parse0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:31961:64)]
+    [at /Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:20890:30]
+    [at _wrapJsFunctionForAsync_closure.$protected (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:5005:15)]
+    [at _wrapJsFunctionForAsync_closure.call$2 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:38601:12)]
+    [at Object._asyncStartSync (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:4969:20)]
+    [at Object.compileStringAsync0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:20914:16)]
+    [at /Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:101789:38]
+    [at _wrapJsFunctionForAsync_closure.$protected (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:5005:15)]
+    [at _wrapJsFunctionForAsync_closure.call$2 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:38601:12)]
+    [at Object._asyncStartSync (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:4969:20)]
+    [at compileStringAsync_closure.call$0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:101803:16)]
+    [at StaticClosure.compileStringAsync1 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:25179:176)]
+    [at Object.Primitives_applyFunction (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:2216:30)]
+    [at Object.Function_apply (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:6448:16)]
+    [at _callDartFunctionFast (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:8247:16)]
+    [at sass.compileStringAsync (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:8225:18)]
+    [at n (/Users/mats/Code/react-parallel-reader/node_modules/next/dist/compiled/sass-loader/cjs.js:1:10729)]
+    [at Object.loader (/Users/mats/Code/react-parallel-reader/node_modules/next/dist/compiled/sass-loader/cjs.js:1:1121)]
+    [at process.processTicksAndRejections (node:internal/process/task_queues:103:5)]
+
+Import traces:
+  Client Component Browser:
+    ./app/components/ParallelReader.module.scss [Client Component Browser]
+    ./app/components/ParallelReader.tsx [Client Component Browser]
+    ./app/page.tsx [Client Component Browser]
+    ./app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/ParallelReader.module.scss [Client Component SSR]
+    ./app/components/ParallelReader.tsx [Client Component SSR]
+    ./app/page.tsx [Client Component SSR]
+    ./app/page.tsx [Server Component]
+[00:27:05.443] Browser ERROR   ./app/components/ParallelReader.tsx:92:42
+Parsing ecmascript source code failed
+  90 |             searchParams.set('urls', urls.join(','));
+  91 | 
+> 92 |             fetch(`/ api / highlights ? ${ searchParams.toString() } `)
+     |                                          ^
+  93 |                 .then(res => res.json())
+  94 |                 .then(data => setHighlights(data))
+  95 |                 .catch(err => console.error("Error loading highlights:", err));
+
+Expected ':', got '{'
+
+Import traces:
+  Client Component Browser:
+    ./app/components/ParallelReader.tsx [Client Component Browser]
+    ./app/page.tsx [Client Component Browser]
+    ./app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/ParallelReader.tsx [Client Component SSR]
+    ./app/page.tsx [Client Component SSR]
+    ./app/page.tsx [Server Component]
+[00:28:00.117] Server  LOG     ✓ Compiled in 37ms
+[00:28:00.972] Browser ERROR   ./app/components/ParallelReader.module.scss
+Error evaluating Node.js code
+Error: expected "}".
+    ╷
+371 │     }
+    │      ^
+    ╵
+  app/components/ParallelReader.module.scss 371:6  root stylesheet
+Caused by: Error: expected "}".
+    ╷
+371 │     }
+    │      ^
+    ╵
+  app/components/ParallelReader.module.scss 371:6  root stylesheet
+    [at Object.wrapException (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:2337:47)]
+    [at SpanScanner.error$3$length$position (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:87080:15)]
+    [at SpanScanner.error$1 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:87083:19)]
+    [at ScssParser0._stylesheet0$_styleRule$2 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123943:25)]
+    [at ScssParser0._stylesheet0$_declarationOrStyleRule$0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123782:88)]
+    [at ScssParser0._stylesheet0$_statement$1$root (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123697:162)]
+    [at ScssParser0._stylesheet0$_statement$0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123700:19)]
+    [at tear_off.call$0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:2690:45)]
+    [at ScssParser0.children$1 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:119173:33)]
+    [at ScssParser0._stylesheet0$_withChildren$1$3 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:127554:39)]
+    [at ScssParser0._stylesheet0$_withChildren$3 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:127559:19)]
+    [at ScssParser0._stylesheet0$_withStyleRuleChildren$1$3 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123954:20)]
+    [at ScssParser0._stylesheet0$_styleRule$2 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123944:22)]
+    [at ScssParser0._stylesheet0$_styleRule$0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123948:19)]
+    [at ScssParser0._stylesheet0$_variableDeclarationOrStyleRule$0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123761:22)]
+    [at ScssParser0._stylesheet0$_statement$1$root (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123697:211)]
+    [at StylesheetParser_parse__closure0.call$0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:127624:17)]
+    [at ScssParser0.statements$1 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:119206:30)]
+    [at StylesheetParser_parse_closure0.call$0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:127610:23)]
+    [at ScssParser0.wrapSpanFormatException$1$1 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:117781:25)]
+    [at ScssParser0.wrapSpanFormatException$1 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:117838:19)]
+    [at ScssParser0.parse$0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123661:19)]
+    [at Object.Stylesheet_Stylesheet$parse0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:31961:64)]
+    [at /Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:20890:30]
+    [at _wrapJsFunctionForAsync_closure.$protected (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:5005:15)]
+    [at _wrapJsFunctionForAsync_closure.call$2 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:38601:12)]
+    [at Object._asyncStartSync (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:4969:20)]
+    [at Object.compileStringAsync0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:20914:16)]
+    [at /Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:101789:38]
+    [at _wrapJsFunctionForAsync_closure.$protected (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:5005:15)]
+    [at _wrapJsFunctionForAsync_closure.call$2 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:38601:12)]
+    [at Object._asyncStartSync (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:4969:20)]
+    [at compileStringAsync_closure.call$0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:101803:16)]
+    [at StaticClosure.compileStringAsync1 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:25179:176)]
+    [at Object.Primitives_applyFunction (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:2216:30)]
+    [at Object.Function_apply (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:6448:16)]
+    [at _callDartFunctionFast (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:8247:16)]
+    [at sass.compileStringAsync (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:8225:18)]
+    [at n (/Users/mats/Code/react-parallel-reader/node_modules/next/dist/compiled/sass-loader/cjs.js:1:10729)]
+    [at Object.loader (/Users/mats/Code/react-parallel-reader/node_modules/next/dist/compiled/sass-loader/cjs.js:1:1121)]
+    [at process.processTicksAndRejections (node:internal/process/task_queues:103:5)]
+
+Import traces:
+  Client Component Browser:
+    ./app/components/ParallelReader.module.scss [Client Component Browser]
+    ./app/components/ParallelReader.tsx [Client Component Browser]
+    ./app/page.tsx [Client Component Browser]
+    ./app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/ParallelReader.module.scss [Client Component SSR]
+    ./app/components/ParallelReader.tsx [Client Component SSR]
+    ./app/page.tsx [Client Component SSR]
+    ./app/page.tsx [Server Component]
+[00:28:00.973] Browser ERROR   ./app/components/ParallelReader.tsx:474:3
+Parsing ecmascript source code failed
+  472 |     );
+  473 | }
+> 474 | ```
+      |   ^
+
+Unterminated template
+
+Import traces:
+  Client Component Browser:
+    ./app/components/ParallelReader.tsx [Client Component Browser]
+    ./app/page.tsx [Client Component Browser]
+    ./app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/ParallelReader.tsx [Client Component SSR]
+    ./app/page.tsx [Client Component SSR]
+    ./app/page.tsx [Server Component]
+[00:28:01.741] Server  LOG     ✓ Compiled in 1523ms
+[00:28:01.944] Browser ERROR   ./app/components/ParallelReader.module.scss
+Error evaluating Node.js code
+Error: expected "}".
+    ╷
+371 │     }
+    │      ^
+    ╵
+  app/components/ParallelReader.module.scss 371:6  root stylesheet
+Caused by: Error: expected "}".
+    ╷
+371 │     }
+    │      ^
+    ╵
+  app/components/ParallelReader.module.scss 371:6  root stylesheet
+    [at Object.wrapException (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:2337:47)]
+    [at SpanScanner.error$3$length$position (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:87080:15)]
+    [at SpanScanner.error$1 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:87083:19)]
+    [at ScssParser0._stylesheet0$_styleRule$2 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123943:25)]
+    [at ScssParser0._stylesheet0$_declarationOrStyleRule$0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123782:88)]
+    [at ScssParser0._stylesheet0$_statement$1$root (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123697:162)]
+    [at ScssParser0._stylesheet0$_statement$0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123700:19)]
+    [at tear_off.call$0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:2690:45)]
+    [at ScssParser0.children$1 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:119173:33)]
+    [at ScssParser0._stylesheet0$_withChildren$1$3 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:127554:39)]
+    [at ScssParser0._stylesheet0$_withChildren$3 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:127559:19)]
+    [at ScssParser0._stylesheet0$_withStyleRuleChildren$1$3 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123954:20)]
+    [at ScssParser0._stylesheet0$_styleRule$2 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123944:22)]
+    [at ScssParser0._stylesheet0$_styleRule$0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123948:19)]
+    [at ScssParser0._stylesheet0$_variableDeclarationOrStyleRule$0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123761:22)]
+    [at ScssParser0._stylesheet0$_statement$1$root (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123697:211)]
+    [at StylesheetParser_parse__closure0.call$0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:127624:17)]
+    [at ScssParser0.statements$1 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:119206:30)]
+    [at StylesheetParser_parse_closure0.call$0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:127610:23)]
+    [at ScssParser0.wrapSpanFormatException$1$1 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:117781:25)]
+    [at ScssParser0.wrapSpanFormatException$1 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:117838:19)]
+    [at ScssParser0.parse$0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123661:19)]
+    [at Object.Stylesheet_Stylesheet$parse0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:31961:64)]
+    [at /Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:20890:30]
+    [at _wrapJsFunctionForAsync_closure.$protected (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:5005:15)]
+    [at _wrapJsFunctionForAsync_closure.call$2 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:38601:12)]
+    [at Object._asyncStartSync (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:4969:20)]
+    [at Object.compileStringAsync0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:20914:16)]
+    [at /Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:101789:38]
+    [at _wrapJsFunctionForAsync_closure.$protected (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:5005:15)]
+    [at _wrapJsFunctionForAsync_closure.call$2 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:38601:12)]
+    [at Object._asyncStartSync (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:4969:20)]
+    [at compileStringAsync_closure.call$0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:101803:16)]
+    [at StaticClosure.compileStringAsync1 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:25179:176)]
+    [at Object.Primitives_applyFunction (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:2216:30)]
+    [at Object.Function_apply (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:6448:16)]
+    [at _callDartFunctionFast (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:8247:16)]
+    [at sass.compileStringAsync (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:8225:18)]
+    [at n (/Users/mats/Code/react-parallel-reader/node_modules/next/dist/compiled/sass-loader/cjs.js:1:10729)]
+    [at Object.loader (/Users/mats/Code/react-parallel-reader/node_modules/next/dist/compiled/sass-loader/cjs.js:1:1121)]
+    [at process.processTicksAndRejections (node:internal/process/task_queues:103:5)]
+
+Import traces:
+  Client Component Browser:
+    ./app/components/ParallelReader.module.scss [Client Component Browser]
+    ./app/components/ParallelReader.tsx [Client Component Browser]
+    ./app/page.tsx [Client Component Browser]
+    ./app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/ParallelReader.module.scss [Client Component SSR]
+    ./app/components/ParallelReader.tsx [Client Component SSR]
+    ./app/page.tsx [Client Component SSR]
+    ./app/page.tsx [Server Component]
+[00:29:01.055] Server  LOG     ✓ Compiled in 497ms
+[00:29:01.808] Browser ERROR   uncaughtError: ReferenceError: contents is not defined
+[00:29:01.808] Browser ERROR   {}
+[00:29:01.808] Browser ERROR   {}
+[00:29:13.535] Server  LOG     ✓ Compiled in 176ms
+[00:29:13.946] Browser ERROR   ./app/components/ParallelReader.module.scss
+Error evaluating Node.js code
+Error: unmatched "}".
+    ╷
+368 │ }
+    │ ^
+    ╵
+  app/components/ParallelReader.module.scss 368:1  root stylesheet
+Caused by: Error: unmatched "}".
+    ╷
+368 │ }
+    │ ^
+    ╵
+  app/components/ParallelReader.module.scss 368:1  root stylesheet
+    [at Object.wrapException (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:2337:47)]
+    [at SpanScanner.error$3$length$position (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:87080:15)]
+    [at SpanScanner.error$2$length (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:87089:19)]
+    [at ScssParser0._stylesheet0$_statement$1$root (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123696:12)]
+    [at StylesheetParser_parse__closure0.call$0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:127624:17)]
+    [at ScssParser0.statements$1 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:119206:30)]
+    [at StylesheetParser_parse_closure0.call$0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:127610:23)]
+    [at ScssParser0.wrapSpanFormatException$1$1 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:117781:25)]
+    [at ScssParser0.wrapSpanFormatException$1 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:117838:19)]
+    [at ScssParser0.parse$0 (/Users/mats/Code/react-parallel-reader/node_modules/sass/sass.dart.js:123661:19)]
+
+Import traces:
+  Client Component Browser:
+    ./app/components/ParallelReader.module.scss [Client Component Browser]
+    ./app/components/ParallelReader.tsx [Client Component Browser]
+    ./app/page.tsx [Client Component Browser]
+    ./app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/ParallelReader.module.scss [Client Component SSR]
+    ./app/components/ParallelReader.tsx [Client Component SSR]
+    ./app/page.tsx [Client Component SSR]
+    ./app/page.tsx [Server Component]
+[00:30:01.820] Server  LOG     ✓ Compiled in 604ms
+[00:30:01.975] Server  WARN    ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:30:02.565] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:30:07.586] Browser ERROR   uncaughtError: ReferenceError: contents is not defined
+[00:30:07.586] Browser ERROR   {}
+[00:30:07.586] Browser ERROR   {}
+[00:31:39.884] Server  LOG     ✓ Compiled in 816ms
+[00:31:39.912] Server  WARN    ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:31:40.700] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:32:26.042] Browser LOG     Selection set at -392.2421875 1025.421875
+[00:32:31.321] Browser LOG     Selection set at -366.6484375 1025.421875
+[00:32:42.440] Browser LOG     Selection set at -794.609375 455.015625
+[00:32:45.639] Browser LOG     Selection set at -794.609375 461.6328125
+[00:32:49.288] Browser LOG     Selection set at -187.4921875 1025.421875
+[00:32:50.737] Browser LOG     Selection set at -756.21875 463.015625
+[00:32:54.138] Browser LOG     Selection set at -737.0234375 461.6328125
+[00:32:54.986] Browser LOG     Selection set at -187.4921875 1025.421875
+[00:33:29.544] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:33:32.555] Browser LOG     Selection set at 196.7578125 1025.421875
+[00:33:40.804] Browser LOG     Selection set at 272.25 464.265625
+[00:33:50.908] Browser LOG     Selection set at 324.7265625 1025.421875
+[00:34:24.961] Browser LOG     Selection set at 193.96875 433.171875
+[00:34:27.276] Browser LOG     Selection set at 402.71875 455.40625
+[00:34:28.955] Browser LOG     Selection set at 585.375 452.3515625
+[00:34:36.434] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold

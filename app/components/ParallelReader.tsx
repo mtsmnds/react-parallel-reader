@@ -3,6 +3,7 @@ import { ReactReader, ReactReaderStyle } from 'react-reader';
 import { useDebounce } from '../hooks/useDebounce';
 import styles from './ParallelReader.module.scss';
 import type { Rendition, Highlight } from '../../types/epub';
+import SelectionMenu from './SelectionMenu';
 
 // Define a type for the location (can be a string CFI or integer 0)
 type LocationType = string | number;
@@ -10,6 +11,14 @@ type LocationType = string | number;
 interface ParallelReaderProps {
     initialUrls: string[];
     onBack?: () => void;
+}
+
+interface SelectionState {
+    cfiRange: string;
+    text: string;
+    bookIndex: number;
+    position: { top: number; left: number }; // Absolute position for popover
+    tempHighlightId?: string; // If we pre-highlight visually
 }
 
 export default function ParallelReader({ initialUrls, onBack }: ParallelReaderProps) {
@@ -23,6 +32,11 @@ export default function ParallelReader({ initialUrls, onBack }: ParallelReaderPr
     const [highlights, setHighlights] = useState<Highlight[]>([]);
     const [showHighlights, setShowHighlights] = useState(true);
 
+    // Selection / Popover State
+    const [selection, setSelection] = useState<SelectionState | null>(null);
+    const [menuOpen, setMenuOpen] = useState(false);
+    const [editingHighlight, setEditingHighlight] = useState<Highlight | null>(null);
+
     // Styling State
     const [showSettings, setShowSettings] = useState(false);
     const [settings, setSettings] = useState({
@@ -31,12 +45,12 @@ export default function ParallelReader({ initialUrls, onBack }: ParallelReaderPr
         lineHeight: 1.6
     });
 
-
-
     const renditionRefs = useRef<(Rendition | null)[]>([]);
     // Track rendered highlights per panel to prevent duplicates
-    // Key: `${panelIndex}-${highlightId}`
     const renderedRef = useRef<Set<string>>(new Set());
+
+    // Panel refs to calculate offsets for popovers
+    const panelRefs = useRef<(HTMLDivElement | null)[]>([]);
 
     // Persistence: Hydrate locations from localStorage on mount
     useEffect(() => {
@@ -108,11 +122,9 @@ export default function ParallelReader({ initialUrls, onBack }: ParallelReaderPr
             '::selection': {
                 'background': 'rgba(255, 255, 0, 0.3)'
             },
-            '.hl-class': {
-                'fill': 'yellow',
-                'fill-opacity': '0.3',
-                'mix-blend-mode': 'multiply'
-            }
+            // Custom highlight classes
+            '.hl-highlight': { 'fill': 'yellow', 'fill-opacity': '0.3', 'mix-blend-mode': 'multiply' },
+            '.hl-underline': { 'border-bottom': '2px solid red', 'fill': 'transparent' } // Simplified underline
         });
     };
 
@@ -133,118 +145,168 @@ export default function ParallelReader({ initialUrls, onBack }: ParallelReaderPr
         // Initial styles
         applyStyles(rendition);
 
-        // CLEANUP: Since a new rendition is created, our `renderedRef` for this panel is stale.
-        // We must clear it so we can re-add the highlights.
+        // CLEANUP
         const keysToRemove: string[] = [];
         renderedRef.current.forEach(key => {
             if (key.startsWith(`${index}-`)) keysToRemove.push(key);
         });
         keysToRemove.forEach(k => renderedRef.current.delete(k));
 
-        // INITIAL RENDER: Apply existing highlights for this book
+        // INITIAL RENDER
         const bookHighlights = highlights.filter(h => h.bookUrl === urls[index]);
         bookHighlights.forEach(h => {
-            rendition.annotations.add('highlight', h.cfiRange, {}, null, 'hl-class');
+            // Use dynamic style class
+            rendition.annotations.add('highlight', h.cfiRange, {}, null, `hl-exist-${h.id}`);
             renderedRef.current.add(`${index}-${h.id}`);
         });
 
-
-        // Listen for new selections
+        // SELECTION HANDLER
         rendition.on('selected', (cfiRange: string, contents: any) => {
-            const range = rendition.getRange(cfiRange);
+            const range = contents.window.getSelection().getRangeAt(0);
+            const rect = range.getBoundingClientRect();
             const text = range.toString();
 
-            // Persist
-            const newHighlight: Highlight = {
-                id: Date.now().toString(),
-                cfiRange,
-                text,
-                bookUrl: urls[index],
-                color: '#ffeb3b',
-                created: Date.now()
-            };
-
-            fetch('/api/highlights', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(newHighlight)
-            }).then(res => res.json())
-                .then(() => {
-                    setHighlights(prev => [...prev, newHighlight]);
-                    // We rely on the useEffect to render this, OR we render it here and add to ref?
-                    // Ideally, let the effect handle it to keep logic central. 
-                    // But for responsiveness, we often want instant feedback. 
-                    // If we render here, we MUST add to renderedRef.
-                    rendition.annotations.add('highlight', cfiRange, {}, null, 'hl-class');
-                    renderedRef.current.add(`${index}-${newHighlight.id}`);
-
-                    // Clear selection to avoid visual clutter
-                    const selection = contents.window.getSelection();
-                    selection?.removeAllRanges();
+            // Calculate absolute position
+            const iframe = rendition.manager.container.querySelector('iframe');
+            if (iframe) {
+                const iframeRect = iframe.getBoundingClientRect();
+                setSelection({
+                    cfiRange,
+                    text,
+                    bookIndex: index,
+                    position: {
+                        top: iframeRect.top + rect.top,
+                        left: iframeRect.left + rect.right
+                    }
                 });
+                setMenuOpen(false); // Start with just the button
+                console.log("Selection set at", iframeRect.top + rect.top, iframeRect.left + rect.right);
+            }
         });
+
+        // Click handler removed to prevent conflict with selection logic
+        rendition.on('click', () => {
+            // specific logic can be added here if needed to clear selection
+        });
+
     };
 
-    // Re-apply highlights if they change (Diffing approach)
+    // Re-apply highlights + Custom Color Injection
     useEffect(() => {
         renditionRefs.current.forEach((rendition, index) => {
             if (!rendition) return;
 
             const url = urls[index];
             const bookHighlights = highlights.filter(h => h.bookUrl === url);
-            const bookHighlightIds = new Set(bookHighlights.map(h => h.id));
 
-            // 1. Add new highlights
+            // Inject styles for specific highlight colors
             bookHighlights.forEach(h => {
+                const className = `hl-exist-${h.id}`;
+                rendition.themes.default({
+                    [`.${className}`]: {
+                        'fill': h.color,
+                        'fill-opacity': '0.3',
+                        'mix-blend-mode': 'multiply',
+                        ...(h.style === 'underline' ? {
+                            'fill': 'transparent',
+                            'border-bottom': `2px solid ${h.color}`
+                        } : {})
+                    }
+                });
+
                 const key = `${index}-${h.id}`;
                 if (!renderedRef.current.has(key)) {
-                    rendition.annotations.add('highlight', h.cfiRange, {}, null, 'hl-class');
+                    rendition.annotations.add('highlight', h.cfiRange, {}, null, className);
                     renderedRef.current.add(key);
                 }
             });
 
-            // 2. Remove deleted highlights
-            // We iterate effectively over all potentially rendered keys for this panel?
-            // Or simpler: iterate over the renderedRef and if it belongs to this panel AND is not in bookHighlightIds, remove it.
-            // This is slightly inefficient if we have thousands, but fine for now.
+            // Cleanup removed highlights
+            const bookHighlightIds = new Set(bookHighlights.map(h => h.id));
             const keysToRemove: string[] = [];
             renderedRef.current.forEach(key => {
                 const [pIdx, hId] = key.split('-');
-                if (parseInt(pIdx) === index) {
-                    if (!bookHighlightIds.has(hId)) {
-                        // Find the highlights to get the CFI?
-                        // Wait, we need the CFI to remove it! 
-                        // epubjs rendition.annotations.remove(cfiRange, type)
-                        // If we don't have the feature in 'highlights', we might not know the CFI.
-                        // BUT: We usually deleted it via 'deleteHighlight' function which has access to it.
-
-                        // However, if we simply re-loaded or if updates came from elsewhere, we might have an issue.
-                        // For 'deleteHighlight' specifically, we handle removal there. 
-                        // But to be purely reactive:
-                        // If we don't have the cfi, we can't remove via epubjs easily unless we stored it in the ref map (map<key, cfi>).
-
-                        keysToRemove.push(key);
-                    }
+                if (parseInt(pIdx) === index && !bookHighlightIds.has(hId)) {
+                    keysToRemove.push(key);
                 }
             });
-
-            // Clean up the ref set for items we know are gone (e.g. removed via deleteHighlight)
             keysToRemove.forEach(k => renderedRef.current.delete(k));
-
         });
     }, [highlights, urls]);
 
 
+    const handleSaveHighlight = (data: { color: string; style: 'highlight' | 'underline'; note: string }) => {
+        if (!selection) return;
+
+        const newHighlight: Highlight = {
+            id: Date.now().toString(),
+            cfiRange: selection.cfiRange,
+            text: selection.text,
+            bookUrl: urls[selection.bookIndex],
+            created: Date.now(),
+            color: data.color,
+            style: data.style,
+            note: data.note
+        };
+
+        // Optimistic UI
+        setHighlights(prev => [...prev, newHighlight]);
+
+        // Render Immediately
+        const rendition = renditionRefs.current[selection.bookIndex];
+        if (rendition) {
+            const className = `hl-exist-${newHighlight.id}`;
+            rendition.themes.default({
+                [`.${className}`]: {
+                    'fill': newHighlight.color,
+                    'fill-opacity': '0.3',
+                    'mix-blend-mode': 'multiply',
+                    ...(newHighlight.style === 'underline' ? {
+                        'fill': 'transparent',
+                        'border-bottom': `2px solid ${newHighlight.color}`
+                    } : {})
+                }
+            });
+            rendition.annotations.add('highlight', newHighlight.cfiRange, {}, null, className);
+            renderedRef.current.add(`${selection.bookIndex}-${newHighlight.id}`);
+
+            // Clear browser selection
+            try {
+                const contents = rendition.getContents()[0];
+                contents?.window.getSelection()?.removeAllRanges();
+            } catch (e) { console.error("Could not clear selection", e); }
+        }
+
+        // Persist
+        fetch('/api/highlights', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(newHighlight)
+        }).catch(err => console.error("Failed to save", err));
+
+        // Reset
+        setSelection(null);
+        setMenuOpen(false);
+    };
+
+    const handleCancelSelection = () => {
+        // Clear browser selection
+        if (selection) {
+            const rendition = renditionRefs.current[selection.bookIndex];
+            try {
+                const contents = rendition?.getContents()[0];
+                contents?.window.getSelection()?.removeAllRanges();
+            } catch (e) { }
+        }
+        setSelection(null);
+        setMenuOpen(false);
+    };
+
     const handleLocationChange = (index: number, newLocation: LocationType) => {
-        // 1. Update the state for THIS book so it doesn't get "stuck"
         const newLocations = [...locations];
         newLocations[index] = newLocation;
         setLocations(newLocations);
-
-        // 2. Persist
-        if (urls[index]) {
-            debouncedSave(urls[index], newLocation);
-        }
+        if (urls[index]) debouncedSave(urls[index], newLocation);
     };
 
     const updateUrl = (index: number, newUrl: string) => {
@@ -254,17 +316,12 @@ export default function ParallelReader({ initialUrls, onBack }: ParallelReaderPr
     };
 
     const deleteHighlight = async (id: string, cfiRange: string, bookIndex: number) => {
-        // Optimistic update
         setHighlights(prev => prev.filter(h => h.id !== id));
-
-        // Remove from rendition
         const rendition = renditionRefs.current[bookIndex];
         if (rendition) {
             rendition.annotations.remove(cfiRange, 'highlight');
-            // Update ref
             renderedRef.current.delete(`${bookIndex}-${id}`);
         }
-
         await fetch('/api/highlights', {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
@@ -277,63 +334,33 @@ export default function ParallelReader({ initialUrls, onBack }: ParallelReaderPr
             <div className={styles.header}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                     {onBack && (
-                        <button
-                            onClick={onBack}
-                            className={styles.backButton}
-                            style={{
-                                background: 'none', border: 'none', cursor: 'pointer', fontSize: '1.2rem'
-                            }}
-                        >
+                        <button onClick={onBack} className={styles.backButton} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '1.2rem' }}>
                             ← Back
                         </button>
                     )}
                     <h1>Parallel Reader</h1>
                 </div>
                 <div className={styles.controls}>
-                    {/* Settings Toggle */}
-                    <button
-                        onClick={() => setShowSettings(!showSettings)}
-                        style={{ border: 'none', background: 'none', cursor: 'pointer', fontSize: '1.2rem', marginRight: '0.5rem' }}
-                        title="Display Settings"
-                    >
-                        ⚙️
-                    </button>
-
-                    {/* Settings Panel */}
+                    <button onClick={() => setShowSettings(!showSettings)} style={{ border: 'none', background: 'none', cursor: 'pointer', fontSize: '1.2rem', marginRight: '0.5rem' }}>⚙️</button>
                     {showSettings && (
                         <div className={styles.settingsPanel}>
                             <h3>Display Settings</h3>
                             <div className={styles.settingGroup}>
-                                <div className={styles.rangeValue}>
-                                    <label>Font Size</label>
-                                    <span>{settings.fontSize}%</span>
-                                </div>
-                                <input
-                                    type="range"
-                                    min="80"
-                                    max="200"
-                                    step="10"
-                                    value={settings.fontSize}
-                                    onChange={(e) => setSettings({ ...settings, fontSize: Number(e.target.value) })}
-                                />
+                                <label>Font Size: {settings.fontSize}%</label>
+                                <input type="range" min="80" max="200" step="10" value={settings.fontSize} onChange={(e) => setSettings({ ...settings, fontSize: Number(e.target.value) })} />
                             </div>
                             <div className={styles.settingGroup}>
                                 <label>Font Family</label>
-                                <select
-                                    value={settings.fontFamily}
-                                    onChange={(e) => setSettings({ ...settings, fontFamily: e.target.value })}
-                                >
+                                <select value={settings.fontFamily} onChange={(e) => setSettings({ ...settings, fontFamily: e.target.value })}>
                                     <option value="Helvetica, sans-serif">Helvetica</option>
                                     <option value="Georgia, serif">Georgia</option>
                                     <option value="Courier New, monospace">Monospace</option>
+                                    <option value="Times New Roman, serif">Original</option>
                                 </select>
                             </div>
                             <div className={styles.settingGroup}>
                                 <label>Line Height</label>
-                                <select
-                                    value={settings.lineHeight}
-                                    onChange={(e) => setSettings({ ...settings, lineHeight: Number(e.target.value) })}
-                                >
+                                <select value={settings.lineHeight} onChange={(e) => setSettings({ ...settings, lineHeight: Number(e.target.value) })}>
                                     <option value={1.2}>Compact (1.2)</option>
                                     <option value={1.6}>Normal (1.6)</option>
                                     <option value={2.0}>Loose (2.0)</option>
@@ -341,23 +368,14 @@ export default function ParallelReader({ initialUrls, onBack }: ParallelReaderPr
                             </div>
                         </div>
                     )}
-
                     <div className={styles.buttonGroup}>
-                        <button
-                            onClick={() => setShowHighlights(!showHighlights)}
-                            className={showHighlights ? styles.active : styles.inactive}
-                        >
+                        <button onClick={() => setShowHighlights(!showHighlights)} className={showHighlights ? styles.active : styles.inactive}>
                             {showHighlights ? 'Hide Notes' : 'Show Notes'}
                         </button>
                     </div>
-
                     <div className={styles.buttonGroup}>
                         {[1, 2, 3].map(num => (
-                            <button
-                                key={num}
-                                onClick={() => setCount(num)}
-                                className={count === num ? styles.active : styles.inactive}
-                            >
+                            <button key={num} onClick={() => setCount(num)} className={count === num ? styles.active : styles.inactive}>
                                 {num} Panel{num > 1 && 's'}
                             </button>
                         ))}
@@ -365,91 +383,70 @@ export default function ParallelReader({ initialUrls, onBack }: ParallelReaderPr
                 </div>
             </div>
 
-            <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
-                {/* Main Reader Grid */}
+            <div style={{ display: 'flex', flex: 1, overflow: 'hidden', position: 'relative' }}>
                 <div className={styles.grid} style={{ flex: showHighlights ? '0 0 75%' : '1' }}>
                     {Array.from({ length: count }).map((_, index) => (
-                        <div
-                            key={index}
-                            className={styles.panel}
-                            style={{ maxWidth: `${100 / count}%` }}
-                        >
+                        <div key={index} className={styles.panel} ref={el => { panelRefs.current[index] = el; }} style={{ maxWidth: `${100 / count}%` }}>
                             <div className={styles.inputWrapper}>
-                                <input
-                                    type="text"
-                                    placeholder="Paste EPUB URL here..."
-                                    value={urls[index] || ''}
-                                    onChange={(e) => updateUrl(index, e.target.value)}
-                                />
+                                <input type="text" placeholder="Paste EPUB URL here..." value={urls[index] || ''} onChange={(e) => updateUrl(index, e.target.value)} />
                             </div>
-
                             <div className={styles.readerWrapper}>
                                 <ReactReader
                                     url={urls[index]}
-
-                                    // REQUIRED PROP: Controls where the book is
                                     location={locations[index] || 0}
-
-                                    // REQUIRED PROP: Updates the state when user scrolls
                                     locationChanged={(loc) => handleLocationChange(index, loc)}
-
-                                    getRendition={(rendition) => getRendition(index, rendition)}
-                                    epubOptions={{
-                                        flow: "scrolled",
-                                        manager: "continuous",
-                                    }}
+                                    getRendition={(rendition: any) => getRendition(index, rendition)}
+                                    epubOptions={{ flow: "scrolled", manager: "continuous" }}
                                     swipeable={false}
-                                    readerStyles={{
-                                        ...ReactReaderStyle,
-                                        arrow: {
-                                            ...ReactReaderStyle.arrow,
-                                            display: 'none',
-                                        }
-                                    }}
+                                    readerStyles={{ ...ReactReaderStyle, arrow: { ...ReactReaderStyle.arrow, display: 'none' } }}
                                 />
                             </div>
                         </div>
                     ))}
                 </div>
 
-                {/* Highlights Sidebar */}
                 {showHighlights && (
                     <div className={styles.sidebar}>
                         <h2>Annotations</h2>
                         {highlights.length === 0 && <p className={styles.emptyState}>Select text to highlight.</p>}
-
                         {highlights.map(h => (
-                            <div key={h.id} className={styles.annotationCard}>
+                            <div key={h.id} className={styles.annotationCard} style={{ borderLeft: `4px solid ${h.color}` }}>
                                 <p>"{h.text}"</p>
+                                {h.note && <p style={{ fontStyle: 'italic', fontSize: '0.85rem', color: '#555' }}>{h.note}</p>}
                                 <div className={styles.footer}>
-                                    <span>
-                                        {/* Try to find which book this belongs to for display */}
-                                        {urls.findIndex(u => u === h.bookUrl) > -1 ? `Panel ${urls.findIndex(u => u === h.bookUrl) + 1}` : 'Other Book'}
-                                    </span>
+                                    <span>{urls.findIndex(u => u === h.bookUrl) > -1 ? `Panel ${urls.findIndex(u => u === h.bookUrl) + 1}` : 'Other Book'}</span>
                                     <div className={styles.actions}>
-                                        <button
-                                            className={styles.jump}
-                                            onClick={() => {
-                                                const idx = urls.indexOf(h.bookUrl);
-                                                if (idx !== -1 && renditionRefs.current[idx]) {
-                                                    renditionRefs.current[idx]?.display(h.cfiRange);
-                                                }
-                                            }}
-                                        >
-                                            Jump
-                                        </button>
-                                        <button
-                                            className={styles.delete}
-                                            onClick={() => deleteHighlight(h.id, h.cfiRange, urls.indexOf(h.bookUrl))}
-                                        >
-                                            Delete
-                                        </button>
+                                        <button className={styles.jump} onClick={() => {
+                                            const idx = urls.indexOf(h.bookUrl);
+                                            if (idx !== -1 && renditionRefs.current[idx]) {
+                                                renditionRefs.current[idx]?.display(h.cfiRange);
+                                            }
+                                        }}>Jump</button>
+                                        <button className={styles.delete} onClick={() => deleteHighlight(h.id, h.cfiRange, urls.indexOf(h.bookUrl))}>Delete</button>
                                     </div>
                                 </div>
                             </div>
                         ))}
                     </div>
                 )}
+
+                {/* Popover UI */}
+                {selection && (
+                    <div className={styles.popoverContainer} style={{ top: selection.position.top - 40, left: selection.position.left }}>
+                        {!menuOpen ? (
+                            <button className={styles.popoverButton} onClick={() => setMenuOpen(true)}>
+                                +
+                            </button>
+                        ) : (
+                            <SelectionMenu
+                                isEditing={false} // Creating new
+                                onSave={handleSaveHighlight}
+                                onCancel={handleCancelSelection}
+                            />
+                        )}
+                    </div>
+                )}
+
             </div>
         </div>
     );

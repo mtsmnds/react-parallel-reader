@@ -189,18 +189,14 @@ We have two main options for triggering the save:
 - [x] **Frontend Update**: Update `ParallelReader.tsx` to fetch highlights for specific open books only (pass `urls` query param).
 - [x] **Data Migration**: (Optional for MVP) Ensure new system gracefully handles empty states for new collections.
 
-### 9.2 Rich Metadata & Improved Creation Flow
+### 9.2 Rich Metadata highlights
 - [ ] **Data Model**: Update `Highlight` interface to include:
     - `color`: string (hex code)
     - `style`: 'highlight' | 'underline'
     - `note`: string (user commentary)
-- [ ] **UX Improvements**:
-    - **Stop Auto-Save**: Selecting text should triggers a "draft" state, not an immediate save.
-    - **Creation UI**: Display a floating popover or sidebar form to configure (color, style, note) before saving.
-    - **Consistent UI**: Ensure the creation form and the "edit mode" of existing highlights share the same component/design.
-- [ ] **UI Implementation**:
-    - Add color picker and style selector.
-    - Add text area for notes.
+- [ ] **UI/UX**:
+    - Add color picker to the highlight popover (if possible) or sidebar.
+    - Add text area for notes in the sidebar card.
 
 ### 9.3 Organization & Display
 - [ ] **Sorting**: Ensure highlights are displayed in reading order (compare CFIs).
@@ -236,3 +232,23 @@ We have two main options for triggering the save:
 **Plan:**
 1. Investigate `applyStyles` targeting (is it hitting all renditions?).
 2. Add "Original" option to font family dropdown.
+
+## Action Item 13: Refactor Text Selection & Highlights
+**Priority:** High
+**Objective:** Refactor the text selection behavior to prevent accidental highlighting ("trigger happy" behavior) and implement rich metadata.
+**Context:** The current "Selection = Immediate Save" flow is poor UX. We need a deliberate "Add Highlight" flow.
+
+**Interaction Flow:**
+1. User selects text.
+2. A popover button (+) appears near the selection.
+3. User clicks (+) to open the Annotation Menu.
+4. Menu allows selecting:
+   - **Style:** Highlight vs Underline.
+   - **Color:** Hex picker.
+   - **Note:** Text input.
+5. Actions: Save, Edit, Jump, Delete.
+6. Persistence happens *only* on "Save".
+
+**Data Model Updates:**
+- Update `Highlight` interface to include `color`, `style`, `note`.
+- Migrate/Update API to handle these fields.
