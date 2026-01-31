@@ -254,10 +254,27 @@ We have two main options for triggering the save:
 - Updated `ParallelReader.tsx` to use `rendition.themes.register` to load the external stylesheet.
 - Updated `types/epub.d.ts` to include missing `register` and `select` methods in the `Rendition` type definition.
 
+### ✅ DONE Action Item 13.4: Fix Highlight Styling Architecture
+**Status:** ✅ Complete
+**Objective:** Solve CSS injection issues for highlights by correctly targeting SVG overlays.
+**Changes:**
+- Discovered that `epub.js` renders highlights as SVG overlays in the main DOM, not inside the iframe, rendering `rendition.themes` injection ineffective for base sizing/positioning.
+- Moved base highlight styles (`.hl-highlight`, `.hl-underline`) to `app/globals.css` to ensure they are globally available to the overlays.
+- Refactored `ParallelReader.tsx` to pass dynamic colors (fill, stroke) directly as SVG attributes via the `styles` argument of `rendition.annotations.add`.
+- Updated `types/epub.d.ts` to support the `styles` argument in `annotations.add`.
+- Fixed Turbopack build errors caused by incorrect `:global` usage in SCSS modules.
+
 
 
 
 # next
+
+## improve colors for highlights
+
+## create the way to use the project by forking or using it as template
+## create the way to use the project by "installing it" something like the dist folder?
+## create instructions on how to use the project - folder to add files, naming, saving
+
 
 
 ## Action Item 9: Advanced Annotation Features
@@ -314,3 +331,6 @@ We have two main options for triggering the save:
 2.  **Pre-rendering:** `epub.js` lazily renders. Jumping to a simplified CFI (like a chapter start) works, but a specific sentence CFI might fail if the chapter isn't fully rendered.
     -   *Solution:* Pre-load surrounding chapters? Use `display().then(() => render)`.
 3.  **Debounce Tuning:** Ensure our `debouncedSave` isn't causing re-renders that reset scroll position.
+
+
+## chapters don't work in scroll mode. this is legacy from react-reader

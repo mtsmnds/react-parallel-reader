@@ -22,3 +22,18 @@ The app connects to the `public/books/` directory. Typically, you will create a 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Customization
+
+### Editing Highlight Styles
+
+Highlights are rendered as SVG overlays on top of the text.
+
+1.  **Base Styles (Opacity, Blending):**
+    *   Edit `app/globals.css`.
+    *   Look for `.hl-highlight` and `.hl-underline` classes at the bottom of the file.
+    *   Here you can change `fill-opacity` and `mix-blend-mode`.
+
+2.  **Highlight Colors:**
+    *   Colors are defined in the `HighlightMenu` component and applied dynamically.
+    *   The application logic for applying these colors is in `app/components/ParallelReader.tsx`.

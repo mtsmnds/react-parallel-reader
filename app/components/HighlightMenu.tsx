@@ -13,7 +13,7 @@ interface HighlightMenuProps {
 
 export default function HighlightMenu({ initialData, onSave, onCancel, onDelete, onJump, isEditing }: HighlightMenuProps) {
     const [color, setColor] = useState(initialData?.color || '#ffeb3b');
-    const [style, setStyle] = useState<'highlight' | 'underline'>(initialData?.style || 'highlight');
+    const [style, setStyle] = useState<'highlight' | 'underline'>(initialData?.style || 'underline');
     const [note, setNote] = useState(initialData?.note || '');
 
     const colors = [
