@@ -18,10 +18,10 @@ export default function HighlightMenu({ initialData, onSave, onCancel, onDelete,
 
     const colors = [
         '#ffeb3b', // Yellow
-        '#a5f3fc', // Cyan
-        '#bbf7d0', // Green
-        '#fbcfe8', // Pink
-        '#e9d5ff'  // Purple
+        '#58e5f5ff', // Cyan
+        '#58f68fff', // Green
+        '#f59bceff', // Pink
+        '#a457f7ff'  // Purple
     ];
 
     return (

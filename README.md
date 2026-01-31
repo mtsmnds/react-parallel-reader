@@ -32,8 +32,12 @@ Highlights are rendered as SVG overlays on top of the text.
 1.  **Base Styles (Opacity, Blending):**
     *   Edit `app/globals.css`.
     *   Look for `.hl-highlight` and `.hl-underline` classes at the bottom of the file.
-    *   Here you can change `fill-opacity` and `mix-blend-mode`.
+    *   Here you can change `fill-opacity`, `mix-blend-mode` for hl-highlight
+    *   `fill`, `stroke opacity`, `stroke`, `stroke-width`, `stroke-linecap` for hl-underline
+        ( i'm not sure if all of these work but i got to an acceptable point)
 
 2.  **Highlight Colors:**
     *   Colors are defined in the `HighlightMenu` component and applied dynamically.
     *   The application logic for applying these colors is in `app/components/ParallelReader.tsx`.
+
+3.  Preexisting highlights have their colors stored in the highlights.json file. 

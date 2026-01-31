@@ -64,24 +64,24 @@ var _s = __turbopack_context__.k.signature();
 function HighlightMenu(t0) {
     _s();
     const $ = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$compiler$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["c"])(41);
-    if ($[0] !== "fb903f99e06e7ac9c156a74e71b37ece88066ad825848e96f44d4a4d67b54ca3") {
+    if ($[0] !== "f92426a3ebb49f4db7a8185e0cb624e2f5e7b8970d4cfc746138aa051204911e") {
         for(let $i = 0; $i < 41; $i += 1){
             $[$i] = Symbol.for("react.memo_cache_sentinel");
         }
-        $[0] = "fb903f99e06e7ac9c156a74e71b37ece88066ad825848e96f44d4a4d67b54ca3";
+        $[0] = "f92426a3ebb49f4db7a8185e0cb624e2f5e7b8970d4cfc746138aa051204911e";
     }
     const { initialData, onSave, onCancel, onDelete, onJump, isEditing } = t0;
     const [color, setColor] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(initialData?.color || "#ffeb3b");
-    const [style, setStyle] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(initialData?.style || "highlight");
+    const [style, setStyle] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(initialData?.style || "underline");
     const [note, setNote] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(initialData?.note || "");
     let t1;
     if ($[1] === Symbol.for("react.memo_cache_sentinel")) {
         t1 = [
             "#ffeb3b",
-            "#a5f3fc",
-            "#bbf7d0",
-            "#fbcfe8",
-            "#e9d5ff"
+            "#58e5f5ff",
+            "#58f68fff",
+            "#f59bceff",
+            "#a457f7ff"
         ];
         $[1] = t1;
     } else {
@@ -427,7 +427,7 @@ function HighlightMenu(t0) {
     }
     return t19;
 }
-_s(HighlightMenu, "61/PtwaQnxHYepH6JyVxZWHGTSw=");
+_s(HighlightMenu, "Yo6FV5D/r/VDJ/5i4OQrqIrM77A=");
 _c = HighlightMenu;
 var _c;
 __turbopack_context__.k.register(_c, "HighlightMenu");

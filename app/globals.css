@@ -44,11 +44,21 @@ a {
 
 /* Global epub.js highlight overrides - SVG overlays */
 .hl-highlight {
-  fill-opacity: 0.6;
+  fill-opacity: 0.3;
   mix-blend-mode: multiply;
 }
 
-.hl-underline {
-  fill: transparent;
-  /* Stroke is set dynamically via attributes */
+.hl-underline rect {
+  fill: none;
+  stroke-opacity: 0;
+}
+
+.hl-underline line {
+  fill: none;
+  stroke: red;
+  /* value: 'inherit' - Inherit dynamic color from parent group */
+  stroke-width: 2px !important;
+  /* Override library default */
+  stroke-linecap: round !important;
+  stroke-opacity: 1;
 }

@@ -136,12 +136,21 @@ a {
 }
 
 .hl-highlight {
-  fill-opacity: .6;
+  fill-opacity: .3;
   mix-blend-mode: multiply;
 }
 
-.hl-underline {
-  fill: #0000;
+.hl-underline rect {
+  fill: none;
+  stroke-opacity: 0;
+}
+
+.hl-underline line {
+  fill: none;
+  stroke: red;
+  stroke-opacity: 1;
+  stroke-width: 2px !important;
+  stroke-linecap: round !important;
 }
 
 /*# sourceMappingURL=%5Broot-of-the-server%5D__28bc9c2a._.css.map*/
