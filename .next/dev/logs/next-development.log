@@ -7,3 +7,10 @@
 [00:26:05.619] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
 [00:28:32.591] Server  LOG     ✓ Compiled in 198ms
 [00:31:55.676] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:33:47.749] Server  LOG     ✓ Compiled in 82ms
+[00:34:33.791] Server  LOG     ✓ Compiled in 175ms
+[12:37:56.496] Browser ERROR   uncaughtError: TypeError: Cannot read properties of undefined (reading 'indexOf')
+[12:39:29.500] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[12:39:32.164] Browser ERROR   uncaughtError: TypeError: Cannot read properties of undefined (reading 'indexOf')
+[12:43:18.782] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[12:48:08.213] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold

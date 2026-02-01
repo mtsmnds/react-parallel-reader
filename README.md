@@ -1,6 +1,25 @@
 
+React Parallel Reader is a browser based epub reader that allows reading epubs side by side. 
+It stems from my desire to read translations alongside with originals, and to compare different versions of the same book.
+
+This project is based on react, next.js, react-reader and epub.js. 
+css is in sass.
+
+## Features
+
+* offline first - books and annotations are stored locally
+* continuous scrolling - no page turning - makes sure you can line up the same sentence in different languages
+* annotations and highlights - highlight text and save as an annotation - pick color or underline - add notes - jump to highlight
+* soon - link annotations - allows linking two annotations so that you can pair up book sections and jump to the section in both books at the same time. 
+
 
 ## How to Use
+
+1. clone or fork the project
+2. add books
+3. npm run dev, open http://localhost:3000 in your browser, start using.
+
+check docs folder for roadmap/issues.
 
 ### Adding Books (Dynamic Bookshelf)
 
@@ -17,11 +36,7 @@ The app connects to the `public/books/` directory. Typically, you will create a 
 - Paste a URL or let the bookshelf autoload your files.
 - Click **← Back** to return to the library.
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 
 ## Customization
 

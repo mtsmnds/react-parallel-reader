@@ -64,11 +64,11 @@ var _s = __turbopack_context__.k.signature();
 function HighlightMenu(t0) {
     _s();
     const $ = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$compiler$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["c"])(41);
-    if ($[0] !== "f92426a3ebb49f4db7a8185e0cb624e2f5e7b8970d4cfc746138aa051204911e") {
+    if ($[0] !== "a3cda498fa81c16ca8c4fd71d1c4a120993ea431e0dbe8792ae00e17b2e5d191") {
         for(let $i = 0; $i < 41; $i += 1){
             $[$i] = Symbol.for("react.memo_cache_sentinel");
         }
-        $[0] = "f92426a3ebb49f4db7a8185e0cb624e2f5e7b8970d4cfc746138aa051204911e";
+        $[0] = "a3cda498fa81c16ca8c4fd71d1c4a120993ea431e0dbe8792ae00e17b2e5d191";
     }
     const { initialData, onSave, onCancel, onDelete, onJump, isEditing } = t0;
     const [color, setColor] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(initialData?.color || "#ffeb3b");

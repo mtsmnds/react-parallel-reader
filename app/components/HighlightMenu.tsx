@@ -17,11 +17,11 @@ export default function HighlightMenu({ initialData, onSave, onCancel, onDelete,
     const [note, setNote] = useState(initialData?.note || '');
 
     const colors = [
-        '#ffeb3b', // Yellow
-        '#58e5f5ff', // Cyan
-        '#58f68fff', // Green
+        '#ffeb3b', // Yellow 
+        '#58e5f5ff', // Cyan - improve
+        '#58f68fff', // Green - improve 
         '#f59bceff', // Pink
-        '#a457f7ff'  // Purple
+        '#a457f7ff'  // Purple - improve
     ];
 
     return (
