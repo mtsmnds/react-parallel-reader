@@ -2,7 +2,7 @@
 <table>
   <tr>
     <td width="60%">
-      <p>React Parallel Reader is a browser based epub reader that allows reading epubs side by side.</p>
+      <p><b>React Parallel Reader</b> is a browser based epub reader that allows reading epubs side by side.</p>
       <p>It stems from my desire to read translations alongside with originals, and to compare different versions of the same book.</p>
       <p>This project is based on react, next.js, react-reader and epub.js. css is in sass.</p>      
     </td>
