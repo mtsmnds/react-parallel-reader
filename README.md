@@ -1,9 +1,17 @@
 
-React Parallel Reader is a browser based epub reader that allows reading epubs side by side. 
-It stems from my desire to read translations alongside with originals, and to compare different versions of the same book.
+<table>
+  <tr>
+    <td width="60%">
+      <p>React Parallel Reader is a browser based epub reader that allows reading epubs side by side.</p>
+      <p>It stems from my desire to read translations alongside with originals, and to compare different versions of the same book.</p>
+      <p>This project is based on react, next.js, react-reader and epub.js. css is in sass.</p>      
+    </td>
+    <td width="40%">
+      <img src="public/react-parallel-reader-1.jpeg" alt="React Parallel Reader Interface" />
+    </td>
+  </tr>
+</table>
 
-This project is based on react, next.js, react-reader and epub.js. 
-css is in sass.
 
 ## Features
 
@@ -11,6 +19,8 @@ css is in sass.
 * continuous scrolling - no page turning - makes sure you can line up the same sentence in different languages
 * annotations and highlights - highlight text and save as an annotation - pick color or underline - add notes - jump to highlight
 * soon - link annotations - allows linking two annotations so that you can pair up book sections and jump to the section in both books at the same time. 
+
+
 
 
 ## How to Use
