@@ -1,27 +1,24 @@
-
 # Books (Copyrighted material)
 public/books/*
 !public/books/.gitkeep
 
-# 
-
+# Build and Dependencies
 .next
 .nova
 .env
-.env.local
-.env-custom-development
-.env-development
-.env-textile
-.env-production
-.DS_STORE
-DS_STORE
+.env*.local
+.env*
+!.env.example
+.DS_Store
+*.DS_Store
 yarn.lock
 node_modules
 dist
 analytics.txt
 package-lock.json
 
-/**/*/.DS_STORE
-/**/*/node_modules
-/**/*/.next
-/**/*/.data
+# Recursive rules (redundant but kept for specific patterns if needed)
+**/.DS_Store
+**/node_modules
+**/.next
+**/.data
