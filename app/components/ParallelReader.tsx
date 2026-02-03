@@ -546,10 +546,41 @@ export default function ParallelReader({ initialUrls, onBack }: ParallelReaderPr
                                                 <div className={styles.actions}>
                                                     {!linkingSourceId && <button className={styles.link} onClick={() => enterLinkingMode(h.id)}>Link</button>}
                                                     <button className={styles.jump} onClick={() => {
-                                                        const idx = urls.indexOf(h.bookUrl);
-                                                        if (idx !== -1 && renditionRefs.current[idx]) {
-                                                            renditionRefs.current[idx]?.display(h.cfiRange);
+                                                        // 1. Identify Cluster
+                                                        const cluster = new Set<string>([h.id]);
+                                                        const queue = [h.id];
+                                                        const visited = new Set<string>();
+
+                                                        // Re-use logic or helper if we extract it, but for now inline BFS for clarity
+                                                        // (Ideally we would have a 'getCluster(h.id)' helper)
+                                                        while (queue.length > 0) {
+                                                            const currentId = queue.shift()!;
+                                                            if (visited.has(currentId)) continue;
+                                                            visited.add(currentId);
+                                                            cluster.add(currentId);
+
+                                                            const currentH = highlights.find(item => item.id === currentId);
+                                                            if (currentH && currentH.linkedIds) {
+                                                                currentH.linkedIds.forEach(lid => {
+                                                                    if (!visited.has(lid)) queue.push(lid);
+                                                                });
+                                                            }
                                                         }
+
+                                                        // 2. Iterate cluster and jump each panel
+                                                        cluster.forEach(cid => {
+                                                            const targetH = highlights.find(item => item.id === cid);
+                                                            if (targetH) {
+                                                                // Find if this book is open in any panel
+                                                                // (Handle duplicate opens? For now, jump first match or all matches?)
+                                                                // Let's matching all panels displaying this book
+                                                                urls.forEach((url, uIdx) => {
+                                                                    if (url === targetH.bookUrl) {
+                                                                        renditionRefs.current[uIdx]?.display(targetH.cfiRange);
+                                                                    }
+                                                                });
+                                                            }
+                                                        });
                                                     }}>Jump</button>
                                                     {!linkingSourceId && <button className={styles.delete} onClick={() => deleteHighlight(h.id, h.cfiRange, urls.indexOf(h.bookUrl))}>Delete</button>}
                                                 </div>

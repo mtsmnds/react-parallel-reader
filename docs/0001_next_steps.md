@@ -298,12 +298,14 @@ We have two main options for triggering the save:
 **Status:** ✅ Complete
 **Objective:** Move the "Link" button from the card header to the footer, positioned to the left of the "Jump" button, for better usability and consistency.
 
+## ✅ DONE Action Item 15.2: Synchronized Jump
+**Status:** ✅ Complete
+**Objective:** When clicking "Jump" on a linked annotation, trigger the jump action for all annotations in that cluster across all their respective open panels.
 
 
 
 
 # next
-
 
 
 ## improve colors for highlights
