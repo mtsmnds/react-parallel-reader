@@ -314,19 +314,34 @@ We have two main options for triggering the save:
 **Status:** ✅ Complete
 **Objective:** Move the selection checkbox (visible during linking mode) to the footer of the annotation card, occupying the same position as the "Link" button for UI consistency.
 
-
-
-
-
-
-
-
 ## ✅ DONE Action Item 15.5: Disable Delete in Linking Mode
 **Status:** ✅ Complete
 **Objective:** Instead of hiding the "Delete" button when in linking mode, keep it visible but disabled to maintain UI stability and communicate state clearer.
 **Implementation:**
 *   Updated `ParallelReader.tsx` to apply `disabled` attribute to the Delete button when `linkingSourceId` is active.
 *   Added `.delete:disabled` styles in `ParallelReader.module.scss` (opacity 0.5, cursor not-allowed).
+
+
+
+# next
+
+## override headings and paragraphs? 
+find a way to override the epub html styles. the objective is to allow the user to normalize the styles of the epub books, for example, make all headings the same size and style, and all paragraphs the same size and style, which improve on reading. 
+
+## reduce left and right epub margins
+each epub is rendered with large margins that are summing up to more than 200px which is a lot of unused space for the three panel layout. identify the style definitions affecting these margins (padding? margin? spacing? and lets effect a reduction (could go for half the current spacing))
+
+## identify headings/chapters and auto create highlights
+find a way to identify chapters (or headings) and auto create highlights for them. 
+either identify all headings upon opening the book for the first time, or just identify and create as the epub is being read, evaluate complexity of both avenues.
+
+## better sort highlights
+id much rather have the highlights sorted by their position in the book rather than by their creation date. 
+
+## different style for heading highlights.
+supposing the previous action items work, and we can identify highlights that correspond to headings, these should have a different style, "looking like headings" for the annotations, while preserving jump action. it would be great if paired headings get a unified look and text, maybe the text of the first panel's heading and text of the other headings (highlights) is hidden in accordion or something similar
+
+
 
 ## improve colors for highlights
 
