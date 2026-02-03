@@ -35,7 +35,12 @@ export default function ParallelReader({ initialUrls, onBack }: ParallelReaderPr
     // Selection / Popover State
     const [selection, setSelection] = useState<SelectionState | null>(null);
     const [menuOpen, setMenuOpen] = useState(false);
+
     const [editingHighlight, setEditingHighlight] = useState<Highlight | null>(null);
+
+    // Linking State
+    const [linkingSourceId, setLinkingSourceId] = useState<string | null>(null);
+    const [selectedForLink, setSelectedForLink] = useState<Set<string>>(new Set());
 
     // Styling State
     const [showSettings, setShowSettings] = useState(false);
@@ -296,6 +301,126 @@ export default function ParallelReader({ initialUrls, onBack }: ParallelReaderPr
         });
     };
 
+    // --- Linking Logic ---
+
+    const enterLinkingMode = (sourceId: string) => {
+        setLinkingSourceId(sourceId);
+        setSelectedForLink(new Set());
+    };
+
+    const toggleSelection = (id: string) => {
+        const newSet = new Set(selectedForLink);
+        if (newSet.has(id)) {
+            newSet.delete(id);
+        } else {
+            newSet.add(id);
+        }
+        setSelectedForLink(newSet);
+    };
+
+    const cancelLinking = () => {
+        setLinkingSourceId(null);
+        setSelectedForLink(new Set());
+    };
+
+    const confirmLinking = async () => {
+        if (!linkingSourceId) return;
+
+        // 1. Gather all IDs involved: source + selected
+        const involvedIds = new Set([linkingSourceId, ...Array.from(selectedForLink)]);
+
+        // 2. Find their existing groups (transitive closure)
+        // If A is linked to B, and we link A to C, then A, B, C are now 1 group
+        const finalGroupIds = new Set<string>();
+        const queue = Array.from(involvedIds);
+
+        const visited = new Set<string>();
+
+        while (queue.length > 0) {
+            const currentId = queue.shift()!;
+            if (visited.has(currentId)) continue;
+            visited.add(currentId);
+            finalGroupIds.add(currentId);
+
+            const highlight = highlights.find(h => h.id === currentId);
+            if (highlight && highlight.linkedIds) {
+                highlight.linkedIds.forEach(linkedId => {
+                    if (!visited.has(linkedId)) {
+                        queue.push(linkedId);
+                    }
+                });
+            }
+        }
+
+        // 3. Update all highlights in the final group
+        const groupArray = Array.from(finalGroupIds);
+        const updates: Highlight[] = [];
+
+        groupArray.forEach(id => {
+            const h = highlights.find(highlight => highlight.id === id);
+            if (h) {
+                // Link to everyone else in the group
+                const newLinkedIds = groupArray.filter(gid => gid !== id);
+                updates.push({ ...h, linkedIds: newLinkedIds });
+            }
+        });
+
+        // 4. Send batch update
+        try {
+            const res = await fetch('/api/highlights', {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(updates)
+            });
+            if (res.ok) {
+                // 5. Optimistic Update
+                setHighlights(prev => prev.map(h => {
+                    const update = updates.find(u => u.id === h.id);
+                    return update ? update : h;
+                }));
+            }
+        } catch (e) {
+            console.error("Failed to link highlights", e);
+        }
+
+        cancelLinking();
+    };
+
+    // Helper to group highlights for rendering
+    const groupHighlightsForRender = (list: Highlight[]): Highlight[][] => {
+        const visited = new Set<string>();
+        const groups: Highlight[][] = [];
+
+        // Sort by created time first to ensure stability
+        const sortedList = [...list].sort((a, b) => a.created - b.created);
+
+        sortedList.forEach(h => {
+            if (visited.has(h.id)) return;
+
+            const group: Highlight[] = [h];
+            visited.add(h.id);
+
+            // Traverse connected
+            if (h.linkedIds && h.linkedIds.length > 0) {
+                const queue = [...h.linkedIds];
+                while (queue.length > 0) {
+                    const nid = queue.shift()!;
+                    if (!visited.has(nid)) {
+                        visited.add(nid);
+                        const neighbor = list.find(item => item.id === nid);
+                        if (neighbor) group.push(neighbor);
+                    }
+                }
+            }
+
+            // Sort within group by creation time
+            group.sort((a, b) => a.created - b.created);
+            groups.push(group);
+        });
+
+        return groups;
+    };
+
     return (
         <div className={styles.container}>
             <div className={styles.header}>
@@ -375,23 +500,68 @@ export default function ParallelReader({ initialUrls, onBack }: ParallelReaderPr
                 {showHighlights && (
                     <div className={styles.sidebar}>
                         <h2>Annotations</h2>
-                        {highlights.length === 0 && <p className={styles.emptyState}>Select text to highlight.</p>}
-                        {highlights.map(h => (
-                            <div key={h.id} className={styles.annotationCard} style={{ borderLeft: `4px solid ${h.color}` }}>
-                                <p>"{h.text}"</p>
-                                {h.note && <p style={{ fontStyle: 'italic', fontSize: '0.85rem', color: '#555' }}>{h.note}</p>}
-                                <div className={styles.footer}>
-                                    <span>{urls.findIndex(u => u === h.bookUrl) > -1 ? `Panel ${urls.findIndex(u => u === h.bookUrl) + 1}` : 'Other Book'}</span>
-                                    <div className={styles.actions}>
-                                        <button className={styles.jump} onClick={() => {
-                                            const idx = urls.indexOf(h.bookUrl);
-                                            if (idx !== -1 && renditionRefs.current[idx]) {
-                                                renditionRefs.current[idx]?.display(h.cfiRange);
-                                            }
-                                        }}>Jump</button>
-                                        <button className={styles.delete} onClick={() => deleteHighlight(h.id, h.cfiRange, urls.indexOf(h.bookUrl))}>Delete</button>
-                                    </div>
+                        <h2>Annotations</h2>
+                        {linkingSourceId && (
+                            <div className={styles.linkingControls}>
+                                <span>Select highlights to link</span>
+                                <div className={styles.linkingButtons}>
+                                    <button onClick={confirmLinking} className={styles.confirmBtn} disabled={selectedForLink.size === 0}>Done</button>
+                                    <button onClick={cancelLinking} className={styles.cancelBtn}>Cancel</button>
                                 </div>
+                            </div>
+                        )}
+
+                        {highlights.length === 0 && <p className={styles.emptyState}>Select text to highlight.</p>}
+
+                        {groupHighlightsForRender(highlights).map((group, gIdx) => (
+                            <div key={gIdx} className={`${styles.annotationGroup} ${group.length > 1 ? styles.linkedGroup : ''}`}>
+                                {group.map(h => {
+                                    const isSource = linkingSourceId === h.id;
+                                    const isSelected = selectedForLink.has(h.id);
+                                    const isLinked = group.length > 1;
+
+                                    return (
+                                        <div key={h.id}
+                                            className={`
+                                            ${styles.annotationCard} 
+                                            ${isSource ? styles.linkingSource : ''}
+                                            ${isSelected ? styles.linkingSelected : ''}
+                                        `}
+                                            style={{ borderLeft: `4px solid ${h.color}` }}
+                                        >
+                                            <div className={styles.cardHeader}>
+                                                {linkingSourceId ? (
+                                                    !isSource && (
+                                                        <input
+                                                            type="checkbox"
+                                                            checked={isSelected}
+                                                            onChange={() => toggleSelection(h.id)}
+                                                            className={styles.linkCheckbox}
+                                                        />
+                                                    )
+                                                ) : (
+                                                    <div className={styles.cardActions}>
+                                                        <button className={styles.linkBtn} onClick={() => enterLinkingMode(h.id)} title="Link to others">🔗</button>
+                                                    </div>
+                                                )}
+                                            </div>
+                                            <p>"{h.text}"</p>
+                                            {h.note && <p style={{ fontStyle: 'italic', fontSize: '0.85rem', color: '#555' }}>{h.note}</p>}
+                                            <div className={styles.footer}>
+                                                <span>{urls.findIndex(u => u === h.bookUrl) > -1 ? `Panel ${urls.findIndex(u => u === h.bookUrl) + 1}` : 'Other Book'}</span>
+                                                <div className={styles.actions}>
+                                                    <button className={styles.jump} onClick={() => {
+                                                        const idx = urls.indexOf(h.bookUrl);
+                                                        if (idx !== -1 && renditionRefs.current[idx]) {
+                                                            renditionRefs.current[idx]?.display(h.cfiRange);
+                                                        }
+                                                    }}>Jump</button>
+                                                    {!linkingSourceId && <button className={styles.delete} onClick={() => deleteHighlight(h.id, h.cfiRange, urls.indexOf(h.bookUrl))}>Delete</button>}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    );
+                                })}
                             </div>
                         ))}
                     </div>

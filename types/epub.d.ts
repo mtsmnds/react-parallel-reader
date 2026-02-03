@@ -48,6 +48,7 @@ export type Highlight = {
     color: string;
     style: 'highlight' | 'underline';
     note?: string;
+    linkedIds?: string[];
 };
 
 export type BookCollection = {

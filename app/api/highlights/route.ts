@@ -12,6 +12,7 @@ interface Highlight {
     bookUrl: string;
     color?: string;
     created: number;
+    linkedIds?: string[];
 }
 
 // Helper to get highlight path from a book URL
@@ -112,6 +113,59 @@ export async function POST(req: Request) {
     } catch (error) {
         console.error('Error saving highlight:', error);
         return NextResponse.json({ error: 'Failed to save highlight' }, { status: 500 });
+    }
+}
+
+// PUT: Batch update highlights (used for linking)
+export async function PUT(req: Request) {
+    try {
+        const highlightsToUpdate: Highlight[] = await req.json();
+
+        if (!Array.isArray(highlightsToUpdate) || highlightsToUpdate.length === 0) {
+            return NextResponse.json({ error: 'Array of highlights required' }, { status: 400 });
+        }
+
+        // Group updates by file path
+        const updatesByPath: Record<string, Highlight[]> = {};
+
+        for (const h of highlightsToUpdate) {
+            const p = getHighlightPath(h.bookUrl);
+            if (p) {
+                if (!updatesByPath[p]) updatesByPath[p] = [];
+                updatesByPath[p].push(h);
+            }
+        }
+
+        // Process each file
+        for (const [filePath, updates] of Object.entries(updatesByPath)) {
+            if (fs.existsSync(filePath)) {
+                try {
+                    const fileContent = fs.readFileSync(filePath, 'utf-8');
+                    let storedHighlights: Highlight[] = JSON.parse(fileContent);
+
+                    // Update existing highlights
+                    const updateMap = new Map(updates.map(u => [u.id, u]));
+
+                    storedHighlights = storedHighlights.map(h => {
+                        if (updateMap.has(h.id)) {
+                            // Merge updates (specifically linkedIds)
+                            return { ...h, ...updateMap.get(h.id) };
+                        }
+                        return h;
+                    });
+
+                    fs.writeFileSync(filePath, JSON.stringify(storedHighlights, null, 2));
+                } catch (e) {
+                    console.error(`Error updating file ${filePath}:`, e);
+                }
+            }
+        }
+
+        return NextResponse.json({ success: true });
+
+    } catch (error) {
+        console.error('Error updating highlights:', error);
+        return NextResponse.json({ error: 'Failed to update highlights' }, { status: 500 });
     }
 }
 

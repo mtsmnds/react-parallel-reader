@@ -27,6 +27,7 @@
 | **Sync Locking** | ❌ Removed | Removed in v0.1.0 due to inaccuracy. Pending research for new engine. |
 | **Styling** | ✅ Production | Custom SASS injection into shadow DOM/Iframes. Highlights use SVG overlays styled in `app/globals.css`. |
 | **Local Loading** | ⚠️ MVP | Relies on `public/books/` URL paths. |
+| **Annotation Linking** | ✅ Production | Bidirectional linking between highlights with visual grouping. |
 
 ## 4. Known Issues / Debt
 1.  **Type Safety**: The `rendition` object is currently typed as `any`.

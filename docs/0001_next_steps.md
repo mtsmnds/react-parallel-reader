@@ -264,6 +264,36 @@ We have two main options for triggering the save:
 - Updated `types/epub.d.ts` to support the `styles` argument in `annotations.add`.
 - Fixed Turbopack build errors caused by incorrect `:global` usage in SCSS modules.
 
+## ✅ DONE Action Item 15: Annotation Linking
+**Status:** ✅ Complete
+**Objective:** Allow users to create semantic connections between highlights across different panels/books.
+**User Flow:**
+1.  **Initiate:** User clicks "Link" on an annotation in the sidebar.
+2.  **Selection Mode:**
+    *   The active annotation is highlighted.
+    *   All other annotations display a "Select" checkbox (or similar actionable UI).
+    *   A primary "Done" button appears.
+3.  **Connection:** User selects one or more target annotations.
+4.  **Completion:** User clicks "Done". The system establishes bidirectional links between the source and targets.
+5.  **Visualization:** Linked annotations are visually grouped in the sidebar (e.g., wrapped in a shared border or container) to show they represent a single thread of thought.
+
+**Implementation Plan:**
+1.  **Data Model**:
+    *   Update `Highlight` interface to include `linkedIds: string[]`.
+    *   **API**: Added `PUT /api/highlights` endpoint for batch updates to support multi-file linking.
+2.  **State Management**:
+    *   Add `linkingSourceId` (string | null) to track active linking session.
+    *   Add `pendingLinks` (Set<string>) to track selections before confirmation.
+3.  **Bidirectional Logic**:
+    *   When linking A to B, update both A to include B and B to include A.
+    *   Handle merging groups (if A is linked to C, and user links A to B, then A, B, and C form a group).
+4.  **UI/UX**:
+    *   **Sidebar**: Implement a "Grouped" rendering strategy.
+        *   Identify connected components (clusters of linked highlights).
+        *   Render these clusters together, sorted by the position of the earliest highlight in the cluster.
+        *   Wrap clusters in a visual container (border/background).
+    *   **Controls**: Add Link/Cancel/Done buttons.
+ 
 
 
 
