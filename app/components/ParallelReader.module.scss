@@ -241,6 +241,13 @@
                 text-decoration: underline;
             }
 
+            &.delete:disabled {
+                opacity: 0.5;
+                cursor: not-allowed;
+                color: #9ca3af;
+                text-decoration: none;
+            }
+
             &.link {
                 color: #4f46e5;
                 font-weight: 600;

@@ -574,7 +574,13 @@ export default function ParallelReader({ initialUrls, onBack }: ParallelReaderPr
                                                                 }
                                                             });
                                                         }}>Jump</button>
-                                                        {!linkingSourceId && <button className={styles.delete} onClick={() => deleteHighlight(h.id, h.cfiRange, urls.indexOf(h.bookUrl))}>Delete</button>}
+                                                        <button
+                                                            className={styles.delete}
+                                                            disabled={!!linkingSourceId}
+                                                            onClick={() => deleteHighlight(h.id, h.cfiRange, urls.indexOf(h.bookUrl))}
+                                                        >
+                                                            Delete
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>

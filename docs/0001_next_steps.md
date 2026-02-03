@@ -315,18 +315,18 @@ We have two main options for triggering the save:
 **Objective:** Move the selection checkbox (visible during linking mode) to the footer of the annotation card, occupying the same position as the "Link" button for UI consistency.
 
 
-## Action Item 15.5: Disabled Link Button State
-**Objective:** During linking mode, the "Link" button should remain visible but disabled, rather than disappearing. This preserves the layout and indicates the tool's presence.
 
 
 
 
 
 
-
-
-
-
+## ✅ DONE Action Item 15.5: Disable Delete in Linking Mode
+**Status:** ✅ Complete
+**Objective:** Instead of hiding the "Delete" button when in linking mode, keep it visible but disabled to maintain UI stability and communicate state clearer.
+**Implementation:**
+*   Updated `ParallelReader.tsx` to apply `disabled` attribute to the Delete button when `linkingSourceId` is active.
+*   Added `.delete:disabled` styles in `ParallelReader.module.scss` (opacity 0.5, cursor not-allowed).
 
 ## improve colors for highlights
 
