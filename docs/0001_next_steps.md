@@ -310,10 +310,21 @@ We have two main options for triggering the save:
 *   Wrapped annotation list in a scrollable `flex: 1` container.
 *   pinned `h2` header and `linkingControls` footer.
 
+## ✅ DONE Action Item 15.4: Reposition Link Checkbox
+**Status:** ✅ Complete
+**Objective:** Move the selection checkbox (visible during linking mode) to the footer of the annotation card, occupying the same position as the "Link" button for UI consistency.
+
+
+## Action Item 15.5: Disabled Link Button State
+**Objective:** During linking mode, the "Link" button should remain visible but disabled, rather than disappearing. This preserves the layout and indicates the tool's presence.
 
 
 
-# next
+
+
+
+
+
 
 
 
