@@ -529,27 +529,22 @@ export default function ParallelReader({ initialUrls, onBack }: ParallelReaderPr
                                         `}
                                             style={{ borderLeft: `4px solid ${h.color}` }}
                                         >
-                                            <div className={styles.cardHeader}>
-                                                {linkingSourceId ? (
-                                                    !isSource && (
-                                                        <input
-                                                            type="checkbox"
-                                                            checked={isSelected}
-                                                            onChange={() => toggleSelection(h.id)}
-                                                            className={styles.linkCheckbox}
-                                                        />
-                                                    )
-                                                ) : (
-                                                    <div className={styles.cardActions}>
-                                                        <button className={styles.linkBtn} onClick={() => enterLinkingMode(h.id)} title="Link to others">🔗</button>
-                                                    </div>
-                                                )}
-                                            </div>
+                                            {linkingSourceId && !isSource && (
+                                                <div className={styles.cardHeader}>
+                                                    <input
+                                                        type="checkbox"
+                                                        checked={isSelected}
+                                                        onChange={() => toggleSelection(h.id)}
+                                                        className={styles.linkCheckbox}
+                                                    />
+                                                </div>
+                                            )}
                                             <p>"{h.text}"</p>
                                             {h.note && <p style={{ fontStyle: 'italic', fontSize: '0.85rem', color: '#555' }}>{h.note}</p>}
                                             <div className={styles.footer}>
                                                 <span>{urls.findIndex(u => u === h.bookUrl) > -1 ? `Panel ${urls.findIndex(u => u === h.bookUrl) + 1}` : 'Other Book'}</span>
                                                 <div className={styles.actions}>
+                                                    {!linkingSourceId && <button className={styles.link} onClick={() => enterLinkingMode(h.id)}>Link</button>}
                                                     <button className={styles.jump} onClick={() => {
                                                         const idx = urls.indexOf(h.bookUrl);
                                                         if (idx !== -1 && renditionRefs.current[idx]) {

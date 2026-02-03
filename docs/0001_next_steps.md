@@ -294,10 +294,17 @@ We have two main options for triggering the save:
         *   Wrap clusters in a visual container (border/background).
     *   **Controls**: Add Link/Cancel/Done buttons.
  
+## ✅ DONE Action Item 15.1: Reposition Link Button
+**Status:** ✅ Complete
+**Objective:** Move the "Link" button from the card header to the footer, positioned to the left of the "Jump" button, for better usability and consistency.
+
+
 
 
 
 # next
+
+
 
 ## improve colors for highlights
 
