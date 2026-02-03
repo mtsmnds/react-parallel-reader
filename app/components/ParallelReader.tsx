@@ -500,7 +500,90 @@ export default function ParallelReader({ initialUrls, onBack }: ParallelReaderPr
                 {showHighlights && (
                     <div className={styles.sidebar}>
                         <h2>Annotations</h2>
-                        <h2>Annotations</h2>
+                        <div className={styles.sidebarContent}>
+
+
+                            {highlights.length === 0 && <p className={styles.emptyState}>Select text to highlight.</p>}
+
+                            {groupHighlightsForRender(highlights).map((group, gIdx) => (
+                                <div key={gIdx} className={`${styles.annotationGroup} ${group.length > 1 ? styles.linkedGroup : ''}`}>
+                                    {group.map(h => {
+                                        const isSource = linkingSourceId === h.id;
+                                        const isSelected = selectedForLink.has(h.id);
+                                        const isLinked = group.length > 1;
+
+                                        return (
+                                            <div key={h.id}
+                                                className={`
+                                            ${styles.annotationCard} 
+                                            ${isSource ? styles.linkingSource : ''}
+                                            ${isSelected ? styles.linkingSelected : ''}
+                                        `}
+                                                style={{ borderLeft: `4px solid ${h.color}` }}
+                                            >
+                                                {linkingSourceId && !isSource && (
+                                                    <div className={styles.cardHeader}>
+                                                        <input
+                                                            type="checkbox"
+                                                            checked={isSelected}
+                                                            onChange={() => toggleSelection(h.id)}
+                                                            className={styles.linkCheckbox}
+                                                        />
+                                                    </div>
+                                                )}
+                                                <p>"{h.text}"</p>
+                                                {h.note && <p style={{ fontStyle: 'italic', fontSize: '0.85rem', color: '#555' }}>{h.note}</p>}
+                                                <div className={styles.footer}>
+                                                    <span>{urls.findIndex(u => u === h.bookUrl) > -1 ? `Panel ${urls.findIndex(u => u === h.bookUrl) + 1}` : 'Other Book'}</span>
+                                                    <div className={styles.actions}>
+                                                        {!linkingSourceId && <button className={styles.link} onClick={() => enterLinkingMode(h.id)}>Link</button>}
+                                                        <button className={styles.jump} onClick={() => {
+                                                            // 1. Identify Cluster
+                                                            const cluster = new Set<string>([h.id]);
+                                                            const queue = [h.id];
+                                                            const visited = new Set<string>();
+
+                                                            // Re-use logic or helper if we extract it, but for now inline BFS for clarity
+                                                            // (Ideally we would have a 'getCluster(h.id)' helper)
+                                                            while (queue.length > 0) {
+                                                                const currentId = queue.shift()!;
+                                                                if (visited.has(currentId)) continue;
+                                                                visited.add(currentId);
+                                                                cluster.add(currentId);
+
+                                                                const currentH = highlights.find(item => item.id === currentId);
+                                                                if (currentH && currentH.linkedIds) {
+                                                                    currentH.linkedIds.forEach(lid => {
+                                                                        if (!visited.has(lid)) queue.push(lid);
+                                                                    });
+                                                                }
+                                                            }
+
+                                                            // 2. Iterate cluster and jump each panel
+                                                            cluster.forEach(cid => {
+                                                                const targetH = highlights.find(item => item.id === cid);
+                                                                if (targetH) {
+                                                                    // Find if this book is open in any panel
+                                                                    // (Handle duplicate opens? For now, jump first match or all matches?)
+                                                                    // Let's matching all panels displaying this book
+                                                                    urls.forEach((url, uIdx) => {
+                                                                        if (url === targetH.bookUrl) {
+                                                                            renditionRefs.current[uIdx]?.display(targetH.cfiRange);
+                                                                        }
+                                                                    });
+                                                                }
+                                                            });
+                                                        }}>Jump</button>
+                                                        {!linkingSourceId && <button className={styles.delete} onClick={() => deleteHighlight(h.id, h.cfiRange, urls.indexOf(h.bookUrl))}>Delete</button>}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            ))}
+                        </div>
+
                         {linkingSourceId && (
                             <div className={styles.linkingControls}>
                                 <span>Select highlights to link</span>
@@ -510,86 +593,6 @@ export default function ParallelReader({ initialUrls, onBack }: ParallelReaderPr
                                 </div>
                             </div>
                         )}
-
-                        {highlights.length === 0 && <p className={styles.emptyState}>Select text to highlight.</p>}
-
-                        {groupHighlightsForRender(highlights).map((group, gIdx) => (
-                            <div key={gIdx} className={`${styles.annotationGroup} ${group.length > 1 ? styles.linkedGroup : ''}`}>
-                                {group.map(h => {
-                                    const isSource = linkingSourceId === h.id;
-                                    const isSelected = selectedForLink.has(h.id);
-                                    const isLinked = group.length > 1;
-
-                                    return (
-                                        <div key={h.id}
-                                            className={`
-                                            ${styles.annotationCard} 
-                                            ${isSource ? styles.linkingSource : ''}
-                                            ${isSelected ? styles.linkingSelected : ''}
-                                        `}
-                                            style={{ borderLeft: `4px solid ${h.color}` }}
-                                        >
-                                            {linkingSourceId && !isSource && (
-                                                <div className={styles.cardHeader}>
-                                                    <input
-                                                        type="checkbox"
-                                                        checked={isSelected}
-                                                        onChange={() => toggleSelection(h.id)}
-                                                        className={styles.linkCheckbox}
-                                                    />
-                                                </div>
-                                            )}
-                                            <p>"{h.text}"</p>
-                                            {h.note && <p style={{ fontStyle: 'italic', fontSize: '0.85rem', color: '#555' }}>{h.note}</p>}
-                                            <div className={styles.footer}>
-                                                <span>{urls.findIndex(u => u === h.bookUrl) > -1 ? `Panel ${urls.findIndex(u => u === h.bookUrl) + 1}` : 'Other Book'}</span>
-                                                <div className={styles.actions}>
-                                                    {!linkingSourceId && <button className={styles.link} onClick={() => enterLinkingMode(h.id)}>Link</button>}
-                                                    <button className={styles.jump} onClick={() => {
-                                                        // 1. Identify Cluster
-                                                        const cluster = new Set<string>([h.id]);
-                                                        const queue = [h.id];
-                                                        const visited = new Set<string>();
-
-                                                        // Re-use logic or helper if we extract it, but for now inline BFS for clarity
-                                                        // (Ideally we would have a 'getCluster(h.id)' helper)
-                                                        while (queue.length > 0) {
-                                                            const currentId = queue.shift()!;
-                                                            if (visited.has(currentId)) continue;
-                                                            visited.add(currentId);
-                                                            cluster.add(currentId);
-
-                                                            const currentH = highlights.find(item => item.id === currentId);
-                                                            if (currentH && currentH.linkedIds) {
-                                                                currentH.linkedIds.forEach(lid => {
-                                                                    if (!visited.has(lid)) queue.push(lid);
-                                                                });
-                                                            }
-                                                        }
-
-                                                        // 2. Iterate cluster and jump each panel
-                                                        cluster.forEach(cid => {
-                                                            const targetH = highlights.find(item => item.id === cid);
-                                                            if (targetH) {
-                                                                // Find if this book is open in any panel
-                                                                // (Handle duplicate opens? For now, jump first match or all matches?)
-                                                                // Let's matching all panels displaying this book
-                                                                urls.forEach((url, uIdx) => {
-                                                                    if (url === targetH.bookUrl) {
-                                                                        renditionRefs.current[uIdx]?.display(targetH.cfiRange);
-                                                                    }
-                                                                });
-                                                            }
-                                                        });
-                                                    }}>Jump</button>
-                                                    {!linkingSourceId && <button className={styles.delete} onClick={() => deleteHighlight(h.id, h.cfiRange, urls.indexOf(h.bookUrl))}>Delete</button>}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    );
-                                })}
-                            </div>
-                        ))}
                     </div>
                 )}
 

@@ -302,10 +302,19 @@ We have two main options for triggering the save:
 **Status:** ✅ Complete
 **Objective:** When clicking "Jump" on a linked annotation, trigger the jump action for all annotations in that cluster across all their respective open panels.
 
+## ✅ DONE Action Item 15.3: Sidebar UI Refinement
+**Status:** ✅ Complete
+**Objective:** Optimize the sidebar layout by removing duplicate headers, fixing the "Annotations" header to the top, and pinning the "Linking Controls" to the bottom of the panel.
+**Implementation:**
+*   Converted Sidebar to Flexbox column layout.
+*   Wrapped annotation list in a scrollable `flex: 1` container.
+*   pinned `h2` header and `linkingControls` footer.
+
 
 
 
 # next
+
 
 
 ## improve colors for highlights
