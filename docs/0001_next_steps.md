@@ -332,8 +332,6 @@ We have two main options for triggering the save:
 
 
 
-# next
-
 ## ✅ DONE - Action Item 16: Optimize EPUB Container Margins
 **Status:** ✅ Complete
 **Objective:** Reduce the excessive left and right margins (currently over 200px total) in each EPUB panel to maximize reading space, which is critical for the 3-panel layout.
@@ -346,6 +344,18 @@ We have two main options for triggering the save:
 - [x] Override `epub.js` default padding/margins via `rendition.themes.override` in `ParallelReader.tsx` (set to `0% !important`).
 - [x] Apply base fallback padding via `rendition.themes.default`.
 - [x] Fix font application bug strictly across all renditions via `rendition.themes.font()`.
+
+## ✅ DONE - Action Item 16.1: Surface Padding/Margin Settings
+**Status:** ✅ Complete
+**Objective:** Add user controls for EPUB margins inside the Settings popover to give users flexibility over horizontal reading space.
+**Tasks:**
+- [x] Add `margin` state and sync with `applyStyles`.
+- [x] Build UI containing both a slider (`range`) and numeric `input` field.
+
+
+
+
+
 
 
 ## override headings and paragraphs? 

@@ -47,7 +47,8 @@ export default function ParallelReader({ initialUrls, onBack }: ParallelReaderPr
     const [settings, setSettings] = useState({
         fontSize: 100, // percentage
         fontFamily: 'Helvetica, sans-serif',
-        lineHeight: 1.6
+        lineHeight: 1.6,
+        margin: 0
     });
 
     const renditionRefs = useRef<(Rendition | null)[]>([]);
@@ -84,15 +85,15 @@ export default function ParallelReader({ initialUrls, onBack }: ParallelReaderPr
         rendition.themes.fontSize(`${settings.fontSize}%`);
         rendition.themes.override('line-height', `${settings.lineHeight} !important`);
 
-        // Override padding inside the iframe to reduce epubjs's default huge margins
-        rendition.themes.override('padding', '0% !important');
-        rendition.themes.override('margin', '0% !important');
+        // Override padding inside the iframe based on user margin setting
+        rendition.themes.override('padding', `0 ${settings.margin}% !important`);
+        rendition.themes.override('margin', `0 ${settings.margin}% !important`);
 
         // Apply a base body/p override via default theme as fallback for text
         rendition.themes.default({
             'body': {
-                'padding': '0% !important',
-                'margin': '0% !important'
+                'padding': `0 ${settings.margin}% !important`,
+                'margin': `0 ${settings.margin}% !important`
             },
             'p': {
                 'line-height': `${settings.lineHeight} !important`
@@ -466,6 +467,13 @@ export default function ParallelReader({ initialUrls, onBack }: ParallelReaderPr
                                     <option value={1.6}>Normal (1.6)</option>
                                     <option value={2.0}>Loose (2.0)</option>
                                 </select>
+                            </div>
+                            <div className={styles.settingGroup}>
+                                <label>Horizontal Margin: {settings.margin}%</label>
+                                <div className={styles.marginControl}>
+                                    <input type="range" min="0" max="30" step="1" value={settings.margin} onChange={(e) => setSettings({ ...settings, margin: Number(e.target.value) })} style={{ flex: 1 }} />
+                                    <input type="number" min="0" max="30" step="1" value={settings.margin} onChange={(e) => setSettings({ ...settings, margin: Number(e.target.value) })} className={styles.numberInput} />
+                                </div>
                             </div>
                         </div>
                     )}

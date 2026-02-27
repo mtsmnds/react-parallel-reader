@@ -67,6 +67,36 @@
             border-radius: 0.25rem;
             font-size: 0.875rem;
         }
+
+        .marginControl {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+
+            input[type="range"] {
+                flex: 1;
+                margin: 0;
+            }
+
+            .numberInput {
+                width: 3.5rem;
+                padding: 0.25rem;
+                text-align: center;
+                border: 1px solid #d1d5db;
+                border-radius: 0.25rem;
+                font-size: 0.875rem;
+
+                /* Hide arrows for WebKit/Firefox to make it look cleaner */
+                &::-webkit-outer-spin-button,
+                &::-webkit-inner-spin-button {
+                    -webkit-appearance: none;
+                    margin: 0;
+                }
+
+                -moz-appearance: textfield;
+                appearance: textfield;
+            }
+        }
     }
 }
 
