@@ -352,6 +352,18 @@ We have two main options for triggering the save:
 - [x] Add `margin` state and sync with `applyStyles`.
 - [x] Build UI containing both a slider (`range`) and numeric `input` field.
 
+## ✅ DONE - Action Item 16.2: Fix Font Selector Propagation Bug
+**Status:** ✅ Complete
+**Objective:** Figure out why the font family drop-down in the Settings panel only successfully changes the font on the left-most EPUB (Panel 1) and fix it so all active panels update simultaneously.
+**Context:** Margin and spacing apply to all panels, but `rendition.themes.font()` appears to only affect `renditionRefs.current[0]`. We need to verify the `useEffect` trigger and `epub.js`'s multi-iframe injection behavior.
+**Architecture Sync:**
+- `epub.js` `.font()` methods conflict when applied across multiple rendering iframes simultaneously.
+- Targeting `body` and `p` tags via CSS injection isn't strong enough because EPUBs often hard-code `font-family` onto inner `div` and `span` tags.
+- **Solution:** Inject the chosen `font-family` onto the universal `*` CSS selector using `rendition.themes.default` in `applyStyles` to forcibly override all inner typography. 
+**Tasks:**
+- [x] Investigate `applyStyles` multi-rendition looping logic.
+- [x] Verify `rendition.themes.font` behavior in `react-reader`.
+
 
 
 

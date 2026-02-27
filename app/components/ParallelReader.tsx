@@ -75,12 +75,7 @@ export default function ParallelReader({ initialUrls, onBack }: ParallelReaderPr
 
     // Style Injection Helper
     const applyStyles = (rendition: Rendition) => {
-        // Enforce font styles globally across the rendition ignoring internal stylesheets
-        if (settings.fontFamily !== 'Times New Roman, serif') {
-            rendition.themes.font(settings.fontFamily);
-        } else {
-            rendition.themes.font(''); // clear override
-        }
+        // We will apply fonts heavily inside the default theme block since overriding root font-family often fails to inherit.
 
         rendition.themes.fontSize(`${settings.fontSize}%`);
         rendition.themes.override('line-height', `${settings.lineHeight} !important`);
@@ -97,8 +92,13 @@ export default function ParallelReader({ initialUrls, onBack }: ParallelReaderPr
         rendition.themes.override('max-width', '100% !important');
 
         // Apply a base body/p override via default theme as fallback for text
+        const fontFamilyRule = settings.fontFamily !== 'Times New Roman, serif' ? `${settings.fontFamily} !important` : 'inherit';
         rendition.themes.default({
+            '*': {
+                'font-family': fontFamilyRule
+            },
             'body': {
+                'font-family': fontFamilyRule,
                 'padding-left': `${settings.margin}% !important`,
                 'padding-right': `${settings.margin}% !important`,
                 'margin-left': `0 !important`,
@@ -107,6 +107,7 @@ export default function ParallelReader({ initialUrls, onBack }: ParallelReaderPr
                 'max-width': '100% !important'
             },
             'p': {
+                'font-family': fontFamilyRule,
                 'line-height': `${settings.lineHeight} !important`
             }
         });
