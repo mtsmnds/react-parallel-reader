@@ -51,6 +51,41 @@ export default function ParallelReader({ initialUrls, onBack }: ParallelReaderPr
         margin: 0
     });
 
+    // Helper to get collection ID
+    const getCollectionId = (activeUrls: string[]) => {
+        return `reader_settings_${activeUrls.join('|')}`;
+    };
+
+    // Helper to update state and persist to localStorage
+    const updateSettings = (newSettings: typeof settings) => {
+        setSettings(newSettings);
+        try {
+            localStorage.setItem(getCollectionId(urls), JSON.stringify(newSettings));
+        } catch (e) {
+            console.error("Failed to save settings", e);
+        }
+    };
+
+    // Load settings from localStorage when the collection changes
+    useEffect(() => {
+        try {
+            const saved = localStorage.getItem(getCollectionId(urls));
+            if (saved) {
+                setSettings(JSON.parse(saved));
+            } else {
+                // Revert to defaults if no saved settings for this specific collection
+                setSettings({
+                    fontSize: 100,
+                    fontFamily: 'Helvetica, sans-serif',
+                    lineHeight: 1.6,
+                    margin: 0
+                });
+            }
+        } catch (e) {
+            console.error("Failed to load settings from local storage", e);
+        }
+    }, [urls]);
+
     const renditionRefs = useRef<(Rendition | null)[]>([]);
     // Track rendered highlights per panel to prevent duplicates
     const renderedRef = useRef<Set<string>>(new Set());
@@ -461,11 +496,11 @@ export default function ParallelReader({ initialUrls, onBack }: ParallelReaderPr
                             <h3>Display Settings</h3>
                             <div className={styles.settingGroup}>
                                 <label>Font Size: {settings.fontSize}%</label>
-                                <input type="range" min="80" max="200" step="10" value={settings.fontSize} onChange={(e) => setSettings({ ...settings, fontSize: Number(e.target.value) })} />
+                                <input type="range" min="80" max="200" step="10" value={settings.fontSize} onChange={(e) => updateSettings({ ...settings, fontSize: Number(e.target.value) })} />
                             </div>
                             <div className={styles.settingGroup}>
                                 <label>Font Family</label>
-                                <select value={settings.fontFamily} onChange={(e) => setSettings({ ...settings, fontFamily: e.target.value })}>
+                                <select value={settings.fontFamily} onChange={(e) => updateSettings({ ...settings, fontFamily: e.target.value })}>
                                     <option value="Helvetica, sans-serif">Helvetica</option>
                                     <option value="Georgia, serif">Georgia</option>
                                     <option value="Courier New, monospace">Monospace</option>
@@ -474,7 +509,7 @@ export default function ParallelReader({ initialUrls, onBack }: ParallelReaderPr
                             </div>
                             <div className={styles.settingGroup}>
                                 <label>Line Height</label>
-                                <select value={settings.lineHeight} onChange={(e) => setSettings({ ...settings, lineHeight: Number(e.target.value) })}>
+                                <select value={settings.lineHeight} onChange={(e) => updateSettings({ ...settings, lineHeight: Number(e.target.value) })}>
                                     <option value={1.2}>Compact (1.2)</option>
                                     <option value={1.6}>Normal (1.6)</option>
                                     <option value={2.0}>Loose (2.0)</option>
@@ -483,8 +518,8 @@ export default function ParallelReader({ initialUrls, onBack }: ParallelReaderPr
                             <div className={styles.settingGroup}>
                                 <label>Horizontal Margin: {settings.margin}%</label>
                                 <div className={styles.marginControl}>
-                                    <input type="range" min="0" max="30" step="1" value={settings.margin} onChange={(e) => setSettings({ ...settings, margin: Number(e.target.value) })} style={{ flex: 1 }} />
-                                    <input type="number" min="0" max="30" step="1" value={settings.margin} onChange={(e) => setSettings({ ...settings, margin: Number(e.target.value) })} className={styles.numberInput} />
+                                    <input type="range" min="0" max="30" step="1" value={settings.margin} onChange={(e) => updateSettings({ ...settings, margin: Number(e.target.value) })} style={{ flex: 1 }} />
+                                    <input type="number" min="0" max="30" step="1" value={settings.margin} onChange={(e) => updateSettings({ ...settings, margin: Number(e.target.value) })} className={styles.numberInput} />
                                 </div>
                             </div>
                         </div>
