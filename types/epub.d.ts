@@ -18,6 +18,9 @@ export type Rendition = {
         default: (styles: Record<string, any>) => void;
         register: (name: string, url: string | object) => void;
         select: (name: string) => void;
+        font: (f: string) => void;
+        fontSize: (size: string | number) => void;
+        override: (name: string, value: string, priority?: boolean) => void;
     };
     display: {
         (target?: string): Promise<void>;

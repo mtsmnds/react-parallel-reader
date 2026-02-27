@@ -25,7 +25,7 @@
 | **Multi-Panel Layout** | ✅ Production | Supports 1, 2, or 3 dynamic panels. |
 | **Continuous Scroll** | ✅ Production | Overrides default pagination for "web-like" scrolling. |
 | **Sync Locking** | ❌ Removed | Removed in v0.1.0 due to inaccuracy. Pending research for new engine. |
-| **Styling** | ✅ Production | Custom SASS injection into shadow DOM/Iframes. Highlights use SVG overlays styled in `app/globals.css`. |
+| **Styling** | ✅ Production | Custom SASS injection. EPUB internal margins/fonts forcefully overridden using `rendition.themes.override()` and `rendition.themes.font()`. Highlights use SVG overlays styled in `app/globals.css`. |
 | **Local Loading** | ⚠️ MVP | Relies on `public/books/` URL paths. |
 | **Annotation Linking** | ✅ Production | Bidirectional linking with visual grouping and synchronized navigation. |
 

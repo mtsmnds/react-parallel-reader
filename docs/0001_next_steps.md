@@ -3,6 +3,15 @@
 **Priority:** High
 **Context:** Preparing the codebase for Alpha release and strict type compliance.
 
+## Item 0: initial idea
+
+### epub reader idea vibecode
+
+* ebook reader that lets you open multiple files side by side
+* you should be able to scroll independently and mark which areas correspond to one another.
+* saves locally
+
+
 ## ✅ DONE Action Item 1: Strict Typing Implementation
 **Status:** ✅ Complete
 **Objective:** Eliminate `any` usage in `ParallelReader.tsx` to ensure stability during `epub.js` interaction.
@@ -325,11 +334,23 @@ We have two main options for triggering the save:
 
 # next
 
+## ✅ DONE - Action Item 16: Optimize EPUB Container Margins
+**Status:** ✅ Complete
+**Objective:** Reduce the excessive left and right margins (currently over 200px total) in each EPUB panel to maximize reading space, which is critical for the 3-panel layout.
+**Context:** The spacing originates from a combination of `react-reader` internal container padding and `epub.js` default iframe body margins. We can reduce this by targeting the injected styles and component props.
+**Architecture Sync:** 
+- `rendition.themes.default` cannot reliably override padding if the EPUB has internal stylesheets.
+- We must use `rendition.themes.override('padding', '0% !important')` to force the injection onto the `<html/>` element of the iframe.
+- Font styling bugs (Action Item 11) were also fixed by utilizing the native `rendition.themes.font()` injection method over `themes.default`, and updating `types/epub.d.ts` accordingly.
+**Tasks:**
+- [x] Override `epub.js` default padding/margins via `rendition.themes.override` in `ParallelReader.tsx` (set to `0% !important`).
+- [x] Apply base fallback padding via `rendition.themes.default`.
+- [x] Fix font application bug strictly across all renditions via `rendition.themes.font()`.
+
+
 ## override headings and paragraphs? 
 find a way to override the epub html styles. the objective is to allow the user to normalize the styles of the epub books, for example, make all headings the same size and style, and all paragraphs the same size and style, which improve on reading. 
 
-## reduce left and right epub margins
-each epub is rendered with large margins that are summing up to more than 200px which is a lot of unused space for the three panel layout. identify the style definitions affecting these margins (padding? margin? spacing? and lets effect a reduction (could go for half the current spacing))
 
 ## identify headings/chapters and auto create highlights
 find a way to identify chapters (or headings) and auto create highlights for them. 
@@ -341,6 +362,8 @@ id much rather have the highlights sorted by their position in the book rather t
 ## different style for heading highlights.
 supposing the previous action items work, and we can identify highlights that correspond to headings, these should have a different style, "looking like headings" for the annotations, while preserving jump action. it would be great if paired headings get a unified look and text, maybe the text of the first panel's heading and text of the other headings (highlights) is hidden in accordion or something similar
 
+## improve panel selection
+instead of three "toggle" buttons, a checkbox for each available book identified on the folder. put this inside a control panel. 
 
 
 ## improve colors for highlights
@@ -349,16 +372,6 @@ supposing the previous action items work, and we can identify highlights that co
 ## create the way to use the project by "installing it" something like the dist folder?
 ## create instructions on how to use the project - folder to add files, naming, saving
 
-
-
-## Action Item 9: Advanced Annotation Features
-**Objective:** Expand the basic highlighting system into a robust note-taking and cross-referencing tool.
-**Tasks:**
-
-
-### 9.4 Cross-Linking (Deferred)
-- [ ] Allow users to "connect" a highlight in Book A to a highlight in Book B.
-- [ ] Visualize these connections (e.g., drawing lines or showing a "Related" badge).
 
 
 
@@ -379,7 +392,7 @@ supposing the previous action items work, and we can identify highlights that co
 
 
 
-
+shouldnt this be in done?
 ### 9.2 Rich Metadata highlights
 - [ ] **Data Model**: Update `Highlight` interface to include:
     - `color`: string (hex code)

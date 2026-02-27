@@ -74,20 +74,29 @@ export default function ParallelReader({ initialUrls, onBack }: ParallelReaderPr
 
     // Style Injection Helper
     const applyStyles = (rendition: Rendition) => {
+        // Enforce font styles globally across the rendition ignoring internal stylesheets
+        if (settings.fontFamily !== 'Times New Roman, serif') {
+            rendition.themes.font(settings.fontFamily);
+        } else {
+            rendition.themes.font(''); // clear override
+        }
 
+        rendition.themes.fontSize(`${settings.fontSize}%`);
+        rendition.themes.override('line-height', `${settings.lineHeight} !important`);
 
+        // Override padding inside the iframe to reduce epubjs's default huge margins
+        rendition.themes.override('padding', '0% !important');
+        rendition.themes.override('margin', '0% !important');
+
+        // Apply a base body/p override via default theme as fallback for text
         rendition.themes.default({
             'body': {
-                'font-family': `${settings.fontFamily} !important`,
-                'font-size': `${settings.fontSize}% !important`,
-                'line-height': `${settings.lineHeight} !important`
+                'padding': '0% !important',
+                'margin': '0% !important'
             },
             'p': {
-                'font-family': `${settings.fontFamily} !important`,
-                'font-size': `${settings.fontSize}% !important`,
                 'line-height': `${settings.lineHeight} !important`
-            },
-            'div': { 'padding-bottom': '20px' }
+            }
         });
     };
 
@@ -490,7 +499,11 @@ export default function ParallelReader({ initialUrls, onBack }: ParallelReaderPr
                                     getRendition={(rendition: any) => getRendition(index, rendition)}
                                     epubOptions={{ flow: "scrolled", manager: "continuous" }}
                                     swipeable={false}
-                                    readerStyles={{ ...ReactReaderStyle, arrow: { ...ReactReaderStyle.arrow, display: 'none' } }}
+                                    readerStyles={{
+                                        ...ReactReaderStyle,
+                                        readerArea: { ...ReactReaderStyle.readerArea, padding: '0px' },
+                                        arrow: { ...ReactReaderStyle.arrow, display: 'none' }
+                                    }}
                                 />
                             </div>
                         </div>
