@@ -86,14 +86,25 @@ export default function ParallelReader({ initialUrls, onBack }: ParallelReaderPr
         rendition.themes.override('line-height', `${settings.lineHeight} !important`);
 
         // Override padding inside the iframe based on user margin setting
-        rendition.themes.override('padding', `0 ${settings.margin}% !important`);
-        rendition.themes.override('margin', `0 ${settings.margin}% !important`);
+        // Explicitly target left and right because shorthand padding can be ignored by epub.js calculating width or by strong internal stylesheets.
+        rendition.themes.override('padding-left', `${settings.margin}% !important`);
+        rendition.themes.override('padding-right', `${settings.margin}% !important`);
+        rendition.themes.override('margin-left', '0 !important');
+        rendition.themes.override('margin-right', '0 !important');
+
+        // Ensure the padding doesn't push the content off the screen horizontally
+        rendition.themes.override('box-sizing', 'border-box !important');
+        rendition.themes.override('max-width', '100% !important');
 
         // Apply a base body/p override via default theme as fallback for text
         rendition.themes.default({
             'body': {
-                'padding': `0 ${settings.margin}% !important`,
-                'margin': `0 ${settings.margin}% !important`
+                'padding-left': `${settings.margin}% !important`,
+                'padding-right': `${settings.margin}% !important`,
+                'margin-left': `0 !important`,
+                'margin-right': `0 !important`,
+                'box-sizing': 'border-box !important',
+                'max-width': '100% !important'
             },
             'p': {
                 'line-height': `${settings.lineHeight} !important`
